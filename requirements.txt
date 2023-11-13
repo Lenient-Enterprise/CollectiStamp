@@ -1,0 +1,7 @@
+Django==4.2.5 # Django framework
+dj_database_url==2.1.0 # Django database configuration from environment variable
+psycopg2==2.9.7 # PostgreSQL database adapter
+whitenoise==6.5.0 # WhiteNoise allows your web app to serve its own static files
+
+qrcode == 7.4.2 # QR code generator
+
