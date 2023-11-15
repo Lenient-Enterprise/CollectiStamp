@@ -8,22 +8,6 @@ from .utils import generate_qr_code
 from user_management.models import User
 
 
-def home(request):
-    if request.method == 'POST':
-        ticket_id = request.POST.get('ticket_id')
-        ticket = Tickets.objects.get(uuid=ticket_id)
-        print(ticket.user)
-        if ticket.user is None:
-            ticket.user = request.user
-            ticket.save()
-            return render(request, 'collecti_stamp/details.html',
-                            {'ticket': ticket, 'message': 'Ticket was successfully assigned', 'status': 'Success'})
-        else:
-            return render(request, 'collecti_stamp/details.html',
-                            {'ticket': ticket, 'message': 'Ticket is already assigned', 'status': 'Error'})
-    return render(request, 'collecti_stamp/home.html')
-
-
 @user_passes_test(lambda u: u.email_verified)
 def all_tickets(request):
     user = request.user

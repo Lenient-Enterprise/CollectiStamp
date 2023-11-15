@@ -1,18 +1,17 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import send_mail, EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import render, redirect
-from django.template.loader import render_to_string, get_template
+from django.template.loader import get_template
 from django.urls import reverse
-import re
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
+from collecti_stamp import settings
 from .forms import CustomUserCreationForm
 from .models import User
-from collecti_stamp import settings
+from .utils import validate_email
 
 
 # Vista para iniciar sesión
@@ -21,17 +20,16 @@ def login_view(request):
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             login(request, form.get_user())
-            return render(request, 'collecti_stamp/home.html')
+            return redirect('/base')
     else:
         form = AuthenticationForm()
-    return render(request, 'registration/login.html', {'form': form})
+    return render(request, 'customer/login.html', {'form': form})
 
 
 # Vista para cerrar sesión
 def logout_view(request):
     logout(request)
-    return render(request, 'collecti_stamp/home.html')
-
+    return redirect('/base')
 
 
 # Vista para registro de usuario
@@ -50,7 +48,7 @@ def signin_view(request):
                 verify_url = reverse('verify_email', args=[uid, token])
 
                 # Enviar el correo electrónico de verificación
-                template = get_template('registration/verification_email.html')
+                template = get_template('customer/verification_email.html')
                 content = template.render({'verify_url': settings.BASE_URL + verify_url, 'username': user.username})
                 message = EmailMultiAlternatives(
                     'Verificación de correo electrónico',
@@ -61,18 +59,10 @@ def signin_view(request):
 
                 message.attach_alternative(content, 'text/html')
                 message.send()
-                return render(request, 'collecti_stamp/home.html', {'message': 'Verificación de correo electrónico', 'status': 'Success'})
+                return redirect('/base?message=Verificación de correo electrónico&status=Success')
     else:
         form = CustomUserCreationForm()
-    return render(request, 'registration/signin.html', {'form': form})
-
-def validate_email(email):
-    patron = r'^[\w\.-]+@[\w\.-]+\.\w+$'
-    if re.match(patron, email):
-        return True
-    else:
-        return False
-
+    return render(request, 'customer/signin.html', {'form': form})
 
 
 def verify_email(request, uidb64, token):
@@ -85,8 +75,6 @@ def verify_email(request, uidb64, token):
     if user is not None and default_token_generator.check_token(user, token):
         user.verify_email = True
         user.save()
-        return render(request, 'registration/verification_success.html')
+        return render(request, 'customer/verification_success.html')
     else:
-        return render(request, 'registration/verification_error.html')
-
-
+        return render(request, 'customer/verification_error.html')
