@@ -14,7 +14,7 @@ from pathlib import Path
 
 import dj_database_url
 
-AUTH_USER_MODEL = 'user_management.User'
+AUTH_USER_MODEL = 'customer.User'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -44,8 +44,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app',
-    'user_management'
+    'base',
+    'catalog',
+    'claim',
+    'company',
+    'customer',
+    'order',
+    'postorder',
+    'preorder',
+    'product'
 ]
 
 MIDDLEWARE = [
@@ -85,8 +92,15 @@ WSGI_APPLICATION = 'collecti_stamp.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 MODULES = [
-        'app'
-        'user_management'
+    'base',
+    'catalog',
+    'claim',
+    'company',
+    'customer',
+    'order',
+    'postorder',
+    'preorder',
+    'product'
 ]
 
 if DOCKER:
@@ -115,11 +129,17 @@ if DOCKER:
     ]
 
 else:
+    # DATABASES = {
+    #    'default': dj_database_url.config(
+    #        default='postgres://tickets_xs3l_user:7IIIpguapKFOmjz6HUrNVnj5iSU96mAC@dpg-cl12jtis1bgc73e2bl3g-a.oregon-postgres.render.com/tickets_xs3l',
+    #        conn_max_age=600
+    #    )
+    # }
     DATABASES = {
-        'default': dj_database_url.config(
-            default='postgres://tickets_xs3l_user:7IIIpguapKFOmjz6HUrNVnj5iSU96mAC@dpg-cl12jtis1bgc73e2bl3g-a.oregon-postgres.render.com/tickets_xs3l',
-            conn_max_age=600
-        )
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
 
     BASE_URL = 'http://localhost:8080'
@@ -157,8 +177,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-
-print("BASE_DIR", BASE_DIR)
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
