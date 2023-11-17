@@ -14,15 +14,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
-    {% if message %}
+    {% if request.GET.message and request.GET.status %}
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
-            $(document).ready(function () {
+            document.addEventListener('DOMContentLoaded', function () {
                 Swal.fire({
-                    icon: '{% if status == 'Success' %}success{% elif status == 'Info' %}info{% else %}error{% endif %}',
-                    title: 'Mensaje',
-                    text: '{{ message }}',
-                    confirmButtonText: 'Aceptar',
+                    icon: "{% if request.GET.status == 'Success' %}success{% elif request.GET.status == 'Info' %}info{% else %}error{% endif %}",
+                    title: "Mensaje",
+                    text: "{{ request.GET.message }}",
+                    confirmButtonText: "Aceptar"
                 });
             });
         </script>
@@ -120,7 +120,7 @@
             <div class="col">
                 <a href="#" class="logo-link"><img src="{% static 'img/logo.png' %}" alt="Logo" class="logo">Tickets</a>
             </div>
-
+            <p>{{ request }}</p>
             <div class="col text-right">
                 <nav class="navbar navbar-expand-lg navbar-dark">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -132,23 +132,26 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'home' %}">Inicio</a>
                             </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="stampsDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Sellos
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="stampsDropdown">
+                                    <a class="dropdown-item" href="#">Mis sellos</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="stampsDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Monedas
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="stampsDropdown">
+                                    <a class="dropdown-item" href="#">Mis monedas</a>
+                                </div>
+                            </li>
                             {% if user.is_authenticated %}
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="ticketsDropdown" role="button"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Tickets
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="ticketsDropdown">
-                                        <a class="dropdown-item" href="{% url 'all' %}">Todos los Tickets</a>
-                                        {% if user.is_superuser %}
-                                            <a class="dropdown-item" href="{% url 'unassigned' %}">Sin Asignar</a>
-                                            <a class="dropdown-item" href="{% url 'create' %}">Crear Tickets</a>
-                                        {% endif %}
-                                        <a class="dropdown-item" href="#">Operación 1</a>
-                                        <a class="dropdown-item" href="#">Operación 2</a>
-                                        <a class="dropdown-item" href="#">Operación 3</a>
-                                    </div>
-                                </li>
+
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -167,7 +170,7 @@
                                     <a class="nav-link" href="{% url 'signin' %}">Registrarse</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
+                                    <a class="nav-link" href="{% url 'login' %}">Iniciar</a>
                                 </li>
                             {% endif %}
                         </ul>

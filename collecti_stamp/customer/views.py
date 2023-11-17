@@ -18,6 +18,7 @@ from .utils import validate_email
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
+        print(form.errors)
         if form.is_valid():
             login(request, form.get_user())
             return redirect('/base')
@@ -36,8 +37,9 @@ def logout_view(request):
 def signin_view(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
+        if form.is_valid() and User.objects.filter(email=form.cleaned_data['email']).count() == 0 and User.objects.filter(
+                username=form.cleaned_data['username']).count() == 0:
+            user = form.save()
 
             if validate_email(user.email):
                 # Generar el token único
@@ -71,9 +73,11 @@ def verify_email(request, uidb64, token):
         user = User.objects.get(pk=uid)
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
-
+    print(user)
+    print(token)
+    print(default_token_generator.make_token(user))
     if user is not None and default_token_generator.check_token(user, token):
-        user.verify_email = True
+        user.email_verified = True
         user.save()
         return render(request, 'customer/verification_success.html')
     else:
