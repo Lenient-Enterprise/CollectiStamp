@@ -56,3 +56,42 @@ class TestRegister(StaticLiveServerTestCase):
         user = User.objects.get(username=self.username)
         self.assertEqual(user.email_verified, True)
 
+class RequestPasswordResetViewTests(StaticLiveServerTestCase):
+    def setUp(self):
+        options = webdriver.ChromeOptions()
+        options.headless = True
+        self.driver = webdriver.Chrome(options=options)
+        super().setUp()
+
+        self.username = 'alesanfel'
+        self.email = 'alex.0002002@gmail.com'
+        self.password = 'Hola$1234'
+        self.new_password = 'Hola$12345'
+        self.user = User.objects.create(username=self.username, email=self.email, password=self.password, email_verified=True)
+
+    def tearDown(self):
+        super().tearDown()
+        self.driver.quit()
+        self.user.delete()
+
+    def test_request_password_reset(self):
+        self.driver.get(f"{self.live_server_url}/customer/password-reset/")
+        self.driver.find_element(By.ID, "id_email").click()
+        self.driver.find_element(By.ID, "id_email").send_keys(self.email)
+        self.driver.find_element(By.CSS_SELECTOR, ".btn").click()
+        self.driver.find_element(By.CSS_SELECTOR, ".swal2-confirm").click()
+        self.driver.close()
+
+    def test_change_password(self):
+        token = default_token_generator.make_token(self.user)
+        uid = urlsafe_base64_encode(force_bytes(self.user.pk))
+        self.driver.get(f"{self.live_server_url}/customer/change-password/{uid}/{token}/")
+        self.driver.set_window_size(1850, 1016)
+        self.driver.find_element(By.ID, "id_password").click()
+        self.driver.find_element(By.ID, "id_password").send_keys(self.new_password)
+        self.driver.find_element(By.ID, "id_confirm_password").click()
+        self.driver.find_element(By.ID, "id_confirm_password").send_keys(self.new_password)
+        self.driver.find_element(By.CSS_SELECTOR, ".btn").click()
+        self.user = User.objects.get(username=self.username)
+        self.assertTrue(self.user.check_password(self.new_password))
+        self.assertTrue(self.driver.current_url == f"{self.live_server_url}/base/?message=Contrase%C3%B1a%20cambiada&status=Success")
