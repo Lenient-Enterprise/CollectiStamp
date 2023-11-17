@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
-import dj_database_url
-
 AUTH_USER_MODEL = 'customer.User'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,13 +25,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'RENDER' not in os.environ
-DOCKER = False
+DOCKER = True
 
 ALLOWED_HOSTS = []
 
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # Application definition
 
@@ -71,8 +66,7 @@ ROOT_URLCONF = 'collecti_stamp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -103,46 +97,8 @@ MODULES = [
     'product'
 ]
 
-if DOCKER:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'postgres',
-            'USER': 'postgres',
-            'PASSWORD': 'postgres',
-            'HOST': 'db',
-            'PORT': 5432,
-        }
-    }
 
-    CSRF_TRUSTED_ORIGINS = ['http://10.5.0.1:8000', 'http://localhost:8000']
 
-    BASE_URL = 'http://10.5.0.1:8000'
-
-    APIS = {
-        'app': 'http://10.5.0.1:8000',
-        'user_management': 'http://10.5.0.1:8000',
-    }
-
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'staticfiles')
-    ]
-
-else:
-    # DATABASES = {
-    #    'default': dj_database_url.config(
-    #        default='postgres://tickets_xs3l_user:7IIIpguapKFOmjz6HUrNVnj5iSU96mAC@dpg-cl12jtis1bgc73e2bl3g-a.oregon-postgres.render.com/tickets_xs3l',
-    #        conn_max_age=600
-    #    )
-    # }
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-
-    BASE_URL = 'http://localhost:8080'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -181,12 +137,6 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 
-if not DEBUG:
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'staticfiles')
-    ]
 
 
 # Default primary key field type

@@ -6,7 +6,10 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'collecti_stamp.settings')
+    if 'DOCKER_CONTAINER' in os.environ or 'DOCKER_HOST' in os.environ or 'DOCKER_MACHINE_NAME' in os.environ or 'RENDER' in os.environ:
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'collecti_stamp.settings_prod')
+    else:
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'collecti_stamp.settings_dev')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
