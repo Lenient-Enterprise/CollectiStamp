@@ -3,10 +3,12 @@
 import os
 import sys
 
+from collecti_stamp.settings import PRODUCTION
+
 
 def main():
     """Run administrative tasks."""
-    if 'DOCKER_CONTAINER' in os.environ or 'DOCKER_HOST' in os.environ or 'DOCKER_MACHINE_NAME' in os.environ or 'RENDER' in os.environ:
+    if PRODUCTION:
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'collecti_stamp.settings_prod')
     else:
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'collecti_stamp.settings_dev')

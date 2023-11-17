@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
+PRODUCTION = True
+
 AUTH_USER_MODEL = 'customer.User'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,10 +24,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
-DOCKER = True
 
 ALLOWED_HOSTS = []
 

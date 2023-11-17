@@ -6,7 +6,9 @@ DEBUG = False
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+    ALLOWED_HOSTS.append('*')
+
+print(ALLOWED_HOSTS)
 
 DATABASES = {
     'default': {
@@ -25,7 +27,7 @@ BASE_URL = 'http://10.5.0.1:8000'
 
 APIS = {
     'app': 'http://10.5.0.1:8000',
-    'user_management': 'http://10.5.0.1:8000',
+    'customer': 'http://10.5.0.1:8000',
 }
 
 STATICFILES_DIRS = [

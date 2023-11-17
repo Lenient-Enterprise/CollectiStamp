@@ -1,0 +1,37 @@
+services:
+  - name: collecti-stamp-web
+    env: docker
+    buildCommand: |
+      apk add --no-cache git postgresql-dev gcc libc-dev
+      apk add --no-cache gcc g++ make libffi-dev python3-dev build-base
+      pip install gunicorn psycopg2 ipdb ipython
+      git clone https://github.com/Lenient-Enterprise/collecti-stamp.git /app
+      pip install -r requirements.txt
+      cd /app/collecti_stamp
+      python manage.py collectstatic --noinput
+    startCommand: gunicorn -w 5 collecti_stamp.wsgi --timeout=500 -b 0.0.0.0:5000
+
+  - name: collecti-stamp-nginx
+    env: docker
+    buildCommand: ADD docker-nginx.conf /etc/nginx/conf.d/default.conf
+    startCommand: nginx -g "daemon off;"
+
+  - name: collecti-stamp-db
+    env: docker
+    image: postgres:14.9-alpine
+    instanceSize: micro
+    persistentDisk: true
+    envVars:
+      POSTGRES_PASSWORD: postgres
+
+volumes:
+  - name: collecti-stamp-static
+    mountPath: /app/collecti_stamp/static
+
+servicesHealthCheckPath: /
+
+networks:
+  - name: bridge
+    type: bridge
+    reservedPorts:
+      - 8000
