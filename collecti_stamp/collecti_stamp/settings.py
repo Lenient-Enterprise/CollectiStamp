@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 # Project configuration
-PRODUCTION = False
+PRODUCTION = True
 
 # Custom user model
 AUTH_USER_MODEL = 'customer.User'
