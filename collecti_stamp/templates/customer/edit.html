@@ -27,6 +27,30 @@
                   </ul>
                 {% endif %}
               </div>
+              
+              <div class="form-group">
+                <label for="{{ form.first_name.id_for_label }}">Nombre:</label>
+                {{ form.first_name }}
+                {% if form.username.errors %}
+                  <ul class="errorlist">
+                    {% for error in form.first_name.errors %}
+                      <li class="error-item">{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+
+              <div class="form-group">
+                <label for="{{ form.last_name.id_for_label }}">Apellidos:</label>
+                {{ form.last_name }}
+                {% if form.last_name.errors %}
+                  <ul class="errorlist">
+                    {% for error in form.last_name.errors %}
+                      <li class="error-item">{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
               <div class="form-group">
                 <label for="{{ form.email.id_for_label }}">Correo electrónico:</label>
                 {{ form.email }}
