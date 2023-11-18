@@ -58,5 +58,192 @@
       "is_staff": false,
       "is_superuser": false
     }
+<<<<<<< HEAD
+  },
+  {
+    "model": "product.product",
+    "pk": 1,
+    "fields": {
+        "name": "Moneda Romana",
+        "description": "Esta es una moneda antigua de la época romana.",
+        "price": "59.99",
+        "stock_amount": 30,
+        "product_type": "COIN",
+        "category": "EUROPEAN",
+        "criteria": [1],
+        "image": "static/img/product/coin1.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 2,
+    "fields": {
+        "name": "Conjunto de Sellos Antiguos",
+        "description": "Este es un conjunto de sellos antiguos con diseños históricos.",
+        "price": "49.99",
+        "stock_amount": 20,
+        "product_type": "SEAL",
+        "category": "EUROPEAN",
+        "criteria": [1,4],
+        "image": "static/img/product/seal1.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 3,
+    "fields": {
+        "name": "Moneda Griega",
+        "description": "Esta es una antigua moneda griega con grabados históricos.",
+        "price": "29.99",
+        "stock_amount": 40,
+        "product_type": "COIN",
+        "category": "EUROPEAN",
+        "criteria": [1,5],
+        "image": "static/img/product/coin2.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 4,
+    "fields": {
+        "name": "Sello Egipcio",
+        "description": "Este es un sello egipcio con jeroglíficos antiguos.",
+        "price": "34.99",
+        "stock_amount": 25,
+        "product_type": "SEAL",
+        "category": "AFRICAN",
+        "criteria": [2,5],
+        "image": "static/img/product/seal2.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 5,
+    "fields": {
+        "name": "Denario Romano",
+        "description": "Antiguo denario romano con inscripciones históricas.",
+        "price": "45.99",
+        "stock_amount": 35,
+        "product_type": "COIN",
+        "category": "EUROPEAN",
+        "criteria": [1,4],
+        "image": "static/img/product/coin3.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 6,
+    "fields": {
+        "name": "Sello Persa",
+        "description": "Sello persa con detalles artísticos únicos.",
+        "price": "39.99",
+        "stock_amount": 28,
+        "product_type": "SEAL",
+        "category": "ASIAN",
+        "criteria": [2,3],
+        "image": "static/img/product/seal3.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 7,
+    "fields": {
+        "name": "Solidus Bizantino",
+        "description": "Antiguo solidus de oro bizantino con diseños intrincados.",
+        "price": "79.99",
+        "stock_amount": 15,
+        "product_type": "COIN",
+        "category": "EUROPEAN",
+        "criteria": [1,3,6],
+        "image": "static/img/product/coin4.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 8,
+    "fields": {
+        "name": "Conjunto de Sellos Familiares Japoneses",
+        "description": "Conjunto de sellos familiares japoneses tradicionales con estuche de madera.",
+        "price": "59.99",
+        "stock_amount": 2,
+        "product_type": "SEAL",
+        "category": "ASIAN",
+        "criteria": [2, 4, 5, 6],
+        "image": "static/img/product/seal4.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 9,
+    "fields": {
+        "name": "Dracma Griego",
+        "description": "Antiguo dracma griego con grabados históricos.",
+        "price": "49.99",
+        "stock_amount": 1,
+        "product_type": "COIN",
+        "category": "EUROPEAN",
+        "criteria": [1,6],
+        "image": "static/img/product/coin5.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 10,
+    "fields": {
+        "name": "Sello Inca",
+        "description": "Sello inca con símbolos y patrones únicos.",
+        "price": "29.99",
+        "stock_amount": 7,
+        "product_type": "SEAL",
+        "category": "AMERICAN",
+        "criteria": [3,4],
+        "image": "static/img/product/seal5.jpg"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 1,
+    "fields": {
+      "name": "Antiguo"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 2,
+    "fields": {
+      "name": "Moderno"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 3,
+    "fields": {
+      "name": "Histórico"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 4,
+    "fields": {
+      "name": "Set"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 5,
+    "fields": {
+      "name": "Incluye estuche"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 6,
+    "fields": {
+      "name": "Recomendado"
+    }
   }
+
+=======
+  }
+>>>>>>> 8662a1b7241aad733657d85d35dbeb69f26e2b66
 ]
