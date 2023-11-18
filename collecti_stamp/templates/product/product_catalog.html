@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block title %}Catálogo de productos{% endblock %}
 
 {% block content %}
@@ -69,12 +71,18 @@
         {% for product in products %}
             <li class="catalog-item">
                 <h2 class="catalog-title">{{ product.name }}</h2>
-                <img class="catalog-image" src="{{ product.image.url }}" alt="{{ product.name }}">
+                {% if product.image %}
+                    <img class="catalog-image" src="{{ product.image.url }}" alt="{{ product.name }}">
+                {% else %}
+                    <!-- Puedes agregar una imagen de marcador de posición o dejar este espacio en blanco -->
+                    <img class="catalog-image" src="{% static 'placeholder-image.jpg' %}" alt="Placeholder Image">
+                {% endif %}
                 <p class="catalog-description">{{ product.description }}</p>
                 <p>Price: ${{ product.price }}</p>
                 <a class="catalog-link" href="{% url 'product_details' product.id %}">Ver detalles</a>
             </li>
         {% endfor %}
+
     </ul>
 {% endblock %}
 
