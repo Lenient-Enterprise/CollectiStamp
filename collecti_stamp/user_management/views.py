@@ -11,7 +11,7 @@ import re
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
-from .forms import CustomUserCreationForm 
+from .forms import CustomUserCreationForm,CustomUserEditionForm 
 from .models import User
 from collecti_stamp import settings
 
@@ -95,9 +95,9 @@ def edit_user_view(request, user_id):
     user=get_object_or_404(User, id=user_id)
     
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST, instance=user)
+        form = CustomUserEditionForm(request.POST, instance=user)
         if form.is_valid():
-            user = form.save(commit=False)
+            user = form.save()
             if validate_email(user.email):
                 token = default_token_generator.make_token(user)
                 uid = urlsafe_base64_encode(force_bytes(user.pk))
@@ -115,7 +115,7 @@ def edit_user_view(request, user_id):
                 message.send()
                 return render(request, 'collecti_stamp/home.html', {'message': 'Verificación de correo electrónico', 'status': 'Success'})
     else:
-        form = CustomUserCreationForm(instance=user)
+        form = CustomUserEditionForm(instance=user)
     return render(request, 'customer/edit.html', {'form': form, 'user': user})
 
 
