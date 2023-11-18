@@ -10,7 +10,7 @@ RUN pip install ipython
 
 WORKDIR /app
 
-RUN git clone https://github.com/Lenient-Enterprise/collecti-stamp.git /app
+RUN git clone https://github.com/Lenient-Enterprise/CollectiStamp.git /app
 RUN pip install -r requirements.txt
 
 WORKDIR /app/collecti_stamp

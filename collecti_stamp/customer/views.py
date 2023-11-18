@@ -52,7 +52,7 @@ def signin_view(request):
 
                 # Enviar el correo electrónico de verificación
                 template = get_template('customer/verification_email.html')
-                content = template.render({'verify_url': settings.BASE_URL + verify_url, 'username': user.username})
+                content = template.render({'verify_url': settings.BASEURL + verify_url, 'username': user.username})
                 message = EmailMultiAlternatives(
                     'Verificación de correo electrónico',
                     content,
