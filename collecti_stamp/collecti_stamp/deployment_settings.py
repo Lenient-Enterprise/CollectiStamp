@@ -39,5 +39,3 @@ STATICFILES_DIRS = [
 
 # Whitenoise storage for static files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-

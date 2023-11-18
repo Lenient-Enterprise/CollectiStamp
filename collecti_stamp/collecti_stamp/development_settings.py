@@ -12,4 +12,4 @@ DATABASES = {
 }
 
 # Base URL for the application
-BASE_URL = 'http://localhost:8080'
+BASEURL = 'http://localhost:8080'

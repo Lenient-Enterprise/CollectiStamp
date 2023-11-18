@@ -1,9 +1,6 @@
 import os
 from pathlib import Path
 
-# Project configuration
-PRODUCTION = False
-
 # Custom user model
 AUTH_USER_MODEL = 'customer.User'
 
@@ -34,16 +31,28 @@ INSTALLED_APPS = [
     'product'
 ]
 
+MODULES = [
+    'base',
+    'catalog',
+    'claim',
+    'company',
+    'customer',
+    'order',
+    'postorder',
+    'preorder',
+    'product'
+]
+
 # Middleware configuration
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'collecti_stamp.urls'
@@ -105,4 +114,3 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'alex.0002002@gmail.com'
 EMAIL_HOST_PASSWORD = 'whxj cvwg vxnv dybu'
-
