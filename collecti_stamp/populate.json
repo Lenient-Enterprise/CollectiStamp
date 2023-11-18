@@ -69,8 +69,8 @@
         "stock_amount": 30,
         "product_type": "COIN",
         "category": "EUROPEAN",
-        "criteria": "OLD",
-        "image": "coin1.png"
+        "criteria": [1,2],
+        "image": "static/img/product/coin1.jpg"
     }
   },
   {
@@ -82,9 +82,9 @@
         "price": "49.99",
         "stock_amount": 20,
         "product_type": "SEAL",
-        "category": "HISTORICAL",
-        "criteria": "SET",
-        "image": "seal1.jpg"
+        "category": "EUROPEAN",
+        "criteria": [1,2],
+        "image": "static/img/product/seal1.jpg"
     }
   },
   {
@@ -97,8 +97,8 @@
         "stock_amount": 40,
         "product_type": "COIN",
         "category": "EUROPEAN",
-        "criteria": "OLD",
-        "image": "moneda2.jpg"
+        "criteria": [1,2],
+        "image": "static/img/product/moneda2.jpg"
     }
   },
   {
@@ -111,8 +111,8 @@
         "stock_amount": 25,
         "product_type": "SEAL",
         "category": "AFRICAN",
-        "criteria": "MODERN",
-        "image": "sello2.jpg"
+        "criteria": [1,2],
+        "image": "static/img/product/sello2.jpg"
     }
   },
   {
@@ -125,8 +125,8 @@
         "stock_amount": 35,
         "product_type": "COIN",
         "category": "EUROPEAN",
-        "criteria": "OLD",
-        "image": "moneda3.jpg"
+        "criteria": [1,2],
+        "image": "static/img/product/moneda3.jpg"
     }
   },
   {
@@ -139,8 +139,8 @@
         "stock_amount": 28,
         "product_type": "SEAL",
         "category": "ASIAN",
-        "criteria": "HISTORICAL",
-        "image": "sello3.jpg"
+        "criteria": [1,2],
+        "image": "static/img/product/sello3.jpg"
     }
   },
   {
@@ -153,8 +153,8 @@
         "stock_amount": 15,
         "product_type": "COIN",
         "category": "EUROPEAN",
-        "criteria": "OLD",
-        "image": "moneda4.jpg"
+        "criteria": [1,2],
+        "image": "static/img/product/moneda4.jpg"
     }
   },
   {
@@ -167,8 +167,50 @@
         "stock_amount": 2,
         "product_type": "SEAL",
         "category": "ASIAN",
-        "criteria": "SET",
-        "image": "sello4.jpg"
+        "criteria": [1, 2, 3],
+        "image": "static/img/product/sello4.jpg"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 1,
+    "fields": {
+      "name": "Antiguo"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 2,
+    "fields": {
+      "name": "Moderno"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 3,
+    "fields": {
+      "name": "Histórico"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 4,
+    "fields": {
+      "name": "Set"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 5,
+    "fields": {
+      "name": "Incluye estuche"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 6,
+    "fields": {
+      "name": "Recomendado"
     }
   }
 

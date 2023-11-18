@@ -10,12 +10,16 @@ class Category(models.TextChoices):
     AFRICAN = 'AFRICAN', 'Africano'
 
 
-class Criteria(models.TextChoices):
-    OLD = 'OLD', 'Antiguo'
-    MODERN = 'MODERN', 'Moderno'
-    HISTORICAL = 'HISTORICAL', 'Histórico'
-    INCLUDES_CASE = 'INCLUDES_CASE', 'Incluye Estuche Protector'
-    SET = 'SET', 'Set'
+class Criteria(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=20)
+
+    class Meta:
+        verbose_name = "Criterio"
+        verbose_name_plural = "Criterios"
+
+    def __str__(self):
+        return self.name
 
 
 class ProductType(models.TextChoices):
@@ -34,8 +38,8 @@ class Product(models.Model):
     ])
     product_type = models.CharField(max_length=10, choices=ProductType.choices)
     category = models.CharField(max_length=15, choices=Category.choices)
-    criteria = models.CharField(max_length=15, choices=Criteria.choices)
-    image = models.ImageField(upload_to='product/', null=True, blank=True)
+    criteria = models.ManyToManyField(Criteria)
+    image = models.ImageField(upload_to='static/img/product/', null=True, blank=True)
 
     class Meta:
         verbose_name = "Producto"
