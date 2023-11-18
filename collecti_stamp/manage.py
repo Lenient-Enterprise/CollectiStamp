@@ -3,10 +3,15 @@
 import os
 import sys
 
+from collecti_stamp.settings import PRODUCTION
+
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'collecti_stamp.settings')
+    if PRODUCTION:
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'collecti_stamp.settings_prod')
+    else:
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'collecti_stamp.settings_dev')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
