@@ -173,6 +173,34 @@
     }
   },
   {
+    "model": "product.product",
+    "pk": 9,
+    "fields": {
+        "name": "Dracma Griego",
+        "description": "Antiguo dracma griego con grabados históricos.",
+        "price": "49.99",
+        "stock_amount": 1,
+        "product_type": "COIN",
+        "category": "EUROPEAN",
+        "criteria": [1,6],
+        "image": "static/img/product/coin5.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 10,
+    "fields": {
+        "name": "Sello Inca",
+        "description": "Sello inca con símbolos y patrones únicos.",
+        "price": "29.99",
+        "stock_amount": 7,
+        "product_type": "SEAL",
+        "category": "AMERICAN",
+        "criteria": [3,4],
+        "image": "static/img/product/seal5.jpg"
+    }
+  },
+  {
     "model": "product.criteria",
     "pk": 1,
     "fields": {
