@@ -58,5 +58,118 @@
       "is_staff": false,
       "is_superuser": false
     }
+  },
+  {
+    "model": "product.product",
+    "pk": 1,
+    "fields": {
+        "name": "Moneda Romana",
+        "description": "Esta es una moneda antigua de la época romana.",
+        "price": "59.99",
+        "stock_amount": 30,
+        "product_type": "COIN",
+        "category": "EUROPEAN",
+        "criteria": "OLD",
+        "image": "coin1.png"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 2,
+    "fields": {
+        "name": "Conjunto de Sellos Antiguos",
+        "description": "Este es un conjunto de sellos antiguos con diseños históricos.",
+        "price": "49.99",
+        "stock_amount": 20,
+        "product_type": "SEAL",
+        "category": "HISTORICAL",
+        "criteria": "SET",
+        "image": "seal1.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 3,
+    "fields": {
+        "name": "Moneda Griega",
+        "description": "Esta es una antigua moneda griega con grabados históricos.",
+        "price": "29.99",
+        "stock_amount": 40,
+        "product_type": "COIN",
+        "category": "EUROPEAN",
+        "criteria": "OLD",
+        "image": "moneda2.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 4,
+    "fields": {
+        "name": "Sello Egipcio",
+        "description": "Este es un sello egipcio con jeroglíficos antiguos.",
+        "price": "34.99",
+        "stock_amount": 25,
+        "product_type": "SEAL",
+        "category": "AFRICAN",
+        "criteria": "MODERN",
+        "image": "sello2.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 5,
+    "fields": {
+        "name": "Denario Romano",
+        "description": "Antiguo denario romano con inscripciones históricas.",
+        "price": "45.99",
+        "stock_amount": 35,
+        "product_type": "COIN",
+        "category": "EUROPEAN",
+        "criteria": "OLD",
+        "image": "moneda3.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 6,
+    "fields": {
+        "name": "Sello Persa",
+        "description": "Sello persa con detalles artísticos únicos.",
+        "price": "39.99",
+        "stock_amount": 28,
+        "product_type": "SEAL",
+        "category": "ASIAN",
+        "criteria": "HISTORICAL",
+        "image": "sello3.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 7,
+    "fields": {
+        "name": "Solidus Bizantino",
+        "description": "Antiguo solidus de oro bizantino con diseños intrincados.",
+        "price": "79.99",
+        "stock_amount": 15,
+        "product_type": "COIN",
+        "category": "EUROPEAN",
+        "criteria": "OLD",
+        "image": "moneda4.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 8,
+    "fields": {
+        "name": "Conjunto de Sellos Familiares Japoneses",
+        "description": "Conjunto de sellos familiares japoneses tradicionales con estuche de madera.",
+        "price": "59.99",
+        "stock_amount": 2,
+        "product_type": "SEAL",
+        "category": "ASIAN",
+        "criteria": "SET",
+        "image": "sello4.jpg"
+    }
   }
+
 ]
