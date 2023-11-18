@@ -133,7 +133,7 @@
             {% if product.image %}
             <img src="{{ product.image.url }}" alt="{{ product.name }}">
             {% else %}
-            <p>Imagen del producto no disponible</p>
+             <img src="static/img/product/placeholder-image.jpg" alt="{{ product.name }}">
             {% endif %}
             <div class="description-box">
                 <label for="quantity"><strong>Cantidad a comprar:</strong></label>
