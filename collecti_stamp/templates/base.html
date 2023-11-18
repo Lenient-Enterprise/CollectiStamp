@@ -139,10 +139,10 @@
                                         Tickets
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="ticketsDropdown">
-                                        <a class="dropdown-item" href="{% url 'all' %}">Todos los Tickets</a>
+                                        <a class="dropdown-item" href="#">Todos los Tickets</a>
                                         {% if user.is_superuser %}
-                                            <a class="dropdown-item" href="{% url 'unassigned' %}">Sin Asignar</a>
-                                            <a class="dropdown-item" href="{% url 'create' %}">Crear Tickets</a>
+                                            <a class="dropdown-item" href="#">Sin Asignar</a>
+                                            <a class="dropdown-item" href="#">Crear Tickets</a>
                                         {% endif %}
                                         <a class="dropdown-item" href="#">Operación 1</a>
                                         <a class="dropdown-item" href="#">Operación 2</a>

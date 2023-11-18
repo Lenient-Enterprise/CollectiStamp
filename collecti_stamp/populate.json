@@ -70,7 +70,7 @@
         "product_type": "COIN",
         "category": "EUROPEAN",
         "criteria": "OLD",
-        "image": "coin1.png"
+        "image": "static/img/product/coin1.jpg"
     }
   },
   {
@@ -82,9 +82,9 @@
         "price": "49.99",
         "stock_amount": 20,
         "product_type": "SEAL",
-        "category": "HISTORICAL",
+        "category": "EUROPEAN",
         "criteria": "SET",
-        "image": "seal1.jpg"
+        "image": "static/img/product/seal1.jpg"
     }
   },
   {
@@ -98,7 +98,7 @@
         "product_type": "COIN",
         "category": "EUROPEAN",
         "criteria": "OLD",
-        "image": "moneda2.jpg"
+        "image": "static/img/product/moneda2.jpg"
     }
   },
   {
@@ -112,7 +112,7 @@
         "product_type": "SEAL",
         "category": "AFRICAN",
         "criteria": "MODERN",
-        "image": "sello2.jpg"
+        "image": "static/img/product/sello2.jpg"
     }
   },
   {
@@ -126,7 +126,7 @@
         "product_type": "COIN",
         "category": "EUROPEAN",
         "criteria": "OLD",
-        "image": "moneda3.jpg"
+        "image": "static/img/product/moneda3.jpg"
     }
   },
   {
@@ -140,7 +140,7 @@
         "product_type": "SEAL",
         "category": "ASIAN",
         "criteria": "HISTORICAL",
-        "image": "sello3.jpg"
+        "image": "static/img/product/sello3.jpg"
     }
   },
   {
@@ -154,7 +154,7 @@
         "product_type": "COIN",
         "category": "EUROPEAN",
         "criteria": "OLD",
-        "image": "moneda4.jpg"
+        "image": "static/img/product/moneda4.jpg"
     }
   },
   {
@@ -168,7 +168,7 @@
         "product_type": "SEAL",
         "category": "ASIAN",
         "criteria": "SET",
-        "image": "sello4.jpg"
+        "image": "static/img/product/sello4.jpg"
     }
   }
 

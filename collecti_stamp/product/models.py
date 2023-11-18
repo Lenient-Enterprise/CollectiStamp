@@ -35,7 +35,7 @@ class Product(models.Model):
     product_type = models.CharField(max_length=10, choices=ProductType.choices)
     category = models.CharField(max_length=15, choices=Category.choices)
     criteria = models.CharField(max_length=15, choices=Criteria.choices)
-    image = models.ImageField(upload_to='product/', null=True, blank=True)
+    image = models.ImageField(upload_to='static/img/product/', null=True, blank=True)
 
     class Meta:
         verbose_name = "Producto"
