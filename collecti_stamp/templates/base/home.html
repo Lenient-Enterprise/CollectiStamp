@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Escaparate de productos{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block content %}
     <style>
@@ -11,6 +11,14 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
+        }
+
+        .store-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #e6f7ff; /* Cambia el color de fondo a tu preferencia */
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
@@ -24,17 +32,21 @@
             margin: 0;
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-around;
+            justify-content: space-between;
+            gap: 20px; /* Añade espacio entre las tarjetas */
         }
-
-
     </style>
-    <h1>Escaparate de productos</h1>
-    <ul class="catalog-list">
-        {% for product in products %}
-            {% include "product/product_card.html"%}
-        {% endfor %}
-    </ul>
+
+    <div class="store-container">
+        <h1>Bienvenido a la tienda</h1>
+        <ul class="catalog-list">
+            {% for product in products %}
+                {% include "product/product_card.html"%}
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
+
+
 
 
