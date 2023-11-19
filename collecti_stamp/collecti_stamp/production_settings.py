@@ -1,8 +1,10 @@
 import os
+from pathlib import Path
 
 import dj_database_url
-from collecti_stamp.settings import *
 
+# Build paths inside the project
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Get the external hostname from environment variable
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
@@ -20,18 +22,18 @@ if not DEBUG:
     STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Base URL for the application
-BAS_EURL = 'https://{}'.format(os.environ.get('RENDER_EXTERNAL_HOSTNAME'))
+BASE_URL = 'https://{}'.format(os.environ.get('RENDER_EXTERNAL_HOSTNAME'))
 
 APIS = {
-    'base': BASEURL,
-    'catalog': BASEURL,
-    'claim': BASEURL,
-    'company': BASEURL,
-    'customer': BASEURL,
-    'order': BASEURL,
-    'postorder': BASEURL,
-    'preorder': BASEURL,
-    'product': BASEURL
+    'base': BASE_URL,
+    'catalog': BASE_URL,
+    'claim': BASE_URL,
+    'company': BASE_URL,
+    'customer': BASE_URL,
+    'order': BASE_URL,
+    'postorder': BASE_URL,
+    'preorder': BASE_URL,
+    'product': BASE_URL
 }
 
 

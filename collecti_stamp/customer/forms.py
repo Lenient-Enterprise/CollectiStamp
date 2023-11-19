@@ -60,3 +60,9 @@ class CustomUserEditionForm(forms.ModelForm):
             raise forms.ValidationError('El nombre de usuario ya está en uso.')
         return username
 
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError('El correo electrónico ya está en uso.')
+        return email
+
