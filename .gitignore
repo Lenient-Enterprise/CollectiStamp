@@ -9,14 +9,15 @@ __pycache__/
 *.pot
 *.pyc
 db.sqlite3
-/media
-/static
 
 # VS Code
 .vscode/
 
 # Pycharm
 .idea/
+
+# Migrations
+**/migrations/
 
 # macOS
 .DS_Store
