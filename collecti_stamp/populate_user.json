@@ -58,5 +58,20 @@
       "is_staff": false,
       "is_superuser": false
     }
+  },
+  {
+    "model": "customer.User",
+    "pk": 4,
+    "fields": {
+      "username": "selenium",
+      "first_name": "Selenium",
+      "last_name": "Selenium",
+      "password": "pbkdf2_sha256$600000$E5pCH2C4nOvb16HaEkDam1$vNV3CgOddpBKWCvz6PoTWnmU4yukvQjSeuBz+h5s5KI=",
+      "email": "selenium@example.com",
+      "email_verified": true,
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false
+    }
   }
 ]
