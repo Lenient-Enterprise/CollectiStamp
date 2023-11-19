@@ -9,7 +9,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.decorators import login_required
 
-from collecti_stamp import settings
+from collecti_stamp import settings,development_settings
 from .forms import CustomUserCreationForm, EmailForm, PasswordForm,CustomUserEditionForm
 from .models import User
 from .utils import validate_email, get_user
@@ -52,7 +52,7 @@ def signin_view(request):
 
                 # Enviar el correo electrónico de verificación
                 template = get_template('customer/verification_email.html')
-                content = template.render({'verify_url': settings.BASEURL + verify_url, 'username': user.username})
+                content = template.render({'verify_url': development_settings.BASE_URL + verify_url, 'username': user.username})
                 message = EmailMultiAlternatives(
                     'Verificación de correo electrónico',
                     content,
@@ -135,7 +135,7 @@ def edit_user_view(request, user_id):
                 uid = urlsafe_base64_encode(force_bytes(user.pk))
                 verify_url = reverse('verify_email', args=[uid, token])
                 template = get_template('customer/verification_email.html')
-                content = template.render({'verify_url': settings.BASE_URL + verify_url, 'username': user.username})
+                content = template.render({'verify_url': development_settings.BASE_URL + verify_url, 'username': user.username})
                 message = EmailMultiAlternatives(
                     'Verificación de correo electrónico',
                     content,
