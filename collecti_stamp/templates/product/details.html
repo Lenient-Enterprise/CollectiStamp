@@ -51,21 +51,7 @@
             color: #333;
         }
 
-        .left-half .quantity-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 10px;
-        }
 
-        .left-half input[type="number"] {
-            flex: 1;
-            padding: 10px 5px;
-            font-size: 1em;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin-right: 10px;
-        }
 
         .left-half button {
             padding: 15px 10px;
@@ -126,79 +112,7 @@
             border-radius: 2px;
         }
 
-        .fa-chevron-down:hover {
-            color: #1bbeb4;
-        }
-
-        .fa-chevron-up:hover {
-            color: #1bbeb4;
-        }
-
-
-        .hidden {
-            display: none;
-        }
-
-        .container-description,
-        .container-additional-information,
-        .container-reviews {
-            display: flex;
-            flex-direction: column;
-            border-bottom: 1px solid #e4e4e4;
-            padding: 10px 0;
-        }
-
-        .title-description,
-        .title-additional-information,
-        .title-reviews {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-        }
-
-        .title-description h4,
-        .title-additional-information h4,
-        .title-reviews h4 {
-            font-weight: 300;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .text-description,
-        .text-additional-information,
-        .text-reviews {
-            font-size: 13px;
-            color: #252525;
-            line-height: 22px;
-            margin-top: 25px;
-        }
-
-
-        </style>
-        <script>
-          document.addEventListener('DOMContentLoaded', function() {
-            // Toggle
-        // Constantes Toggle Titles
-        const toggleDescription = document.querySelector(
-            '.title-description'
-        );
-        // Constantes Contenido Texto
-        const contentDescription = document.querySelector(
-            '.text-description'
-        );
-        // Funciones Toggle
-        toggleDescription.addEventListener('click', () => {
-            contentDescription.classList.toggle('hidden');
-        });
-        });
-
-        </script>
-
-        <script
-                    src="https://kit.fontawesome.com/81581fb069.js"
-                    crossorigin="anonymous"
-                ></script>
+    </style>
 
     <div class="container2">
         <div class="left-half">
@@ -209,10 +123,8 @@
             {% endif %}
             <div class="description-box">
                 <label for="quantity"><strong>Cantidad a comprar:</strong></label>
-                <div class="quantity-container">
-                    <input type="number" id="quantity" name="quantity" min="1" value="1" max={{ product.stock_amount }}>
-                    <button type="button">Añadir al carrito</span></button>
-                </div>
+                {% include "input_quantity.html" %}
+
             </div>
         </div>
 
@@ -229,12 +141,9 @@
                 {% endfor %}
             </p>
 
-            <div class="container-description">
-                <div class="title-description">
-                    <h4><strong>Descripción</strong></h4>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </div>
-                <div class="text-description"><p>{{ product.description }}</p></div>
+            <div class="description">
+                <strong>Descripción del producto:</strong>
+                <p>{{ product.description }}</p>
             </div>
         </div>
     </div>
