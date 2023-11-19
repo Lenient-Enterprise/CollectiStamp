@@ -4,11 +4,11 @@ from django.db import models
 
 class Category(models.TextChoices):
 
-    EUROPEAN = 'EUROPEAN', 'Europeo'
-    ASIAN = 'ASIAN', 'Asiático'
-    AMERICAN = 'AMERICAN', 'Americano'
-    AFRICAN = 'AFRICAN', 'Africano'
-
+    ANCIENT = 'ANCIENT', 'Antiguo'
+    COMIC_BOOK = 'COMIC_BOOK', 'Comic'
+    VIDEOGAME = 'VIDEOGAME', 'Videojuego'
+    HISTORICAL = 'HISTORICAL', 'Histórico'
+    NOVELTY = 'NOVELTY', 'Novedad'
 
 class Criteria(models.Model):
     id = models.AutoField(primary_key=True)
@@ -30,7 +30,7 @@ class ProductType(models.TextChoices):
 class Product(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
-    description = models.TextField()
+    description = models.TextField(max_length=500)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     stock_amount = models.IntegerField(validators=[
             MinValueValidator(limit_value=0, message='La cantidad no puede ser negativa.'),
