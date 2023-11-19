@@ -51,6 +51,24 @@
             color: #333;
         }
 
+
+        .left-half button {
+            padding: 15px 10px;
+            background-color: #343a40;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .left-half button:hover {
+            background-color: #000000;
+        }
+
         .right-half {
             flex: 1;
             padding: 20px;
@@ -78,12 +96,6 @@
             margin-bottom: 10px;
         }
 
-        .description {
-            margin-top: 20px;
-            border-top: 1px solid #ddd;
-            padding-top: 20px;
-        }
-
         .criteria-box {
             display: inline-block;
             padding: 5px 7px;
@@ -98,14 +110,13 @@
     <div class="container2">
         <div class="left-half">
             {% if product.image %}
-            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
             {% else %}
-             <img src="static/img/product/placeholder-image.jpg" alt="{{ product.name }}">
+                <img src="static/img/product/placeholder-image.jpg" alt="{{ product.name }}">
             {% endif %}
             <div class="description-box">
                 <label for="quantity"><strong>Cantidad a comprar:</strong></label>
-                {% include "input_quantity.html" %}
-
+                {% include "product/input_quantity.html" with max=product.stock_amount %}
             </div>
         </div>
 
@@ -121,11 +132,7 @@
                     <span class="criteria-box">{{ criteria.name }}</span>
                 {% endfor %}
             </p>
-
-            <div class="description">
-                <strong>Descripción del producto:</strong>
-                <p>{{ product.description }}</p>
-            </div>
+            {% include "product/expand_text.html" with title="Descripción" description=product.description %}
         </div>
     </div>
 
