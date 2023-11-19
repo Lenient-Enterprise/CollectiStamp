@@ -1,0 +1,353 @@
+[
+  {
+    "model": "product.Product",
+    "pk": 1,
+    "fields": {
+      "name": "Moneda de plata con diseño de Kioto",
+      "description": "Esta moneda es una moneda de plata acuñada por Japón, el país insular más poblado de Asia Oriental, situado en el océano Pacífico. La moneda tiene un diseño de la ciudad de Kioto, la antigua capital y la ciudad más histórica de Japón. El diseño muestra el templo Kinkaku-ji, el pabellón de oro cubierto de hojas de oro, y el castillo Nijo, la residencia del shogun Tokugawa. El reverso de la moneda tiene el escudo nacional de Japón y el valor nominal de 1000 yenes.",
+      "price": "129.99",
+      "stock_amount": "5",
+      "product_type": "COIN",
+      "category": "ANCIENT",
+      "criteria": [3, 10, 16, 19, 22],
+      "image": "static/img/product/moneda_17.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 2,
+    "fields": {
+      "name": "Moneda de Azeroth",
+      "description": "Esta moneda tiene un diseño de una llama estilizada en relieve sobre un fondo liso. El borde de la moneda es liso y redondo. La moneda tiene un aspecto brillante y realista.",
+      "price": "49.99",
+      "stock_amount": "15",
+      "product_type": "COIN",
+      "category": "VIDEOGAME",
+      "criteria": [1, 2, 9, 15, 20, 23],
+      "image": "static/img/product/moneda_acero.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 3,
+    "fields": {
+      "name": "Moneda conmemorativa de Blasphemous",
+      "description": "Esta moneda es una pieza de coleccionista para los fans del videojuego Blasphemous, creado por Team Cherry. La moneda está hecha de metal plateado, y tiene un diseño de una espada y una capa, que son los elementos característicos del protagonista del juego, el Penitente. El diseño está rodeado por una corona de hojas y ramas, que evoca el ambiente natural y misterioso del juego. El borde de la moneda tiene unos motivos intrincados, que reflejan la riqueza y la complejidad del mundo de Blasphemous. La moneda tiene un aspecto elegante y detallado.",
+      "price": "349.99",
+      "stock_amount": "5",
+      "product_type": "COIN",
+      "category": "VIDEOGAME",
+      "criteria": [1, 5, 10, 15, 21, 22],
+      "image": "static/img/product/moneda_blasphemous.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 4,
+    "fields": {
+      "name": "Moneda conmemorativa de Punisher",
+      "description": "Una moneda de metal redonda con un diseño de calavera en blanco y negro. La moneda tiene un borde plateado con un diseño detallado. La calavera lleva gafas de sol y tiene un efecto de goteo en la parte inferior. El fondo es blanco.",
+      "price": "12.99",
+      "stock_amount": "15",
+      "product_type": "COIN",
+      "category": "COMIC_BOOK",
+      "criteria": [4, 14, 15, 19, 22],
+      "image": "static/img/product/moneda_calavera.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 5,
+    "fields": {
+      "name": "Moneda conmemorativa de la puerta de Baldur",
+      "description": "Esta moneda es una pieza de coleccionista para los fans del juego de rol Baldur’s Gate, desarrollado por BioWare y publicado en 1998 por Interplay Entertainment. La moneda está hecha de metal plateado, y tiene un diseño de la puerta de Baldur, una imponente fortificación que protege la entrada a la ciudad de Baldur’s Gate, una de las ciudades más importantes y prósperas de la Costa de la Espada. El diseño está en un estilo celta, con un trabajo de nudos intrincado alrededor del borde. El reverso de la moneda tiene unos caracteres chinos que significan “Baldur Gate”. La moneda tiene un aspecto antiguo y detallado. ",
+      "price": "24.99",
+      "stock_amount": "50",
+      "product_type": "COIN",
+      "category": "VIDEOGAME",
+      "criteria": [2, 7, 13, 16, 20, 22],
+      "image": "static/img/product/moneda_castillo.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 6,
+    "fields": {
+      "name": "Moneda con diseño de Gotham City",
+      "description": "Esta moneda o medalla es un objeto de metal plateado, que tiene un diseño de la silueta de la ciudad de Gotham City en el centro. La ciudad es una metrópolis oscura y corrupta, donde Batman lucha contra el crimen y los villanos. El borde de la moneda o medalla tiene unos motivos intrincados, que pueden reflejar la riqueza y la complejidad de la ciudad de Gotham City. La moneda tiene un aspecto elegante y detallado.",
+      "price": "89.99",
+      "stock_amount": "8",
+      "product_type": "COIN",
+      "category": "COMIC_BOOK",
+      "criteria": [3, 13, 18, 19, 22],
+      "image": "static/img/product/moneda_ciudad.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 7,
+    "fields": {
+      "name": "CornHub Coin",
+      "description": "Una moneda de oro con una mazorca de maíz y las palabras “CornHub” escritas debajo. La moneda tiene un borde acanalado y está ligeramente inclinada. La mazorca de maíz está en el centro de la moneda y es de un oro más oscuro que el resto de la moneda. Las palabras “CornHub” están escritas en una fuente cursiva debajo de la mazorca de maíz.",
+      "price": "69.99",
+      "stock_amount": "42",
+      "product_type": "COIN",
+      "category": "NOVELTY",
+      "criteria": [1, 6, 18, 20, 23],
+      "image": "static/img/product/moneda_cornhub.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 8,
+    "fields": {
+      "name": "Moneda de Columbia",
+      "description": "Esta es una moneda con un diseño de la cabeza de una persona. La moneda es redonda y parece estar hecha de un metal de color dorado. La moneda tiene un borde elevado con una estrella a cada lado. El centro de la moneda tiene un cuadrado recortado, revelando un fondo gris.",
+      "price": "32.99",
+      "stock_amount": "10",
+      "product_type": "COIN",
+      "category": "ANCIENT",
+      "criteria": [5, 12, 16, 21, 23],
+      "image": "static/img/product/moneda_culombia.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 9,
+    "fields": {
+      "name": "Denario Romano",
+      "description": "Esta moneda es una moneda de plata acuñada por Atenas, la ciudad más importante y poderosa de la antigua Grecia, situada en el sur de la península griega. La moneda tiene un diseño de la lechuza de Atenea, el símbolo de la diosa de la sabiduría y la patrona de la ciudad. La lechuza está rodeada por una corona de hojas de olivo, que representa la paz y la prosperidad. El reverso de la moneda tiene la inscripción “ΑΘΗΝΑΙΩΝ”, que significa “de los atenienses”. La moneda tiene un aspecto realista y refinado.",
+      "price": "119.99",
+      "stock_amount": "8",
+      "product_type": "COIN",
+      "category": "ANCIENT",
+      "criteria": [1, 7, 10, 16, 20, 23],
+      "image": "static/img/product/moneda_denario.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 10,
+    "fields": {
+      "name": "Ghibli Coin",
+      "description": "Una moneda de plata con un diseño detallado en ella. El diseño muestra una niña con un vestido y una varita, una gran criatura parecida a un dragón y varios pájaros. La moneda tiene un borde punteado y parece estar en excelente estado. El fondo es una superficie blanca lisa.",
+      "price": "49.95",
+      "stock_amount": "5",
+      "product_type": "COIN",
+      "category": "NOVELTY",
+      "criteria": [6, 10, 18, 21, 22],
+      "image": "static/img/product/moneda_ghibli.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 11,
+    "fields": {
+      "name": "GitHub Octocat Coin",
+      "description": "Una moneda coleccionable con el logo de GitHub Octocat. La moneda es redonda y de color plata. La moneda tiene un borde detallado con un patrón repetitivo. El centro de la moneda tiene el logo de GitHub Octocat, que es un gato con tentáculos.",
+      "price": "14.99",
+      "stock_amount": "3",
+      "product_type": "COIN",
+      "category": "NOVELTY",
+      "criteria": [5, 10, 17, 19, 22],
+      "image": "static/img/product/moneda_github.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 12,
+    "fields": {
+      "name": "Moneda conmemorativa del videojuego Kenshi",
+      "description": "Esta moneda es una pieza de coleccionista para los fans del videojuego Kenshi, un juego de rol de mundo abierto con estrategias a tiempo real y con eventos que no tienen una secuencia argumentativa lineal. La moneda está hecha de metal de color bronce, y tiene un diseño de un guerrero samurái y unos edificios en el fondo. El diseño está inspirado en el mundo de Kenshi, un mundo post-apocalíptico de fantasía donde el jugador puede ser un comerciante, un ladrón, un rebelde, un señor de la guerra, un aventurero, un granjero, un esclavo o tan sólo comida para los caníbales. El borde de la moneda tiene unos caracteres chinos que significan “Kenshi”, el nombre del juego. La moneda tiene un aspecto antiguo y detallado.",
+      "price": "129.99",
+      "stock_amount": "5",
+      "product_type": "COIN",
+      "category": "VIDEOGAME",
+      "criteria": [1, 6, 11, 15, 20, 22],
+      "image": "static/img/product/moneda_kenshi.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 13,
+    "fields": {
+      "name": "Moneda conmemorativa de Hollow Knight",
+      "description": "Esta moneda es una pieza de coleccionista para los fans del videojuego Hollow Knight, creado por Team Cherry. La moneda está hecha de metal plateado, y tiene un diseño del protagonista del juego, el Caballero, en el centro. El Caballero es un insecto con una capa y una espada, que explora el reino de Hallownest. El diseño está rodeado por una corona de hojas y ramas, que evoca el ambiente natural y misterioso del juego. El borde de la moneda tiene unos motivos intrincados, que reflejan la riqueza y la complejidad del mundo de Hollow Knight.",
+      "price": "119.99",
+      "stock_amount": "3",
+      "product_type": "COIN",
+      "category": "VIDEOGAME",
+      "criteria": [1, 3, 12, 15, 19, 23],
+      "image": "static/img/product/moneda_knight.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 14,
+    "fields": {
+      "name": "Moneda de plata con copo",
+      "description": "Una moneda de plata con un copo. La moneda tiene un borde acanalado y una superficie lisa. La moneda parece estar hecha de un metal brillante, posiblemente plata. El centro de la moneda es un copo de nieve y el fondo es blanco.",
+      "price": "14.95",
+      "stock_amount": "25",
+      "product_type": "COIN",
+      "category": "NOVELTY",
+      "criteria": [5, 10, 18, 20, 23],
+      "image": "static/img/product/moneda_konkopo.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 15,
+    "fields": {
+      "name": "Konoha Coin",
+      "description": "Una moneda de oro con una hoja en ella. La moneda es redonda y tiene un borde elevado. La hoja está en el centro de la moneda y es de un color oro más claro que el resto de la moneda. La hoja tiene un tallo y está ligeramente curvada. El fondo es de color gris claro.",
+      "price": "39.99",
+      "stock_amount": "400",
+      "product_type": "COIN",
+      "category": "NOVELTY",
+      "criteria": [5, 10, 18, 20, 23],
+      "image": "static/img/product/moneda_konoha.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 16,
+    "fields": {
+      "name": "Moneda de Raccoon City",
+      "description": "Esta es una moneda con una ilustración de Raccoon City y un mapache en ella. La moneda es de color negro y blanco y tiene mucho detalle. La ilustración es de una ciudad con edificios altos y un mapache sentado en una rama en primer plano. El mapache está mirando hacia la ciudad. La ciudad tiene mucho detalle, con diferentes tipos de edificios y árboles.",
+      "price": "29.99",
+      "stock_amount": "9",
+      "product_type": "COIN",
+      "category": "NOVELTY",
+      "criteria": [3, 10, 16, 19, 22],
+      "image": "static/img/product/moneda_mapache.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 17,
+    "fields": {
+      "name": "Moneda conmemorativa a Evangelion",
+      "description": "Una moneda de plata con un diseño de una mujer con una espada y un escudo futurista. La mujer está de pie frente a una rosa de los vientos. El reverso de la moneda tiene el escudo de armas de Gibraltar y el valor nominal de 1 libra. La moneda forma parte de la serie Lady Justice, emitida por la Scottsdale Mint en 2021.",
+      "price": "39.99",
+      "stock_amount": "50",
+      "product_type": "COIN",
+      "category": "NOVELTY",
+      "criteria": [4, 10, 17, 20, 22],
+      "image": "static/img/product/moneda_moderna.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 15,
+    "fields": {
+      "name": "Moneda de metal con diseño de nudo celta",
+      "description": "Esta moneda es una réplica de una moneda celta, que tiene un diseño de un nudo celta en el centro. El nudo celta es un símbolo que representa la eternidad, el ciclo de la vida y la conexión. El diseño está rodeado por una corona de hojas y ramas, que puede simbolizar la naturaleza o la fertilidad. El borde de la moneda tiene un diseño de nudo celta, que muestra la continuidad y la armonía. La moneda está hecha de metal oscuro, y tiene un aspecto antiguo y rústico.",
+      "price": "14.99",
+      "stock_amount": "15",
+      "product_type": "COIN",
+      "category": "ANCIENT",
+      "criteria": [3, 14, 16, 19, 22],
+      "image": "static/img/product/moneda_oblivion.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 18,
+    "fields": {
+      "name": "Moneda de plata con diseño de ojo de Senri",
+      "description": "Esta moneda es una obra de arte única y fascinante, que combina elementos de diferentes culturas y épocas. La moneda está hecha de plata pura, y tiene un brillo que refleja la luz. El diseño de la moneda es un ojo con un agujero en el centro, que representa la visión y la sabiduría. El ojo está rodeado de olas, que simbolizan el movimiento y el cambio. En la parte superior de la moneda hay dos caracteres chinos, que se leen como “Senri”, y que significan “mil li” o “gran distancia”. Estos caracteres aluden a la idea de viajar, explorar y conocer el mundo. La moneda es una invitación a la aventura y al descubrimiento, y una expresión de la creatividad y la diversidad.",
+      "price": "1499.99",
+      "stock_amount": "5",
+      "product_type": "COIN",
+      "category": "ANCIENT",
+      "criteria": [1, 5, 10, 16, 21, 22],
+      "image": "static/img/product/moneda_ojo.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 19,
+    "fields": {
+      "name": "Omniman Coin",
+      "description": "Se trata de una pieza circular de metal, posiblemente plata, con un diámetro de unos 3 centímetros y un grosor de unos 2 milímetros. La pieza tiene un borde acanalado y una superficie lisa y brillante.",
+      "price": "69.99",
+      "stock_amount": "40",
+      "product_type": "COIN",
+      "category": "COMIC_BOOK",
+      "criteria": [4, 10, 16, 20, 22],
+      "image": "static/img/product/moneda_persona.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 20,
+    "fields": {
+      "name": "Pokemon Kanto Coin",
+      "description": "Una moneda de plata con un diseño de Pokemon en ella. El diseño es de un Charizard, un Pokemon popular, con la palabra “Kanto” escrita encima. La moneda es redonda y tiene un borde elevado. El fondo es una imagen borrosa de un teclado.",
+      "price": "19.99",
+      "stock_amount": "20",
+      "product_type": "COIN",
+      "category": "VIDEOGAME",
+      "criteria": [6, 10, 15, 21, 23],
+      "image": "static/img/product/moneda_pokemon.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 21,
+    "fields": {
+      "name": "Moneda conmemorativa de Rapture Bioshock",
+      "description": "Esta moneda es una pieza de coleccionista para los fans del videojuego Bioshock, creado por Irrational Games. La moneda está hecha de metal plateado, y tiene un diseño de la palabra “RAPTURE” en el centro. Rapture es el nombre de la ciudad submarina donde se desarrolla el juego, una utopía para los artistas y los pensadores en los años 40, pero que se convierte en una distopía debido a los efectos de ADAM, una sustancia que puede alterar el material genético. El borde de la moneda tiene un diseño de líneas y puntos, que puede representar la tecnología o la ciencia de Rapture. La moneda tiene un aspecto futurista y detallado.",
+      "price": "17.99",
+      "stock_amount": "30",
+      "product_type": "COIN",
+      "category": "VIDEOGAME",
+      "criteria": [7, 12, 15, 20, 23],
+      "image": "static/img/product/moneda_rapture.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 22,
+    "fields": {
+      "name": "Moneda conmemorativa de Silent Hill",
+      "description": "Una moneda de plata redonda con un diseño intrincado de la ciudad ficticia de Silent Hill. La moneda tiene un diseño de un hombre de pie frente a una iglesia con una carretera sinuosa y edificios en el fondo. El diseño está rodeado por un borde de hojas y ramas. Las palabras “Silent Hill” están escritas en la parte inferior de la moneda.",
+      "price": "119.99",
+      "stock_amount": "10",
+      "product_type": "COIN",
+      "category": "VIDEOGAME",
+      "criteria": [5, 10, 15, 19, 22],
+      "image": "static/img/product/moneda_silent_hill.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 23,
+    "fields": {
+      "name": "Croeseid",
+      "description": "Esta moneda es una de las primeras monedas de oro acuñadas en el mundo, por el rey de Lidia Creso (561-546 a.C.) alrededor del año 550 a.C. La moneda tiene un diseño de las partes delanteras de un león y un toro enfrentados, que representan el poder y la riqueza de Lidia. El reverso de la moneda tiene dos cuadrados incusos, que indican el peso y la pureza del metal. La moneda tiene un aspecto realista y refinado.",
+      "price": "599.99",
+      "stock_amount": "5",
+      "product_type": "COIN",
+      "category": "HISTORICAL",
+      "criteria": [1, 2, 9, 16, 21, 22],
+      "image": "static/img/product/moneda_tamriel.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 24,
+    "fields": {
+      "name": "Moneda conmemorativa de la trifuerza de Legend of Zelda",
+      "description": "Esta moneda es una pieza de coleccionista para los fans del juego de Legend of Zelda, que tiene un diseño de la trifuerza en el centro. La trifuerza es una reliquia dorada que contiene el poder de las tres diosas que crearon el mundo: Din, la diosa del poder; Nayru, la diosa de la sabiduría; y Farore, la diosa del valor. El diseño está rodeado por una corona de hojas y ramas, que puede simbolizar la naturaleza o la aventura. El borde de la moneda tiene un diseño de líneas y puntos, que puede representar la tecnología o la magia. La moneda está hecha de metal dorado, y tiene un aspecto brillante y detallado.",
+      "price": "14.99",
+      "stock_amount": "80",
+      "product_type": "COIN",
+      "category": "VIDEOGAME",
+      "criteria": [3, 12, 15, 19, 23],
+      "image": "static/img/product/moneda_trifuerza.jpg"
+    }
+  }
+
+]
