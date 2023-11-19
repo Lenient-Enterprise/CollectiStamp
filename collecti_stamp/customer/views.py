@@ -22,7 +22,7 @@ def login_view(request):
         print(form.errors)
         if form.is_valid():
             login(request, form.get_user())
-            return redirect('/base')
+            return redirect('/')
     else:
         form = AuthenticationForm()
     return render(request, 'customer/login.html', {'form': form})
@@ -31,7 +31,7 @@ def login_view(request):
 # Vista para cerrar sesión
 def logout_view(request):
     logout(request)
-    return redirect('/base')
+    return redirect('/')
 
 
 # Vista para registro de usuario
@@ -120,7 +120,7 @@ def change_password(request, uidb64, token):
             form = PasswordForm()
             return render(request, 'customer/change_password_form.html', {'form': form})
     else:
-        return redirect('/base?message=Error al cambiar la contraseña&status=Error')
+        return redirect('/?message=Error al cambiar la contraseña&status=Error')
     
 @login_required   
 def edit_user_view(request, user_id):
@@ -145,7 +145,7 @@ def edit_user_view(request, user_id):
 
                 message.attach_alternative(content, 'text/html')
                 message.send()
-                return redirect('/base?message=Verificación de correo electrónico&status=Success')
+                return redirect('/?message=Verificación de correo electrónico&status=Success')
     else:
         form = CustomUserEditionForm(instance=user)
     return render(request, 'customer/edit.html', {'form': form, 'user': user})
