@@ -14,7 +14,9 @@ ALLOWED_HOSTS = []
 
 # Installed applications
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    'material',
+    'material.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -100,9 +102,7 @@ USE_TZ = True
 
 # Static files configuration
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -114,3 +114,20 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'alex.0002002@gmail.com'
 EMAIL_HOST_PASSWORD = 'whxj cvwg vxnv dybu'
+
+# Admin site configuration
+MATERIAL_ADMIN_SITE = {
+    'HEADER':  'CollectiStamp - Administración',  # Admin site header
+    'TITLE': 'Panel de Control de CollectiStamp',  # Admin site title
+    # 'FAVICON':  'path/to/favicon',  # Admin site favicon (path to static should be specified)
+    # 'MAIN_BG_COLOR':  'color',  # Admin site main color, css color should be specified
+    # 'MAIN_HOVER_COLOR':  'color',  # Admin site main hover color, css color should be specified
+    # 'PROFILE_PICTURE':  'path/to/image',  # Admin site profile picture (path to static should be specified)
+    # 'PROFILE_BG':  'path/to/image',  # Admin site profile background (path to static should be specified)
+    # 'LOGIN_LOGO':  'path/to/image',  # Admin site logo on login page (path to static should be specified)
+    # 'LOGOUT_BG':  'path/to/image',  # Admin site background on login/logout pages (path to static should be specified)
+    'SHOW_THEMES':  True,  #  Show default admin themes button
+    'TRAY_REVERSE': True,  # Hide object-tools and additional-submit-line by default
+    'NAVBAR_REVERSE': True,  # Hide side navbar by default
+    'SHOW_COUNTS': True, # Show instances counts for each model
+}
