@@ -132,6 +132,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'home' %}">Inicio</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'product_catalog' %}">Catálogo</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="stampsDropdown" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -193,7 +196,11 @@
 <footer class="bg-dark text-light py-3 mt-auto">
     <div class="container">
         <p class="text-center">&copy; {{ year|date:"Y" }} Tickets</p>
+        <ul class="text-center">
+            <a href="{% url 'company_details' %}">Sobre nosotros</a>
+        </ul>
     </div>
+
 </footer>
 
 
