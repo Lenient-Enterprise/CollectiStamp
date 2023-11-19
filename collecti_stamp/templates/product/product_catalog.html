@@ -73,8 +73,39 @@
         a.catalog-link:hover {
             background-color: #000000;
         }
+        .filters-container {
+            background-color: #343a40;
+            color: #fff;
+            padding: 20px;
+            text-align: left;
+            margin-bottom: 20px;
+            border-radius: 7px;
+        }
+
+        .filter-select {
+            padding: 8px;
+            margin: 0 10px;
+            border-radius: 4px;
+        }
     </style>
+
     <h1>Catálogo de productos</h1>
+
+    <div class="filters-container">
+        <form method="get" action="{% url 'filter_products' %}">
+            {% csrf_token %}
+            <label for="category" class="filter-label">Filtrar por categorías:</label>
+            <select id="category" name="categories" class="filter-select" multiple size="3">
+                <option value="all">Todos</option>
+                {% for criterion in criteria %}
+                    <option value="{{ criterion.id }}">{{ criterion.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-primary">Aplicar filtro</button>
+        </form>
+    </div>
+
+
     <ul class="catalog-list">
         {% for product in products %}
             <li class="catalog-item">

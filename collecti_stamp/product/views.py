@@ -2,6 +2,7 @@
 from django.shortcuts import render, get_object_or_404
 
 from .models import Product
+from .models import Criteria
 
 
 def product_details(request, product_id):  # Change the parameter name
@@ -10,4 +11,5 @@ def product_details(request, product_id):  # Change the parameter name
 
 def product_catalog(request):
     products = Product.objects.all()
-    return render(request, 'product/product_catalog.html', {'products': products})
+    criteria = Criteria.objects.all()
+    return render(request, 'product/product_catalog.html', {'products': products, 'criteria': criteria})
