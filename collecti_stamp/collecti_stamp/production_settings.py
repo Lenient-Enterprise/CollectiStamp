@@ -20,7 +20,7 @@ if not DEBUG:
     STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Base URL for the application
-BASEURL = 'https://{}'.format(os.environ.get('RENDER_EXTERNAL_HOSTNAME'))
+BAS_EURL = 'https://{}'.format(os.environ.get('RENDER_EXTERNAL_HOSTNAME'))
 
 APIS = {
     'base': BASEURL,

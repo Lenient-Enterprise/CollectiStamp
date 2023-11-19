@@ -7,9 +7,10 @@ from django.template.loader import get_template
 from django.urls import reverse
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.auth.decorators import login_required
 
-from collecti_stamp import settings
-from .forms import CustomUserCreationForm, EmailForm, PasswordForm
+from collecti_stamp import settings,development_settings
+from .forms import CustomUserCreationForm, EmailForm, PasswordForm,CustomUserEditionForm
 from .models import User
 from .utils import validate_email, get_user
 
@@ -21,7 +22,7 @@ def login_view(request):
         print(form.errors)
         if form.is_valid():
             login(request, form.get_user())
-            return redirect('/base')
+            return redirect('/')
     else:
         form = AuthenticationForm()
     return render(request, 'customer/login.html', {'form': form})
@@ -30,7 +31,7 @@ def login_view(request):
 # Vista para cerrar sesión
 def logout_view(request):
     logout(request)
-    return redirect('/base')
+    return redirect('/')
 
 
 # Vista para registro de usuario
@@ -51,7 +52,7 @@ def signin_view(request):
 
                 # Enviar el correo electrónico de verificación
                 template = get_template('customer/verification_email.html')
-                content = template.render({'verify_url': settings.BASEURL + verify_url, 'username': user.username})
+                content = template.render({'verify_url': development_settings.BASE_URL + verify_url, 'username': user.username})
                 message = EmailMultiAlternatives(
                     'Verificación de correo electrónico',
                     content,
@@ -120,3 +121,31 @@ def change_password(request, uidb64, token):
             return render(request, 'customer/change_password_form.html', {'form': form})
     else:
         return redirect('/?message=Error al cambiar la contraseña&status=Error')
+    
+@login_required   
+def edit_user_view(request, user_id):
+    user=get_object_or_404(User, id=user_id)
+    
+    if request.method == 'POST':
+        form = CustomUserEditionForm(request.POST, instance=user)
+        if form.is_valid():
+            user = form.save()
+            if validate_email(user.email):
+                token = default_token_generator.make_token(user)
+                uid = urlsafe_base64_encode(force_bytes(user.pk))
+                verify_url = reverse('verify_email', args=[uid, token])
+                template = get_template('customer/verification_email.html')
+                content = template.render({'verify_url': development_settings.BASE_URL + verify_url, 'username': user.username})
+                message = EmailMultiAlternatives(
+                    'Verificación de correo electrónico',
+                    content,
+                    settings.EMAIL_HOST_USER,
+                    [user.email]
+                )
+
+                message.attach_alternative(content, 'text/html')
+                message.send()
+                return redirect('/?message=Verificación de correo electrónico&status=Success')
+    else:
+        form = CustomUserEditionForm(instance=user)
+    return render(request, 'customer/edit.html', {'form': form, 'user': user})

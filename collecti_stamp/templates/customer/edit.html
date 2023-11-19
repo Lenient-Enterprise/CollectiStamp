@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Registro de Usuario{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">Registro de Edición de Usuario</div>
+          <div class="card-body">
+            <form method="post" class="registration-form">
+              {% csrf_token %}
+              {% if form.errors %}
+                <div class="alert alert-danger">
+                  <strong>Error:</strong> Por favor, corrige los siguientes errores.
+                </div>
+              {% endif %}
+              <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">Nombre de usuario:</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                  <ul class="errorlist">
+                    {% for error in form.username.errors %}
+                      <li class="error-item">{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+              
+              <div class="form-group">
+                <label for="{{ form.first_name.id_for_label }}">Nombre:</label>
+                {{ form.first_name }}
+                {% if form.username.errors %}
+                  <ul class="errorlist">
+                    {% for error in form.first_name.errors %}
+                      <li class="error-item">{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+
+              <div class="form-group">
+                <label for="{{ form.last_name.id_for_label }}">Apellidos:</label>
+                {{ form.last_name }}
+                {% if form.last_name.errors %}
+                  <ul class="errorlist">
+                    {% for error in form.last_name.errors %}
+                      <li class="error-item">{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+              <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">Correo electrónico:</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                  <ul class="errorlist">
+                    {% for error in form.email.errors %}
+                      <li class="error-item">{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+              <div class="form-group">
+                <label for="{{ form.password1.id_for_label }}">Contraseña:</label>
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                  <ul class="errorlist">
+                    {% for error in form.password1.errors %}
+                      <li class="error-item">{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+              <div class="form-group">
+                <label for="{{ form.password2.id_for_label }}">Confirmar contraseña:</label>
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                  <ul class="errorlist">
+                    {% for error in form.password2.errors %}
+                      <li class="error-item">{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+              <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

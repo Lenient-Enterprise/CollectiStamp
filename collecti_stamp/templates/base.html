@@ -161,9 +161,8 @@
                                         {{ user.username }}
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="userDropdown">
-                                        <a class="dropdown-item" href="#">Editar</a>
-                                        <a class="dropdown-item" href="{% url 'request_password_reset' %}">Cambiar
-                                            Contraseña</a>
+                                        <a class="dropdown-item" href="{% url 'edit' user_id=user.id %}">Editar</a>
+                                        <a class="dropdown-item" href="{% url 'request_password_reset' %}">Cambiar Contraseña</a>
                                         <a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesión</a>
                                         <a class="dropdown-item" href="#">Mis pedidos</a>
                                     </div>

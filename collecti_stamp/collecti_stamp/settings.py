@@ -131,3 +131,9 @@ MATERIAL_ADMIN_SITE = {
     'NAVBAR_REVERSE': True,  # Hide side navbar by default
     'SHOW_COUNTS': True, # Show instances counts for each model
 }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',  # Using Pathlib for platform-independent path concatenation
+    }
+}
