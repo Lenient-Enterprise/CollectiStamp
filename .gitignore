@@ -20,3 +20,4 @@ db.sqlite3
 
 # macOS
 .DS_Store
+collecti_stamp/db.sqlite3
