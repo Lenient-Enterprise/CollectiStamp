@@ -58,7 +58,6 @@
       "is_staff": false,
       "is_superuser": false
     }
-<<<<<<< HEAD
   },
   {
     "model": "product.product",
@@ -242,8 +241,4 @@
       "name": "Recomendado"
     }
   }
-
-=======
-  }
->>>>>>> 8662a1b7241aad733657d85d35dbeb69f26e2b66
 ]
