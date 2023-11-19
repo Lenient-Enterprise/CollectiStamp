@@ -61,7 +61,7 @@ def signin_view(request):
 
                 message.attach_alternative(content, 'text/html')
                 message.send()
-                return redirect('/base?message=Verificación de correo electrónico&status=Success')
+                return redirect('/?message=Verificación de correo electrónico&status=Success')
     else:
         form = CustomUserCreationForm()
     return render(request, 'customer/signin.html', {'form': form})
@@ -72,9 +72,9 @@ def verify_email(request, uidb64, token):
     if user is not None and default_token_generator.check_token(user, token):
         user.email_verified = True
         user.save()
-        return redirect('/base?message=Correo electrónico verificado&status=Success')
+        return redirect('/?message=Correo electrónico verificado&status=Success')
     else:
-        return redirect('/base?message=Correo electrónico no verificado&status=Error')
+        return redirect('/?message=Correo electrónico no verificado&status=Error')
 
 def request_password_reset(request):
     if request.method == 'POST':
@@ -99,7 +99,7 @@ def request_password_reset(request):
 
                 message.attach_alternative(content, 'text/html')
                 message.send()
-                return redirect('/base?message=Petición de cambio de contraseña enviada&status=Info')
+                return redirect('/?message=Petición de cambio de contraseña enviada&status=Info')
 
         return render(request, 'customer/request_password_reset.html', {'form': form})
     else:
@@ -114,9 +114,9 @@ def change_password(request, uidb64, token):
             if form.is_valid():
                 user.set_password(form.cleaned_data['password'])
                 user.save()
-                return redirect('/base?message=Contraseña cambiada&status=Success')
+                return redirect('/?message=Contraseña cambiada&status=Success')
         else:
             form = PasswordForm()
             return render(request, 'customer/change_password_form.html', {'form': form})
     else:
-        return redirect('/base?message=Error al cambiar la contraseña&status=Error')
+        return redirect('/?message=Error al cambiar la contraseña&status=Error')
