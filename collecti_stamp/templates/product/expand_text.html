@@ -1,0 +1,74 @@
+<style>
+
+    .fa-chevron-down:hover {
+        color: #1bbeb4;
+    }
+
+    .fa-chevron-up:hover {
+        color: #1bbeb4;
+    }
+
+
+    .hidden {
+        display: none;
+    }
+
+    .container-description {
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px solid #e4e4e4;
+        padding: 10px 0;
+    }
+
+    .title-description {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+
+    .title-description h4 {
+        font-weight: 300;
+        color: #666;
+        font-size: 14px;
+    }
+
+    .text-description {
+        font-size: 13px;
+        color: #252525;
+        line-height: 22px;
+        margin-top: 25px;
+    }
+
+
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Toggle
+// Constantes Toggle Titles
+        const toggleDescription = document.querySelector(
+            '.title-description'
+        );
+// Constantes Contenido Texto
+        const contentDescription = document.querySelector(
+            '.text-description'
+        );
+// Funciones Toggle
+        toggleDescription.addEventListener('click', () => {
+            contentDescription.classList.toggle('hidden');
+        });
+    });
+
+</script>
+<script src="https://kit.fontawesome.com/81581fb069.js" crossorigin="anonymous"></script>
+<div class="container-description">
+    <div class="title-description">
+        <strong>{{ title }}</strong>
+        <i class="fa-solid fa-chevron-down"></i>
+    </div>
+    <div class="text-description">
+        <p>
+            {{ description }}
+        </p>
+    </div>
+</div>

@@ -1,0 +1,156 @@
+[
+  {
+    "model": "product.criteria",
+    "pk": 1,
+    "fields": {
+      "name": "Edición limitada"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 2,
+    "fields": {
+      "name": "Estilo Clásico"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 3,
+    "fields": {
+      "name": "Estilo Vintage"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 4,
+    "fields": {
+      "name": "Estilo Moderno"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 5,
+    "fields": {
+      "name": "Estilo Elegante"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 6,
+    "fields": {
+      "name": "Estilo Cursivo"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 7,
+    "fields": {
+      "name": "Estilo Antiguo"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 9,
+    "fields": {
+      "name": "Material Oro"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 10,
+    "fields": {
+      "name": "Material Plata"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 11,
+    "fields": {
+      "name": "Material Bronce"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 12,
+    "fields": {
+      "name": "Material Metal dorado"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 13,
+    "fields": {
+      "name": "Material Metal plateado"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 14,
+    "fields": {
+      "name": "Material Metal"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 15,
+    "fields": {
+      "name": "Conmemorativo"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 16,
+    "fields": {
+      "name": "Histórico"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 17,
+    "fields": {
+      "name": "Tecnología"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 18,
+    "fields": {
+      "name": "Naturaleza"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 19,
+    "fields": {
+      "name": "En buenas condiciones"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 20,
+    "fields": {
+      "name": "Desgastado"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 21,
+    "fields": {
+      "name": "Nuevo"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 22,
+    "fields": {
+      "name": "Ilustración Detallada"
+    }
+  },
+  {
+    "model": "product.criteria",
+    "pk": 23,
+    "fields": {
+      "name": "Ilustración Simple"
+    }
+  }
+]
