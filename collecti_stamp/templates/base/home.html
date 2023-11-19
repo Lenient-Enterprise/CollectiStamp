@@ -1,21 +1,40 @@
 {% extends "base.html" %}
 
-{% block title %}Tickets{% endblock %}
+{% load static %}
+
+{% block title %}Escaparate de productos{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-6 offset-md-3">
-        <h2 class="mb-4">Solicitar Ticket</h2>
-        <form method="POST">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="ticket_id">UUID del Ticket:</label>
-                <input type="text" class="form-control" id="ticket_id" name="ticket_id" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Solicitar</button>
-        </form>
-    </div>
-</div>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        ul.catalog-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+
+    </style>
+    <h1>Escaparate de productos</h1>
+    <ul class="catalog-list">
+        {% for product in products %}
+            {% include "product/product_card.html"%}
+        {% endfor %}
+    </ul>
 {% endblock %}
 
 
