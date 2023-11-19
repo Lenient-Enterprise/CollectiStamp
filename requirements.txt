@@ -4,4 +4,4 @@ psycopg2==2.9.7 # PostgreSQL database adapter
 whitenoise==6.5.0 # WhiteNoise allows your web app to serve its own static files
 selenium==4.15.2 # Selenium automates browsers
 qrcode == 7.4.2 # QR code generator
-
+django-material-admin==1.8.6
