@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 search">
+            <form method="get" action="{% url 'finder' %}">
+                <div id="custom-search-input" class="input-group">
+                    <select name="product_type" id="product_type" class="form-control">
+                        <option value="SEAL" {% if request.GET.product_type == 'SEAL' %}selected{% endif %}>Sello</option>
+                        <option value="COIN" {% if request.GET.product_type == 'COIN' %}selected{% endif %}>Moneda</option>
+                        <!-- Agrega más opciones para otros campos si es necesario -->
+                    </select>
+                    <input type="text" name="name" id="query" value="{{ request.GET.name }}" class="form-control"
+                           placeholder="Ingrese su búsqueda"/>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-success">
+                            <i class="icon icon-search"></i> Buscar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
