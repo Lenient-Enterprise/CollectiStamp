@@ -128,5 +128,5 @@ class RequestPasswordResetViewTests(StaticLiveServerTestCase):
         self.driver.find_element(By.CSS_SELECTOR, ".btn").click()
         self.user = User.objects.get(username=self.username)
         self.assertTrue(self.user.check_password(self.new_password))
-        self.assertTrue(self.driver.current_url == f"{self.live_server_url}/base/?message=Contrase%C3%B1a%20cambiada&status=Success")
+        self.assertTrue(self.driver.current_url == f"{self.live_server_url}/?message=Contrase%C3%B1a%20cambiada&status=Success")
     
