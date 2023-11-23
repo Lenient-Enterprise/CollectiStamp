@@ -14,3 +14,4 @@ class UserAdmin(admin.ModelAdmin):
         (None, {'fields': ('username', 'email', 'password')}),
         ('Permissions', {'fields': ['email_verified']}),
     )
+    icon_name = 'person'

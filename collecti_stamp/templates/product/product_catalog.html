@@ -160,7 +160,7 @@
             <li class="catalog-item">
                 <h2 class="catalog-title">{{ product.name }}</h2>
                 {% if product.image %}
-                    <img class="catalog-image" src="{{ product.image.url }}" alt="{{ product.name }}">
+                    {%  include "product/out_of_stock.html" with base_path=product.image.url overlay_path="/static/img/out_of_stock.png" stock_amount=product.stock_amount%}
                 {% else %}
 
                     <img class="catalog-image" src="{% static 'placeholder-image.jpg' %}" alt="Placeholder Image">

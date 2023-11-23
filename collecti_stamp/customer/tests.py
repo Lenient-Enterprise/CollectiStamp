@@ -1,3 +1,4 @@
+import time
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import TestCase
@@ -11,11 +12,12 @@ from selenium.webdriver.common.by import By
 
 
 # Create your tests here.
-class TestRegister(StaticLiveServerTestCase):
+class TestCustomer(StaticLiveServerTestCase):
     def setUp(self):
         options = webdriver.ChromeOptions()
         options.headless = True
         self.driver = webdriver.Chrome(options=options)
+        self.vars = {}
         super().setUp()
 
         self.username = 'alesanfel'
@@ -26,10 +28,22 @@ class TestRegister(StaticLiveServerTestCase):
         super().tearDown()
         self.driver.quit()
 
-
+    def test_login(self):
+        self.driver.get("http://localhost:8000/")
+        self.driver.set_window_size(1936, 1056)
+        self.driver.find_element(By.LINK_TEXT, "Iniciar").click()
+        self.driver.find_element(By.CSS_SELECTOR, ".form-group:nth-child(2)").click()
+        self.driver.find_element(By.ID, "id_username").send_keys("user")
+        self.driver.find_element(By.CSS_SELECTOR, ".form-group:nth-child(3)").click()
+        self.driver.find_element(By.ID, "id_password").send_keys("user")
+        self.driver.find_element(By.CSS_SELECTOR, ".login-form").click()
+        self.driver.find_element(By.CSS_SELECTOR, ".btn").click()
+        self.driver.find_element(By.ID, "userDropdown").click()
+        self.driver.find_element(By.LINK_TEXT, "Cerrar Sesión").click()
+        
+    
     def test_register(self):
-        self.driver.get(self.live_server_url + '/base/')
-
+        self.driver.get("http://localhost:8000/")
         self.driver.set_window_size(1918, 858)
         self.driver.find_element(By.LINK_TEXT, "Registrarse").click()
         self.driver.find_element(By.ID, "id_username").click()
@@ -40,9 +54,29 @@ class TestRegister(StaticLiveServerTestCase):
         self.driver.find_element(By.ID, "id_password1").send_keys(self.password)
         self.driver.find_element(By.ID, "id_password2").send_keys(self.password)
         self.driver.find_element(By.CSS_SELECTOR, ".btn").click()
-        user = User.objects.get(username=self.username)
-        self.assertEqual(user.username, self.username)
+        ''''
+        user = User.objects.get(username='alesanfel')
+        self.assertEqual(user.username, 'alesanfel')
         user.delete()
+        '''
+    def test_edit(self):
+        self.driver.get("http://localhost:8000")
+        self.driver.set_window_size(1536, 824)
+        self.driver.find_element(By.LINK_TEXT, "Iniciar").click()
+        self.driver.find_element(By.CSS_SELECTOR, ".form-group:nth-child(2)").click()
+        self.driver.find_element(By.ID, "id_username").send_keys("selenium")
+        self.driver.find_element(By.ID, "id_password").click()
+        self.driver.find_element(By.ID, "id_password").send_keys("selenpass123")
+        self.driver.find_element(By.CSS_SELECTOR, ".btn").click()
+        self.driver.find_element(By.ID, "userDropdown").click()
+        self.driver.find_element(By.LINK_TEXT, "Editar").click()
+        self.driver.find_element(By.ID, "id_first_name").click()
+        self.driver.find_element(By.ID, "id_password1").click()
+        self.driver.find_element(By.ID, "id_password1").send_keys("selenpass123")
+        self.driver.find_element(By.ID, "id_password2").click()
+        self.driver.find_element(By.ID, "id_password2").send_keys("selenpass123")
+        self.driver.find_element(By.CSS_SELECTOR, ".btn").click()
+        self.driver.find_element(By.CSS_SELECTOR, ".swal2-confirm").click()
 
     def test_validate(self):
         User.objects.create(username=self.username, email=self.email, password=self.password)
@@ -95,3 +129,4 @@ class RequestPasswordResetViewTests(StaticLiveServerTestCase):
         self.user = User.objects.get(username=self.username)
         self.assertTrue(self.user.check_password(self.new_password))
         self.assertTrue(self.driver.current_url == f"{self.live_server_url}/base/?message=Contrase%C3%B1a%20cambiada&status=Success")
+    

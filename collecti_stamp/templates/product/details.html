@@ -115,6 +115,7 @@
                 <img src="static/img/product/placeholder-image.jpg" alt="{{ product.name }}">
             {% endif %}
             <div class="description-box">
+
                 <label for="quantity"><strong>Cantidad a comprar:</strong></label>
                 {% include "product/input_quantity.html" with max=product.stock_amount %}
             </div>

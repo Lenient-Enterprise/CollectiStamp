@@ -87,7 +87,7 @@
 
         /* Estilos para el logo */
         .logo {
-            width: 40px; /* Ajusta el ancho según el tamaño deseado */
+            width: 80px; /* Ajusta el ancho según el tamaño deseado */
             height: auto; /* Esto mantiene la proporción original de la imagen */
             margin-right: 10px; /* Espacio entre el logo y el texto */
             transition: opacity 0.3s; /* Animación de transición */
@@ -119,12 +119,10 @@
     <div class="container">
         <div class="row">
                 <div class="col">
-                    <a href="#" class="logo-link"><img src="{% static 'img/logo.png' %}" alt="Logo" class="logo">Tickets</a>
-                </div>
+                    <a href="#" class="logo-link"><img src="{% static 'img/company/company_logo.png' %}" alt="Logo" class="logo">CollectiStamp</a>
                 <div class="col-7">
                     {% include "finder.html" %}
                 </div>
-
             <div class="col text-right">
                 <nav class="navbar navbar-expand-lg navbar-dark">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -145,9 +143,8 @@
                                         {{ user.username }}
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="userDropdown">
-                                        <a class="dropdown-item" href="#">Editar</a>
-                                        <a class="dropdown-item" href="{% url 'request_password_reset' %}">Cambiar
-                                            Contraseña</a>
+                                        <a class="dropdown-item" href="{% url 'edit' user_id=user.id %}">Editar</a>
+                                        <a class="dropdown-item" href="{% url 'request_password_reset' %}">Cambiar Contraseña</a>
                                         <a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesión</a>
                                         <a class="dropdown-item" href="#">Mis pedidos</a>
                                     </div>

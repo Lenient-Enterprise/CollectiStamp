@@ -47,3 +47,22 @@ class PasswordForm(forms.Form):
                 self.add_error('password', 'La contraseña debe contener al menos un carácter especial.')
 
         return cleaned_data
+class CustomUserEditionForm(forms.ModelForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name']
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if User.objects.filter(username=username).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError('El nombre de usuario ya está en uso.')
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError('El correo electrónico ya está en uso.')
+        return email
+

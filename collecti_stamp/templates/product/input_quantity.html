@@ -85,6 +85,9 @@
         let valueByDefault = parseInt(inputQuantity.value);
 
         btnIncrement.addEventListener('click', () => {
+            if (valueByDefault === {{ max }}) {
+                return;
+            }
             valueByDefault += 1;
             inputQuantity.value = valueByDefault;
         });
@@ -99,7 +102,6 @@
     });
 </script>
 
-</script>
 <script
         src="https://kit.fontawesome.com/81581fb069.js"
         crossorigin="anonymous"
