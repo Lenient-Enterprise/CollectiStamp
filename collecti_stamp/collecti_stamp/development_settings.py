@@ -4,6 +4,8 @@ from pathlib import Path
 # Set DEBUG to True for development
 DEBUG = True
 
+
+
 # Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 

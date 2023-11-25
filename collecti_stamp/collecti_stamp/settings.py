@@ -2,7 +2,6 @@ import os
 
 # Accede a la variable de enorno MODE
 MODE = os.environ.get('MODE')
-print(MODE)
 
 
 if MODE == 'production':
@@ -115,7 +114,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Default primary key field type
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField' # TODO: Cambiar por django.db.models.UUIDField
 
 # Email configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -147,3 +146,5 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',  # Using Pathlib for platform-independent path concatenation
     }
 }
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
