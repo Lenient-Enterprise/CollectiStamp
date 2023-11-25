@@ -118,19 +118,26 @@
 <header class="bg-dark text-light py-4">
     <div class="container">
         <div class="row">
-            <div class="col">
-                <a href="#" class="logo-link"><img src="{% static 'img/company/company_logo.png' %}" alt="Logo" class="logo">Tickets</a>
-            </div>
+                <div class="col">
+                    <a href="#" class="logo-link"><img src="{% static 'img/logo.png' %}" alt="Logo" class="logo">Tickets</a>
+                </div>
+                <div class="col-7">
+                    {% include "finder.html" %}
+                </div>
             <div class="col text-right">
                 <nav class="navbar navbar-expand-lg navbar-dark">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
+
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'home' %}">Inicio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'product_catalog' %}">Catálogo</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="stampsDropdown" role="button"
@@ -192,7 +199,11 @@
 <footer class="bg-dark text-light py-3 mt-auto">
     <div class="container">
         <p class="text-center">&copy; {{ year|date:"Y" }} Tickets</p>
+        <ul class="text-center">
+            <a href="{% url 'company_details' %}">Sobre nosotros</a>
+        </ul>
     </div>
+
 </footer>
 
 

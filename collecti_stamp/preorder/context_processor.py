@@ -1,6 +1,8 @@
 def total_cart(request):
     total = 0
-    if "cart" in request.session.keys():
+    if "cart" in request.session and request.session["cart"]:
         for key, value in request.session["cart"].items():
-            total += int(value["price"]) * value["amount"]
-            return {"total_cart": total}
+            total += float(value["price"]) * value["amount"]
+        return {"total_cart": total}
+    else:
+        return {"total_cart": 0}
