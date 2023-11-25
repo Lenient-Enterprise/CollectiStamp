@@ -1,0 +1,66 @@
+{% load static %}
+
+<style>
+    li.catalog-item {
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        margin: 10px;
+        padding: 20px;
+        width: 250px; /* Ajusta el ancho del elemento según tu preferencia */
+        text-align: center;
+    }
+
+    img.catalog-image {
+        max-width: 100%;
+        max-height: 150px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+
+    h2.catalog-title {
+        color: #444aa0;
+        font-size: 1.2em; /* Ajusta el tamaño de la fuente según tu preferencia */
+    }
+
+    p.catalog-description {
+        color: #555;
+        font-size: 0.9em; /* Ajusta el tamaño de la fuente según tu preferencia */
+    }
+
+    p.catalog-price {
+        color: #333;
+        font-size: 1.1em; /* Ajusta el tamaño de la fuente según tu preferencia */
+    }
+
+    a.catalog-link {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #343a40;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+        margin-top: 10px; /* Espacio entre el precio y el enlace */
+    }
+
+    a.catalog-link:hover {
+        background-color: #000000;
+    }
+</style>
+
+
+<li class="catalog-item">
+    <h2 class="catalog-title">{{ product.name }}</h2>
+    {% if product.image %}
+        <img class="catalog-image" src="{{ product.image.url }}" alt="{{ product.name }}">
+    {% else %}
+
+        <img class="catalog-image" src="{% static 'placeholder-image.jpg' %}" alt="Placeholder Image">
+    {% endif %}
+    <p class="catalog-description">Stock: {{ product.stock_amount }}</p>
+
+    <p class="catalog-price" style="font-size: 2em;">{{ product.price }} €</p>
+    {% include "product/input_quantity_mini.html" with max=product.stock_amount %}
+    <a class="catalog-link" href="{% url 'product_details' product.id %}">Ver detalles</a>
+</li>

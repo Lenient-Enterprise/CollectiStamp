@@ -7,9 +7,10 @@ from django.template.loader import get_template
 from django.urls import reverse
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.auth.decorators import login_required
 
-from collecti_stamp import settings
-from .forms import CustomUserCreationForm, EmailForm, PasswordForm
+from collecti_stamp import settings,development_settings
+from .forms import CustomUserCreationForm, EmailForm, PasswordForm,CustomUserEditionForm
 from .models import User
 from .utils import validate_email, get_user
 
@@ -21,7 +22,7 @@ def login_view(request):
         print(form.errors)
         if form.is_valid():
             login(request, form.get_user())
-            return redirect('/base')
+            return redirect('/')
     else:
         form = AuthenticationForm()
     return render(request, 'customer/login.html', {'form': form})
@@ -30,7 +31,7 @@ def login_view(request):
 # Vista para cerrar sesión
 def logout_view(request):
     logout(request)
-    return redirect('/base')
+    return redirect('/')
 
 
 # Vista para registro de usuario
@@ -51,7 +52,7 @@ def signin_view(request):
 
                 # Enviar el correo electrónico de verificación
                 template = get_template('customer/verification_email.html')
-                content = template.render({'verify_url': settings.BASEURL + verify_url, 'username': user.username})
+                content = template.render({'verify_url': development_settings.BASE_URL + verify_url, 'username': user.username})
                 message = EmailMultiAlternatives(
                     'Verificación de correo electrónico',
                     content,
@@ -61,7 +62,7 @@ def signin_view(request):
 
                 message.attach_alternative(content, 'text/html')
                 message.send()
-                return redirect('/base?message=Verificación de correo electrónico&status=Success')
+                return redirect('/?message=Verificación de correo electrónico&status=Success')
     else:
         form = CustomUserCreationForm()
     return render(request, 'customer/signin.html', {'form': form})
@@ -72,9 +73,9 @@ def verify_email(request, uidb64, token):
     if user is not None and default_token_generator.check_token(user, token):
         user.email_verified = True
         user.save()
-        return redirect('/base?message=Correo electrónico verificado&status=Success')
+        return redirect('/?message=Correo electrónico verificado&status=Success')
     else:
-        return redirect('/base?message=Correo electrónico no verificado&status=Error')
+        return redirect('/?message=Correo electrónico no verificado&status=Error')
 
 def request_password_reset(request):
     if request.method == 'POST':
@@ -99,7 +100,7 @@ def request_password_reset(request):
 
                 message.attach_alternative(content, 'text/html')
                 message.send()
-                return redirect('/base?message=Petición de cambio de contraseña enviada&status=Info')
+                return redirect('/?message=Petición de cambio de contraseña enviada&status=Info')
 
         return render(request, 'customer/request_password_reset.html', {'form': form})
     else:
@@ -114,9 +115,22 @@ def change_password(request, uidb64, token):
             if form.is_valid():
                 user.set_password(form.cleaned_data['password'])
                 user.save()
-                return redirect('/base?message=Contraseña cambiada&status=Success')
+                return redirect('/?message=Contraseña cambiada&status=Success')
         else:
             form = PasswordForm()
             return render(request, 'customer/change_password_form.html', {'form': form})
     else:
-        return redirect('/base?message=Error al cambiar la contraseña&status=Error')
+        return redirect('/?message=Error al cambiar la contraseña&status=Error')
+    
+@login_required   
+def edit_user_view(request, user_id):
+    user=get_object_or_404(User, id=user_id)
+    
+    if request.method == 'POST':
+        form = CustomUserEditionForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('/?message=Usuario editado&status=Success')
+    else:
+        form = CustomUserEditionForm(instance=user)
+    return render(request, 'customer/edit.html', {'form': form, 'user': user})
