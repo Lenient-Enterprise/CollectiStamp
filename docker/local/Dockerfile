@@ -15,6 +15,6 @@ RUN pip install -r requirements.txt
 
 WORKDIR /app/collecti_stamp
 
-RUN python manage.py collectstatic --noinput --verbosity 3
+RUN python manage.py collectstatic --noinput
 
 #CMD ["gunicorn", "-w 5", "collecti_stamp.wsgi", "--timeout=500", "-b 0.0.0.0:5000"]

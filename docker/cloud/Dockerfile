@@ -18,7 +18,7 @@ RUN git clone -b feature/deployment-of-application https://github.com/Lenient-En
 
 # install dependencies
 RUN pip install --upgrade pip
-RUN pip install -r ./collecti_stamp/requirements.txt
+RUN pip install -r ./requirements.txt
 
 WORKDIR /app/collecti_stamp
 
