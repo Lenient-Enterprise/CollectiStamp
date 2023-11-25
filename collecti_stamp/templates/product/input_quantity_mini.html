@@ -10,7 +10,15 @@
         position: relative;
     }
 
+    .input-quantity::-webkit-inner-spin-button,
+    .input-quantity::-webkit-outer-spin-button,
     .input-quantity {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .input-quantity {
+        -moz-appearance: textfield;
         background-color: #f7f7f7;
         border: none;
         padding: 10px;
@@ -66,46 +74,56 @@
 </style>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const inputQuantity = document.querySelector('.input-quantity');
-        const btnIncrement = document.querySelector('#increment');
-        const btnDecrement = document.querySelector('#decrement');
-        const amount = document.querySelector('#amount');
+        const inputQuantity = document.querySelectorAll('#input-quantity-{{ product.id }}');
+        const btnIncrement = document.querySelectorAll('#increment-{{ product.id }}');
+        const btnDecrement = document.querySelectorAll('#decrement-{{ product.id }}');
+        const amounts = document.querySelectorAll('#amount-{{ product.id }}');
 
-        let valueByDefault = parseInt(inputQuantity.value);
+        // Iterar sobre todos los elementos seleccionados
+        inputQuantity.forEach(function (input) {
+            let valueByDefault = parseInt(input.value);
 
-        btnIncrement.addEventListener('click', () => {
-            valueByDefault += 1;
-            inputQuantity.value = valueByDefault;
-            let link = amount.href.split("/");
-            link[link.length-1] = valueByDefault;
-        });
+            btnIncrement.forEach(function (btn, index) {
+                btn.addEventListener('click', () => {
+                    if (valueByDefault === parseInt(input.max)) {
+                        return;
+                    }
+                    valueByDefault += 1;
+                    input.value = valueByDefault;
+                    let link = amounts[index].href.split("/");
+                    link[link.length - 2] = valueByDefault;
+                    console.log(link);
+                    amounts[index].href = link.join("/");
+                });
+            });
 
-        btnDecrement.addEventListener('click', () => {
-            if (valueByDefault === 1) {
-                return;
-            }
-            valueByDefault -= 1;
-            inputQuantity.value = valueByDefault;
-            let link = amount.href.split("/");
-            link[link.length-1] = valueByDefault;
-            amount.href = link.join("/");
+            btnDecrement.forEach(function (btn, index) {
+                btn.addEventListener('click', () => {
+                    if (valueByDefault === 1) {
+                        return;
+                    }
+                    valueByDefault -= 1;
+                    input.value = valueByDefault;
+                    let link = amounts[index].href.split("/");
+                    link[link.length - 2] = valueByDefault;
+                    amounts[index].href = link.join("/");
+                });
+            });
         });
     });
-
-
 </script>
 <script src="https://kit.fontawesome.com/81581fb069.js" crossorigin="anonymous"></script>
 <div class="container-add-cart">
     <div class="container-quantity">
-        <input type="number" placeholder="1" value="1" min="1" max="{{ max }}" class="input-quantity" />
+        <input type="number" placeholder="1" value="1" min="1" max="{{ max }}" class="input-quantity" id="input-quantity-{{ product.id }}"/>
         <div class="btn-increment-decrement">
-            <i class="fa-solid fa-chevron-up" id="increment"></i>
-            <i class="fa-solid fa-chevron-down" id="decrement"></i>
+            <i class="fa-solid fa-chevron-up" id="increment-{{ product.id }}"></i>
+            <i class="fa-solid fa-chevron-down" id="decrement-{{ product.id }}"></i>
         </div>
     </div>
     <button class="btn-add-to-cart">
         <i class="fa-solid fa-plus"></i>
-        <a href={% url 'add_product' product.id 1 %} id="amount" class="btn btn-primary">Añadir</a>
+        <a href={% url 'add_product' product.id 1 %} id="amount-{{ product.id }}" class="btn btn-primary">Añadir</a>
     </button>
 </div>
 
