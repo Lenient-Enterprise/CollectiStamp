@@ -1,5 +1,5 @@
 import os
-from collecti_stamp.settings import *
+from pathlib import Path
 
 # Set DEBUG to False in production
 DEBUG = False
@@ -31,6 +31,9 @@ APIS = {
     'app': BASE_URL,
     'customer': BASE_URL,
 }
+
+# Build paths inside the project
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Static files configuration
 STATICFILES_DIRS = [

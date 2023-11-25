@@ -4,6 +4,9 @@
 import os
 import sys
 
+from collecti_stamp import settings
+
+
 def set_mode_settings():
     """Set Django settings module based on the --mode argument."""
     if "--mode" in sys.argv:
@@ -14,7 +17,7 @@ def set_mode_settings():
             sys.argv.pop(mode_index)  # Remove the mode value
 
             if mode_value == "production" or mode_value == "development" or mode_value == "deployment":
-                os.environ['DJANGO_SETTINGS_MODULE'] = f'collecti_stamp.{mode_value}_settings'
+                os.environ['MODE'] = mode_value
             else:
                 raise ValueError("Invalid value for --mode.")
 
@@ -22,11 +25,15 @@ def set_mode_settings():
             print("Error: Specify a value for --mode.")
             sys.exit(1)
     else:
-        os.environ['DJANGO_SETTINGS_MODULE'] = 'collecti_stamp.development_settings'
+        # Añade al entorno el modo
+        print("hola")
+        os.environ['MODE'] = "development"
 
 def main():
     """Run administrative tasks."""
+    print("hola")
     set_mode_settings()
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'collecti_stamp.settings'
 
     try:
         from django.core.management import execute_from_command_line
