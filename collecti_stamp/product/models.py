@@ -31,7 +31,7 @@ class Product(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    price = models.DecimalField(max_digits=7, decimal_places=2)
     stock_amount = models.IntegerField(validators=[
             MinValueValidator(limit_value=0, message='La cantidad no puede ser negativa.'),
             MaxValueValidator(limit_value=999, message='La cantidad no puede ser mayor que 999.'),
