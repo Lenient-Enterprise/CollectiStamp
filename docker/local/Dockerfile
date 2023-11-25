@@ -10,11 +10,11 @@ RUN pip install ipython
 
 WORKDIR /app
 
-RUN git clone -d feature/deployment-of-application https://github.com/Lenient-Enterprise/CollectiStamp.git /app
+RUN git clone -b feature/deployment-of-application https://github.com/Lenient-Enterprise/CollectiStamp.git /app
 RUN pip install -r requirements.txt
 
 WORKDIR /app/collecti_stamp
 
-RUN python manage.py collectstatic --noinput
+RUN python manage.py collectstatic --noinput --verbosity 3
 
 #CMD ["gunicorn", "-w 5", "collecti_stamp.wsgi", "--timeout=500", "-b 0.0.0.0:5000"]
