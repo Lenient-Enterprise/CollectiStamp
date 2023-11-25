@@ -1,3 +1,5 @@
+from django.conf import settings
+
 class Cart:
     def __init__(self, request):
         self.request = request
@@ -13,11 +15,14 @@ class Cart:
     def add_product(self, product, amount=1):
         product_id = str(product.id)
         if product_id not in self.cart.keys():
+            image_url = settings.MEDIA_URL + str(product.image) if product.image else None
             self.cart[product_id] = {
                 "product_id": product_id,
                 "name": product.name,
                 "price": float(product.price),
                 "amount": amount,
+                "image": image_url,
+                "stock_amount":product.stock_amount,
             }
         else:
             self.cart[product_id]["amount"] += amount
