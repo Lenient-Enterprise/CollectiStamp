@@ -1,15 +1,43 @@
 import os
+from pathlib import Path
 
 # Accede a la variable de enorno MODE
 MODE = os.environ.get('MODE')
 
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-if MODE == 'production':
-    from collecti_stamp.production_settings import *
-elif MODE == 'deployment':
-    from collecti_stamp.deployment_settings import *
-else:
-    from collecti_stamp.development_settings import *
+DEBUG = True
+ALLOWED_HOSTS = ['*']
+
+
+if MODE == 'deployment':
+    STATIC_URL = '/static/'
+    STATIC_ROOT = '/app/static'
+    # BASE_URL = 'https://{}'.format(os.environ.get('OKTETO_URL'))
+    BASE_URL = 'http://10.5.0.1:8000'
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('DB_NAME', 'postgres'),
+            'USER': os.environ.get('DB_USER', 'postgres'),
+            'PASSWORD': os.environ.get('DB_PASSWORD', 'postgres'),
+            'HOST': os.environ.get('DB_HOST', 'db'),
+            'PORT': 5432,
+        }
+    }
+    MEDIA_ROOT = '/app/static/media/'
+elif MODE == 'development':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',  # Using Pathlib for platform-independent path concatenation
+        }
+    }
+
+    CSRF_TRUSTED_ORIGINS = ['http://10.5.0.1:8000', 'http://localhost:8000']
+    BASE_URL = 'http://localhost:8000'
+
+
 
 # Custom user model
 AUTH_USER_MODEL = 'customer.User'
@@ -18,8 +46,6 @@ AUTH_USER_MODEL = 'customer.User'
 
 # Quick-start development settings
 SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
-
-ALLOWED_HOSTS = []
 
 # Installed applications
 INSTALLED_APPS = [

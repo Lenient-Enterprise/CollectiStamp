@@ -12,9 +12,10 @@ import os
 from django.core.wsgi import get_wsgi_application
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'collecti_stamp.settings'
-if os.environ.get('RENDER_EXTERNAL_HOSTNAME'):
+if os.environ.get('OKTETO'):
     os.environ.setdefault('MODE', 'production')
 else:
     os.environ.setdefault('MODE', 'deployment')
 
+print('MODE: {}'.format(os.environ.get('MODE')))
 application = get_wsgi_application()
