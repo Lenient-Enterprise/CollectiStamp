@@ -13,8 +13,6 @@ ALLOWED_HOSTS = ['*']
 if MODE == 'deployment':
     STATIC_URL = '/static/'
     STATIC_ROOT = '/app/static'
-    # BASE_URL = 'https://{}'.format(os.environ.get('OKTETO_URL'))
-    BASE_URL = 'http://10.5.0.1:8000'
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -53,6 +51,7 @@ INSTALLED_APPS = [
     'material.admin',
     # 'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
