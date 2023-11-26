@@ -25,7 +25,7 @@ class DeliveryMethod(models.TextChoices):
 
 class Order(models.Model):
     id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey
+    user_email = models.EmailField()
     order_date = models.DateField()
     order_total = models.DecimalField(max_digits=7, decimal_places=2)
     order_is_finished = models.BooleanField(default=False)
