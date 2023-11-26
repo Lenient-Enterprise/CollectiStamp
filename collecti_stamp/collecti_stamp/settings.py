@@ -24,6 +24,8 @@ if MODE == 'deployment':
         }
     }
     MEDIA_ROOT = '/app/static/media/'
+    BASE_URL = 'http://localhost:8000'
+
 elif MODE == 'development':
     DATABASES = {
         'default': {

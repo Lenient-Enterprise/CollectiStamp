@@ -10,11 +10,15 @@ RUN pip install ipython
 
 WORKDIR /app
 
-RUN git clone -b feature/deployment-of-application https://github.com/Lenient-Enterprise/CollectiStamp.git /app
+RUN git clone -b feature/actions https://github.com/Lenient-Enterprise/CollectiStamp.git /app
 RUN pip install -r requirements.txt
 
 WORKDIR /app/collecti_stamp
 
 RUN python manage.py collectstatic
 
-#CMD ["gunicorn", "-w 5", "collecti_stamp.wsgi", "--timeout=500", "-b 0.0.0.0:5000"]
+RUN python manage.py makemigrations
+
+RUN python manage.py migrate
+
+CMD ["gunicorn", "-w 5", "collecti_stamp.wsgi", "--timeout=500", "-b 0.0.0.0:5000"]
