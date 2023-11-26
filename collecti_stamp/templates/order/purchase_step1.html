@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Compra - Paso 1</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>Confirmación de Compra - Paso 1</h2>
+
+    <h3>Productos Comprados</h3>
+    <ul class="list-group">
+        {% for product in order_products %}
+            <li class="list-group-item">{{ product.product_id.nombre }} - Cantidad: {{ product.quantity }} - Precio: ${{ product.product_id.precio }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Selecciona un Método de Pago</h3>
+    <form method="post" action="{% url 'paso_siguiente' order_id %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="payment_method">Método de Pago:</label>
+            <select class="form-control" id="payment_method" name="payment_method">
+                {% for method in payment_methods %}
+                    <option value="{{ method.0 }}">{{ method.1 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Pasar al Siguiente Paso</button>
+    </form>
+</div>
+
+</body>
+</html>
