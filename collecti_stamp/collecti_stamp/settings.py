@@ -8,6 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = True
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['http://10.5.0.1:8000', 'http://localhost:8000', 'https://nginx-proxy-alesanfe.cloud.okteto.net/']
 
 
 if MODE == 'deployment':
@@ -25,7 +26,7 @@ if MODE == 'deployment':
         }
     }
     MEDIA_ROOT = '/app/static/media/'
-    BASE_URL = 'http://localhost:8000'
+
 
 elif MODE == 'development':
     DATABASES = {
@@ -35,7 +36,7 @@ elif MODE == 'development':
         }
     }
 
-    CSRF_TRUSTED_ORIGINS = ['http://10.5.0.1:8000', 'http://localhost:8000']
+
 
 
 

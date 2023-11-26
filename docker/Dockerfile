@@ -16,6 +16,11 @@ RUN apk add --no-cache \
         python3-dev \
         build-base
 
+RUN pip install gunicorn
+RUN pip install psycopg2
+RUN pip install ipdb
+RUN pip install ipython
+
 # Crear directorio de trabajo
 WORKDIR /app
 
@@ -23,11 +28,8 @@ WORKDIR /app
 RUN git clone -b feature/actions https://github.com/Lenient-Enterprise/CollectiStamp.git /app
 
 # Instalar dependencias Python
-RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install gunicorn
-RUN pip install psycopg2
-RUN pip install ipdb
-RUN pip install ipython
+RUN pip install -r requirements.txt
+
 
 # Cambiar al directorio del proyecto
 WORKDIR /app/collecti_stamp

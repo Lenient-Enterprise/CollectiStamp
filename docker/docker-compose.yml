@@ -21,7 +21,7 @@ services:
         context: .
         dockerfile: Dockerfile
     image: collecti_stamp_web:latest
-    command: ash -c "python manage.py makemigrations && python manage.py migrate && gunicorn -w 5 collecti_stamp.wsgi --timeout=500 -b 0.0.0.0:5000"
+    command: ash -c "pip install gunicorn && python manage.py makemigrations && python manage.py migrate && gunicorn -w 5 collecti_stamp.wsgi --timeout=500 -b 0.0.0.0:5000"
     expose:
       - "5000"
     volumes:
@@ -53,10 +53,12 @@ services:
 volumes:
   # Volumen para archivos estáticos
   collecti_stamp_static:
+    external: true
     name: collecti_stamp_static
 
   # Volumen para la base de datos
   collecti_stamp_db:
+    external: true
     name: collecti_stamp_db
 
 networks:
