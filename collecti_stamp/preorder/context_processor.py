@@ -3,6 +3,6 @@ def total_cart(request):
     if "cart" in request.session and request.session["cart"]:
         for key, value in request.session["cart"].items():
             total += float(value["price"]) * value["amount"]
-        return {"total_cart": total}
+        return {"total_cart": round(total, 2)}
     else:
         return {"total_cart": 0}
