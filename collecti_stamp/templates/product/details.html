@@ -148,6 +148,53 @@
             color: #777;
         }
 
+
+        .add-review-section {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .add-review-section h2 {
+            color: #333;
+            font-size: 1.5em;
+        }
+
+        .add-review-section form {
+            margin-top: 15px;
+        }
+
+        .add-review-section label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .add-review-section input[type="text"],
+        .add-review-section textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .add-review-section button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .add-review-section button:hover {
+            background-color: #0056b3;
+        }
+
     </style>
 
     <div class="container2">
@@ -181,6 +228,14 @@
     </div>
 
 <div class="reviews-section">
+    <div class="add-review-section">
+        <h2>Añadir Reseña</h2>
+        <form method="post" action="{% url 'product_details' product.id %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+            <button type="submit">Añadir Reseña</button>
+        </form>
+    </div>
     <h1>Reseñas del Producto</h1>
     {% if product.productreview_set.all %}
         <ul class="reviews-list">

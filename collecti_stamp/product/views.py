@@ -1,12 +1,23 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from .models import Product
 from .models import Criteria
 from .models import ProductReview
+from .forms import ProductReviewForm
 
-def product_details(request, product_id):  # Change the parameter name
+def product_details(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
-    return render(request, 'product/details.html', {'product': product})
+    if request.method == 'POST':
+        form = ProductReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.product = product
+            review.save()
+            return redirect('product_details', product_id=product_id)
+    else:
+        form = ProductReviewForm()
+
+    return render(request, 'product/details.html', {'product': product, 'form': form})
 
 
 from django.db.models import Q
