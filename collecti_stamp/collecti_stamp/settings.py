@@ -13,6 +13,7 @@ ALLOWED_HOSTS = ['*']
 if MODE == 'deployment':
     STATIC_URL = '/static/'
     STATIC_ROOT = '/app/static'
+    STATICFILES_DIRS = ['/app/static']
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
