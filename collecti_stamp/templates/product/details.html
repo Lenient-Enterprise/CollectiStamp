@@ -104,6 +104,49 @@
             color: white;
             border-radius: 2px;
         }
+        .reviews-section {
+            margin-top: 20px;
+        }
+
+        .reviews-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .review-item {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .review-header strong {
+            font-size: 1.2em;
+        }
+
+        .review-date {
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        .review-description {
+            font-size: 1em;
+            line-height: 1.4;
+        }
+
+        .no-reviews {
+            font-style: italic;
+            color: #777;
+        }
 
     </style>
 
@@ -136,5 +179,25 @@
             {% include "product/expand_text.html" with title="Descripción" description=product.description %}
         </div>
     </div>
+
+<div class="reviews-section">
+    <h1>Reseñas del Producto</h1>
+    {% if product.productreview_set.all %}
+        <ul class="reviews-list">
+            {% for review in product.productreview_set.all %}
+                <li class="review-item">
+                    <div class="review-header">
+                        <strong>{{ review.username }}</strong>
+                        <p class="review-date">Fecha: {{ review.date }}</p>
+                    </div>
+                    <p class="review-name">{{ review.name }}</p>
+                    <p class="review-description">{{ review.description }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="no-reviews">No hay reseñas para este producto.</p>
+    {% endif %}
+</div>
 
 {% endblock %}

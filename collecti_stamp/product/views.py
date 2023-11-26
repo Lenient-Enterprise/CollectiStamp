@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 
 from .models import Product
 from .models import Criteria
-
+from .models import ProductReview
 
 def product_details(request, product_id):  # Change the parameter name
     product = get_object_or_404(Product, pk=product_id)
@@ -26,5 +26,6 @@ def product_catalog(request):
     if criteria3:
         products = products.filter(criteria__id=criteria3)
 
-    return render(request, 'product/product_catalog.html', {'products': products, 'criteria': criteria})
+    reviews = ProductReview.objects.filter(product=1)
 
+    return render(request, 'product/product_catalog.html', {'products': products, 'criteria': criteria, reviews: reviews})
