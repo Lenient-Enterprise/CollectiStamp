@@ -7,7 +7,7 @@
       "username": "Alicia",
       "description": "Me ha gustado la moneda, recomendada para el resto de coleccionistas.",
       "product": 1,
-      "date": "2018-01-01T00:00:00Z"
+      "date": "2018-01-01T00:16:44Z"
     }
   },
     {
@@ -18,7 +18,7 @@
       "username": "Benito",
       "description": "Encontré la misma moneda en otra tienda a mitad del precio de la que se vende en esta.",
       "product": 1,
-      "date": "2018-01-02T00:00:00Z"
+      "date": "2018-01-02T00:07:30Z"
     }
   },
   {
@@ -29,7 +29,7 @@
       "username": "Anónimo",
       "description": "¿Si compro una cantidad elevada se me realizará un descuento?",
       "product": 1,
-      "date": "2018-01-03T00:00:00Z"
+      "date": "2018-01-03T00:21:04Z"
     }
   },
   {
@@ -40,7 +40,7 @@
       "username": "Anónimo",
       "description": "¿Cuándo habrá más monedas disponibles en tienda?",
       "product": 1,
-      "date": "2018-01-01T00:00:02Z"
+      "date": "2018-01-01T00:17:22Z"
     }
   },
   {
@@ -51,7 +51,7 @@
       "username": "Eva",
       "description": "La moneda es un poco más grande de lo que parecía en la foto y pesa bastante, aun así es preciosa y estoy segura de que a mi esposo le encantará.",
       "product": 1,
-      "date": "2018-01-06T00:00:00Z"
+      "date": "2018-01-06T00:15:21Z"
     }
   }
 ]
