@@ -62,7 +62,12 @@
     {% if request.session.cart.items %}
         <div class="row text-center">
             <div class="col-6"><a href="{% url 'delete_cart' %}" class="btn btn-danger">Limpiar carro</a></div>
-            <div class="col-6"><a href="#" class="btn btn-success">Realizar pago</a></div>
+            <div class="col-6">
+                <form method="post" action="{% url 'finish_order' %}">
+                    {% csrf_token %}
+                    <input type="submit" value="Realizar pago" class="btn btn-success">
+                </form>
+            </div>
         </div>
     <hr>
     {% endif %}
