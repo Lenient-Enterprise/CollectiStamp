@@ -49,7 +49,6 @@ elif MODE == 'development':
 else:
     DEBUG = False
     RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-    ALLOWED_HOSTS = [RENDER_EXTERNAL_HOSTNAME] if RENDER_EXTERNAL_HOSTNAME else ['*']
     SECRET_KEY = os.environ.get('SECRET_KEY')
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
