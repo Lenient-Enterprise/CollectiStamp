@@ -110,6 +110,8 @@
             margin-bottom: 5px;
         }
     </style>
+    {% block scripts %}
+    {% endblock %}
 </head>
 
 <body>
@@ -117,7 +119,8 @@
     <div class="container">
         <div class="row">
                 <div class="col">
-                    <a href="#" class="logo-link"><img src="{% static 'img/company/company_logo.png' %}" alt="Logo" class="logo">CollectiStamp</a>
+                    <a href="#" class="logo-link"><img src="{% static 'img/logo.png' %}" alt="Logo" class="logo">Tickets</a>
+                </div>
                 <div class="col-7">
                     {% include "finder.html" %}
                 </div>
@@ -135,9 +138,6 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'product_catalog' %}">Catálogo</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'view_cart' %}">Mi cesta</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="stampsDropdown" role="button"

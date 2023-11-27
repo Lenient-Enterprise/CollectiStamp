@@ -12,6 +12,7 @@ def filter_product(request):
     name = request.GET.get('name')
 
     if product_type:
+        print(product_type)
         products = products.filter(product_type=product_type)
 
     if name:

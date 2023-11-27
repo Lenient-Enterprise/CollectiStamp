@@ -6,7 +6,7 @@
       "name": "Moneda de plata con diseño de Kioto",
       "description": "Esta moneda es una moneda de plata acuñada por Japón, el país insular más poblado de Asia Oriental, situado en el océano Pacífico. La moneda tiene un diseño de la ciudad de Kioto, la antigua capital y la ciudad más histórica de Japón. El diseño muestra el templo Kinkaku-ji, el pabellón de oro cubierto de hojas de oro, y el castillo Nijo, la residencia del shogun Tokugawa. El reverso de la moneda tiene el escudo nacional de Japón y el valor nominal de 1000 yenes.",
       "price": "129.99",
-      "stock_amount": "0",
+      "stock_amount": "5",
       "product_type": "COIN",
       "category": "ANCIENT",
       "criteria": [3, 10, 16, 19, 22],
@@ -347,118 +347,6 @@
       "category": "VIDEOGAME",
       "criteria": [3, 12, 15, 19, 23],
       "image": "static/img/product/moneda_trifuerza.jpg"
-    }
-  },
-  {
-    "model": "product.Product",
-    "pk": 26,
-    "fields": {
-      "name": "Sello Artozka",
-      "description": "Este sello de Artozka es una pieza majestuosa, adornada con intrincados detalles que capturan la esencia de un país ficticio. El diseño presenta un águila estilizada en tonos dorados y verdes, rodeada por patrones ornamentales que evocan una sensación de elegancia y poder. El nombre “ARTOZKA” se destaca en letras blancas audaces contra un fondo verde oscuro, creando un contraste visual impactante. Este sello sería una adición valiosa para cualquier coleccionista apasionado por los diseños intricados y las piezas únicas. ",
-      "price": "7.99",
-      "stock_amount": "4",
-      "product_type": "SEAL",
-      "category": "VIDEOGAME",
-      "criteria": [1,19],
-      "image": "static/img/product/sello_artozka.jpg"
-    }
-  },
-  {
-    "model": "product.Product",
-    "pk": 27,
-    "fields": {
-      "name": "Sello Joanvic",
-      "description": "Este sello es una ilustración en blanco y negro que representa un paisaje nocturno estilizado y monocromático, con dos planetas prominentes en el cielo estrellado, rodeados de terreno ondulado y formaciones rocosas. El sello es una pieza artística y mística, que evoca un mundo fantástico y lejano. El sello tiene una forma circular y está impreso en papel de alta calidad. El valor nominal del sello es de 20 galaxias, la moneda ficticia del juego Galaxia, del que se inspira el diseño. El sello es una edición limitada y exclusiva, que solo se puede encontrar en nuestra tienda. Si eres un fan de los juegos de ciencia ficción y de las ilustraciones detalladas, no puedes dejar pasar este sello que te hará soñar con otros mundos.\n ",
-      "price": "4.99",
-      "stock_amount": "87",
-      "product_type": "SEAL",
-      "category": "HISTORICAL",
-      "criteria": [19],
-      "image": "static/img/product/sello_paisaje.jpg"
-    }
-  },
-  {
-    "model": "product.Product",
-    "pk": 28,
-    "fields": {
-      "name": "Sello Hollow Knight",
-      "description": "Este sello de Hollow Knight es una pieza inspirada en el videojuego del mismo nombre, creado por el estudio independiente Team Cherry. El sello presenta una ilustración en negro del personaje principal, Hollow Knight, un caballero insecto que explora un vasto mundo subterráneo lleno de secretos y peligros. El diseño es simple y elegante, utilizando líneas negras audaces para definir la forma y los detalles del personaje. El fondo del sello es de color crema claro, creando un contraste con el diseño central. El sello tiene una forma redonda con bordes irregulares, similar a un sello de cera, que le da un toque antiguo y misterioso. El sello mide 3 cm de diámetro y tiene un valor nominal de 10 geo, la moneda del juego. (editado)\n",
-      "price": "1.99",
-      "stock_amount": "27",
-      "product_type": "SEAL",
-      "category": "VIDEOGAME",
-      "criteria": [20],
-      "image": "static/img/product/sello_hollowknight.jpg"
-    }
-  },
-  {
-    "model": "product.Product",
-    "pk": 29,
-    "fields": {
-      "name": "Sello de Out of the Night",
-      "description": "Este sello es un diseño inspirado en el cómic Out of the Night, una serie de terror y suspenso publicada entre 1952 y 1954 por la editorial American Comics Group. El sello muestra una escena de una ciudad con rascacielos y un murciélago volando en el cielo, rodeado por un borde decorativo con texto. El texto dice “OUT OF THE NIGHT” y “8”, que es el número del cómic del que se tomó la imagen. El sello es redondo, con un diseño detallado en negro sobre un fondo blanco. El sello tiene un valor nominal de 25 centavos, y es una pieza de colección para los amantes del género de terror y de los cómics clásicos. El sello es una edición limitada y exclusiva, que solo se puede encontrar en nuestra tienda. No te pierdas este sello que te hará sentir el escalofrío de las historias de Out of the Night.",
-      "price": "21.99",
-      "stock_amount": "6",
-      "product_type": "SEAL",
-      "category": "HISTORICAL",
-      "criteria": [21],
-      "image": "static/img/product/sello_ciudad.jpg"
-    }
-  },
-  {
-    "model": "product.Product",
-    "pk": 30,
-    "fields": {
-      "name": "Sello Místico",
-      "description": "El diseño muestra un símbolo que consiste en una combinación de triángulos y formas aladas, rodeado por círculos concéntricos adornados con patrones y caracteres que parecen ser de un lenguaje no identificado o estilizado. El diseño tiene una estética antigua o mística, similar a los sellos o emblemas encontrados en la literatura de fantasía.",
-      "price": "14.99",
-      "stock_amount": "3",
-      "product_type": "SEAL",
-      "category": "HISTORICAL",
-      "criteria": [20],
-      "image": "static/img/product/sello_hyrule.jpg"
-    }
-  },
-  {
-    "model": "product.Product",
-    "pk": 31,
-    "fields": {
-      "name": "Sello de Anime",
-      "description": "El sello es una pieza de colección para los fans de Bleach, el manga y anime que narra las aventuras de Ichigo Kurosaki, un joven que se convierte en shinigami y lucha contra las amenazas sobrenaturales. El sello es una edición limitada y exclusiva, que solo se puede encontrar en nuestra tienda. No te pierdas este sello que te hará sentir la magia y la acción de Soul Society.",
-      "price": "2.99",
-      "stock_amount": "31",
-      "product_type": "SEAL",
-      "category": "NOVELTY",
-      "criteria": [20],
-      "image": "static/img/product/sello_sociedad.jpg"
-    }
-  },
-  {
-    "model": "product.Product",
-    "pk": 32,
-    "fields": {
-      "name": "Sello usado de España",
-      "description": "Un sello antiguo usado de España. Se conserva en buen estado, aunque el pegamento ha sido gastado con el paso del tiempo.",
-      "price": "0.79",
-      "stock_amount": "1",
-      "product_type": "SEAL",
-      "category": "HISTORICAL",
-      "criteria": [20],
-      "image": "static/img/product/sello_espana.jpg"
-    }
-  },
-  {
-    "model": "product.Product",
-    "pk": 33,
-    "fields": {
-      "name": "Sello Paisaje Montañas",
-      "description": "Un hermoso sello creado delicamente que muestra un hermoso paisaje. Mide 10 cm de diámetro. Disponible en negro, rojo, azul y verde.",
-      "price": "14.49",
-      "stock_amount": "11",
-      "product_type": "SEAL",
-      "category": "ANCIENT",
-      "criteria": [20],
-      "image": "static/img/product/sello_valle.jpg"
     }
   }
 
