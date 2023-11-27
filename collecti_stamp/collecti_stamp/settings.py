@@ -2,7 +2,6 @@ import os
 
 # Accede a la variable de enorno MODE
 MODE = os.environ.get('MODE')
-print(MODE)
 
 
 if MODE == 'production':
