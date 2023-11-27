@@ -6,8 +6,8 @@ import dj_database_url
 
 # Access the environment variable MODE
 MODE = os.environ.get('MODE')
-
 ROOT_URLCONF = 'collecti_stamp.urls'
+DEBUG = True
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
