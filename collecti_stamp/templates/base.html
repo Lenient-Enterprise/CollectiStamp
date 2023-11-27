@@ -135,6 +135,30 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'home' %}">Inicio</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'product_catalog' %}">Catálogo</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'view_cart' %}">Mi cesta</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="stampsDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Sellos
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="stampsDropdown">
+                                    <a class="dropdown-item" href="#">Mis sellos</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="stampsDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Monedas
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="stampsDropdown">
+                                    <a class="dropdown-item" href="#">Mis monedas</a>
+                                </div>
+                            </li>
                             {% if user.is_authenticated %}
 
                                 <li class="nav-item dropdown">
@@ -177,7 +201,11 @@
 <footer class="bg-dark text-light py-3 mt-auto">
     <div class="container">
         <p class="text-center">&copy; {{ year|date:"Y" }} Tickets</p>
+        <ul class="text-center">
+            <a href="{% url 'company_details' %}">Sobre nosotros</a>
+        </ul>
     </div>
+
 </footer>
 
 

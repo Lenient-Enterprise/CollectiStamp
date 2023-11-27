@@ -1,21 +1,52 @@
 {% extends "base.html" %}
 
-{% block title %}Tickets{% endblock %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-6 offset-md-3">
-        <h2 class="mb-4">Solicitar Ticket</h2>
-        <form method="POST">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="ticket_id">UUID del Ticket:</label>
-                <input type="text" class="form-control" id="ticket_id" name="ticket_id" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Solicitar</button>
-        </form>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .store-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #e6f7ff; /* Cambia el color de fondo a tu preferencia */
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        ul.catalog-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px; /* Añade espacio entre las tarjetas */
+        }
+    </style>
+
+    <div class="store-container">
+        <h1>Bienvenido a la tienda</h1>
+        <ul class="catalog-list">
+            {% for product in products %}
+                {% include "product/product_card.html"%}
+            {% endfor %}
+        </ul>
     </div>
-</div>
 {% endblock %}
+
+
 
 

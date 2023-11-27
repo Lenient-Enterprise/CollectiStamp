@@ -2,7 +2,6 @@ import os
 
 # Accede a la variable de enorno MODE
 MODE = os.environ.get('MODE')
-print(MODE)
 
 
 if MODE == 'production':
@@ -80,6 +79,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'preorder.context_processor.total_cart',
             ],
         },
     },

@@ -26,12 +26,10 @@ def set_mode_settings():
             sys.exit(1)
     else:
         # Añade al entorno el modo
-        print("hola")
         os.environ['MODE'] = "development"
 
 def main():
     """Run administrative tasks."""
-    print("hola")
     set_mode_settings()
     os.environ['DJANGO_SETTINGS_MODULE'] = 'collecti_stamp.settings'
 
