@@ -6,8 +6,8 @@ from product.models import *
 
 class PaymentMethod(models.TextChoices):
 
-    METHOD_A = 'A', 'A'
-    METHOD_B = 'B', 'B'
+    CASH_ON_DELIVERY = 'CASH_ON_DELIVERY', 'Contrarrembolso'
+    PAYMENT_GATEWAY = 'PAYMENT_GATEWAY', 'Pasarelas de Pago'
     METHOD_C = 'C', 'C'
 
 
@@ -29,9 +29,9 @@ class Order(models.Model):
     order_date = models.DateField()
     order_total = models.DecimalField(max_digits=7, decimal_places=2)
     order_is_finished = models.BooleanField(default=False)
-    payment_method = models.CharField(max_length=15, choices=PaymentMethod.choices)
-    delivery_status = models.CharField(max_length=15, choices=DeliveryStatus.choices)
-    delivery_method = models.CharField(max_length=15, choices=DeliveryMethod.choices)
+    payment_method = models.CharField(max_length=20, choices=PaymentMethod.choices)
+    delivery_status = models.CharField(max_length=20, choices=DeliveryStatus.choices)
+    delivery_method = models.CharField(max_length=20, choices=DeliveryMethod.choices)
     delivery_cost = models.DecimalField(max_digits=7, decimal_places=2)
     delivery_address = models.TextField(max_length=500)
 
