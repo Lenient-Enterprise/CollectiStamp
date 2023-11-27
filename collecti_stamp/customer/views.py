@@ -8,7 +8,6 @@ from django.template.loader import get_template
 from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-from django.contrib.sites.models import Site
 
 from .forms import CustomUserCreationForm, EmailForm, PasswordForm, CustomUserEditionForm
 from .models import User
@@ -53,7 +52,7 @@ def signin_view(request):
 
                 # Enviar el correo electrónico de verificación
                 template = get_template('customer/verification_email.html')
-                content = template.render({'verify_url': Site.objects.get_current() + verify_url, 'username': user.username})
+                content = template.render({'verify_url': request.build_absolute_uri('/') + verify_url, 'username': user.username})
                 message = EmailMultiAlternatives(
                     'Verificación de correo electrónico',
                     content,
@@ -91,7 +90,7 @@ def request_password_reset(request):
 
                 template = get_template('customer/password_email.html')
                 content = template.render(
-                    {'new_password_url': Site.objects.get_current() + new_password_url, 'username': user.username})
+                    {'new_password_url': request.build_absolute_uri('/') + new_password_url, 'username': user.username})
                 message = EmailMultiAlternatives(
                     'Cambio de contraseña',
                     content,
