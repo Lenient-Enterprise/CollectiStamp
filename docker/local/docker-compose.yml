@@ -53,12 +53,10 @@ services:
 volumes:
   # Volumen para archivos estáticos
   collecti_stamp_static:
-    external: true
     name: collecti_stamp_static
 
   # Volumen para la base de datos
   collecti_stamp_db:
-    external: true
     name: collecti_stamp_db
 
 networks:
