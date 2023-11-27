@@ -1,7 +1,11 @@
 from collecti_stamp.settings import *
+from pathlib import Path
 
 # Set DEBUG to True for development
 DEBUG = True
+
+# Build paths inside the project
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SQLite database configuration
 DATABASES = {
@@ -11,5 +15,6 @@ DATABASES = {
     }
 }
 
+
 # Base URL for the application
-BASE_URL = 'http://localhost:8080'
+BASE_URL = 'http://localhost:8000'

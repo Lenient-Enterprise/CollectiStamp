@@ -1,11 +1,20 @@
 import os
-from pathlib import Path
+
+# Accede a la variable de enorno MODE
+MODE = os.environ.get('MODE')
+
+
+if MODE == 'production':
+    from collecti_stamp.production_settings import *
+elif MODE == 'deployment':
+    from collecti_stamp.deployment_settings import *
+else:
+    from collecti_stamp.development_settings import *
 
 # Custom user model
 AUTH_USER_MODEL = 'customer.User'
 
-# Build paths inside the project
-BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 # Quick-start development settings
 SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
@@ -70,6 +79,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'preorder.context_processor.total_cart',
             ],
         },
     },

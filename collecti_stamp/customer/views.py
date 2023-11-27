@@ -19,7 +19,6 @@ from .utils import validate_email, get_user
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
-        print(form.errors)
         if form.is_valid():
             login(request, form.get_user())
             return redirect('/')
@@ -129,23 +128,8 @@ def edit_user_view(request, user_id):
     if request.method == 'POST':
         form = CustomUserEditionForm(request.POST, instance=user)
         if form.is_valid():
-            user = form.save()
-            if validate_email(user.email):
-                token = default_token_generator.make_token(user)
-                uid = urlsafe_base64_encode(force_bytes(user.pk))
-                verify_url = reverse('verify_email', args=[uid, token])
-                template = get_template('customer/verification_email.html')
-                content = template.render({'verify_url': development_settings.BASE_URL + verify_url, 'username': user.username})
-                message = EmailMultiAlternatives(
-                    'Verificación de correo electrónico',
-                    content,
-                    settings.EMAIL_HOST_USER,
-                    [user.email]
-                )
-
-                message.attach_alternative(content, 'text/html')
-                message.send()
-                return redirect('/?message=Verificación de correo electrónico&status=Success')
+            form.save()
+            return redirect('/?message=Usuario editado&status=Success')
     else:
         form = CustomUserEditionForm(instance=user)
     return render(request, 'customer/edit.html', {'form': form, 'user': user})
