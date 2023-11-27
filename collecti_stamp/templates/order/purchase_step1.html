@@ -1,8 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "base.html" %}
+
+{% block title %}Inicio de Sesión{% endblock %}
+
+{% block content %}
     <title>Confirmación de Compra - Paso 1</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -10,7 +10,7 @@
             background-color: #f8f9fa;
         }
 
-        .container {
+        .container3 {
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -48,7 +48,7 @@
 </head>
 <body>
 
-<div class="container mt-5">
+<div class="container3 mt-5">
     <h2>Confirmación de Compra - Paso 1</h2>
 
     <h3>Productos Comprados</h3>
@@ -76,5 +76,4 @@
     </form>
 </div>
 
-</body>
-</html>
+{% endblock %}
