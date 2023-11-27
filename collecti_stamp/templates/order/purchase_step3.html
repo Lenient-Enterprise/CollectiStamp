@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Datos del Cliente{% endblock %}
+
+{% block content %}
+    <div style="text-align: center; margin: 50px 0;">
+        <h2 style="color: #007bff;">Datos del Cliente</h2>
+        <form method="post" style="width: 60%; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+            {% csrf_token %}
+            <div style="margin-bottom: 20px;">
+                <span style="display: block; margin-bottom: 8px; color: #333;">Correo Electrónico:</span>
+                {{ customer_form.user_email }}
+            </div>
+            <div style="margin-bottom: 20px;">
+                <span style="display: block; margin-bottom: 8px; color: #333;">Nombre:</span>
+                {{ customer_form.nombre }}
+            </div>
+            <div style="margin-bottom: 20px;">
+                <span style="display: block; margin-bottom: 8px; color: #333;">Dirección de Envío:</span>
+                {{ customer_form.delivery_address }}
+            </div>
+            <button type="submit" style="background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; padding: 10px 15px;">Continuar</button>
+        </form>
+    </div>
+{% endblock %}
+
