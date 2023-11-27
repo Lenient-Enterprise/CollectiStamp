@@ -8,6 +8,7 @@ class Company(models.Model):
     contact_email = models.TextField()
     description = models.TextField()
     logo = models.ImageField(upload_to='static/img/company/')
+    cif = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name

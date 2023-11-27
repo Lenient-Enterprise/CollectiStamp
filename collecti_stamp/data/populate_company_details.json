@@ -1,0 +1,15 @@
+[
+    {
+        "model": "company.company",
+        "pk": 1,
+        "fields": {
+            "name": "CollectiStamp",
+            "address": "Calle Filatelia 1, Sevilla",
+            "contact_phone": "+1234567890",
+            "contact_email": "info@collectistamp.us.es",
+            "description": "En Collectistamp, nos enorgullece ser una entidad comprometida con la difusión cultural y el apoyo a la comunidad universitaria. Nos especializamos exclusivamente en la venta y compra de monedas y sellos para coleccionistas, ofreciendo a estudiantes, profesores y entusiastas de la Universidad de Sevilla una experiencia única y enriquecedora.\n\nNuestra empresa ha sido cuidadosamente diseñada para alinearse con los valores y objetivos de la universidad. Contamos con una amplia selección de monedas y sellos que reflejan la riqueza numismática e histórica, contribuyendo así al conocimiento y aprecio de la cultura.\n\nEn Collectistamp, entendemos la importancia de preservar la historia y la cultura a través de objetos tangibles. Nuestro equipo de expertos está comprometido con la autenticación y preservación precisa de cada artículo, contribuyendo así a la memoria y la identidad de la Universidad de Sevilla.",
+            "logo": "static/img/company/company_logo.png",
+            "cif": "B12345678"
+        }
+    }
+]

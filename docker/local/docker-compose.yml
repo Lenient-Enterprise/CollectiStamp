@@ -17,8 +17,10 @@ services:
   django-app:
     restart: always
     container_name: collecti_stamp_web
+    build:
+        context: .
+        dockerfile: Dockerfile
     image: collecti_stamp_web:latest
-    build: .
     command: ash -c "python manage.py makemigrations && python manage.py migrate && gunicorn -w 5 collecti_stamp.wsgi --timeout=500 -b 0.0.0.0:5000"
     expose:
       - "5000"
