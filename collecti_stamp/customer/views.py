@@ -19,7 +19,6 @@ from collecti_stamp import settings
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
-        print(form.errors)
         if form.is_valid():
             login(request, form.get_user())
             return redirect('/')

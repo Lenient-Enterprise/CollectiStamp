@@ -6,7 +6,7 @@
       "name": "Moneda de plata con diseño de Kioto",
       "description": "Esta moneda es una moneda de plata acuñada por Japón, el país insular más poblado de Asia Oriental, situado en el océano Pacífico. La moneda tiene un diseño de la ciudad de Kioto, la antigua capital y la ciudad más histórica de Japón. El diseño muestra el templo Kinkaku-ji, el pabellón de oro cubierto de hojas de oro, y el castillo Nijo, la residencia del shogun Tokugawa. El reverso de la moneda tiene el escudo nacional de Japón y el valor nominal de 1000 yenes.",
       "price": "129.99",
-      "stock_amount": "5",
+      "stock_amount": "0",
       "product_type": "COIN",
       "category": "ANCIENT",
       "criteria": [3, 10, 16, 19, 22],
@@ -202,7 +202,7 @@
       "name": "Konoha Coin",
       "description": "Una moneda de oro con una hoja en ella. La moneda es redonda y tiene un borde elevado. La hoja está en el centro de la moneda y es de un color oro más claro que el resto de la moneda. La hoja tiene un tallo y está ligeramente curvada. El fondo es de color gris claro.",
       "price": "39.99",
-      "stock_amount": "400",
+      "stock_amount": "117",
       "product_type": "COIN",
       "category": "NOVELTY",
       "criteria": [5, 10, 18, 20, 23],
@@ -239,7 +239,7 @@
   },
   {
     "model": "product.Product",
-    "pk": 15,
+    "pk": 18,
     "fields": {
       "name": "Moneda de metal con diseño de nudo celta",
       "description": "Esta moneda es una réplica de una moneda celta, que tiene un diseño de un nudo celta en el centro. El nudo celta es un símbolo que representa la eternidad, el ciclo de la vida y la conexión. El diseño está rodeado por una corona de hojas y ramas, que puede simbolizar la naturaleza o la fertilidad. El borde de la moneda tiene un diseño de nudo celta, que muestra la continuidad y la armonía. La moneda está hecha de metal oscuro, y tiene un aspecto antiguo y rústico.",
@@ -253,7 +253,7 @@
   },
   {
     "model": "product.Product",
-    "pk": 18,
+    "pk": 19,
     "fields": {
       "name": "Moneda de plata con diseño de ojo de Senri",
       "description": "Esta moneda es una obra de arte única y fascinante, que combina elementos de diferentes culturas y épocas. La moneda está hecha de plata pura, y tiene un brillo que refleja la luz. El diseño de la moneda es un ojo con un agujero en el centro, que representa la visión y la sabiduría. El ojo está rodeado de olas, que simbolizan el movimiento y el cambio. En la parte superior de la moneda hay dos caracteres chinos, que se leen como “Senri”, y que significan “mil li” o “gran distancia”. Estos caracteres aluden a la idea de viajar, explorar y conocer el mundo. La moneda es una invitación a la aventura y al descubrimiento, y una expresión de la creatividad y la diversidad.",
@@ -267,7 +267,7 @@
   },
   {
     "model": "product.Product",
-    "pk": 19,
+    "pk": 20,
     "fields": {
       "name": "Omniman Coin",
       "description": "Se trata de una pieza circular de metal, posiblemente plata, con un diámetro de unos 3 centímetros y un grosor de unos 2 milímetros. La pieza tiene un borde acanalado y una superficie lisa y brillante.",
@@ -281,7 +281,7 @@
   },
   {
     "model": "product.Product",
-    "pk": 20,
+    "pk": 21,
     "fields": {
       "name": "Pokemon Kanto Coin",
       "description": "Una moneda de plata con un diseño de Pokemon en ella. El diseño es de un Charizard, un Pokemon popular, con la palabra “Kanto” escrita encima. La moneda es redonda y tiene un borde elevado. El fondo es una imagen borrosa de un teclado.",
@@ -295,7 +295,7 @@
   },
   {
     "model": "product.Product",
-    "pk": 21,
+    "pk": 22,
     "fields": {
       "name": "Moneda conmemorativa de Rapture Bioshock",
       "description": "Esta moneda es una pieza de coleccionista para los fans del videojuego Bioshock, creado por Irrational Games. La moneda está hecha de metal plateado, y tiene un diseño de la palabra “RAPTURE” en el centro. Rapture es el nombre de la ciudad submarina donde se desarrolla el juego, una utopía para los artistas y los pensadores en los años 40, pero que se convierte en una distopía debido a los efectos de ADAM, una sustancia que puede alterar el material genético. El borde de la moneda tiene un diseño de líneas y puntos, que puede representar la tecnología o la ciencia de Rapture. La moneda tiene un aspecto futurista y detallado.",
@@ -309,7 +309,7 @@
   },
   {
     "model": "product.Product",
-    "pk": 22,
+    "pk": 23,
     "fields": {
       "name": "Moneda conmemorativa de Silent Hill",
       "description": "Una moneda de plata redonda con un diseño intrincado de la ciudad ficticia de Silent Hill. La moneda tiene un diseño de un hombre de pie frente a una iglesia con una carretera sinuosa y edificios en el fondo. El diseño está rodeado por un borde de hojas y ramas. Las palabras “Silent Hill” están escritas en la parte inferior de la moneda.",
@@ -323,7 +323,7 @@
   },
   {
     "model": "product.Product",
-    "pk": 23,
+    "pk": 24,
     "fields": {
       "name": "Croeseid",
       "description": "Esta moneda es una de las primeras monedas de oro acuñadas en el mundo, por el rey de Lidia Creso (561-546 a.C.) alrededor del año 550 a.C. La moneda tiene un diseño de las partes delanteras de un león y un toro enfrentados, que representan el poder y la riqueza de Lidia. El reverso de la moneda tiene dos cuadrados incusos, que indican el peso y la pureza del metal. La moneda tiene un aspecto realista y refinado.",
@@ -337,7 +337,7 @@
   },
   {
     "model": "product.Product",
-    "pk": 24,
+    "pk": 25,
     "fields": {
       "name": "Moneda conmemorativa de la trifuerza de Legend of Zelda",
       "description": "Esta moneda es una pieza de coleccionista para los fans del juego de Legend of Zelda, que tiene un diseño de la trifuerza en el centro. La trifuerza es una reliquia dorada que contiene el poder de las tres diosas que crearon el mundo: Din, la diosa del poder; Nayru, la diosa de la sabiduría; y Farore, la diosa del valor. El diseño está rodeado por una corona de hojas y ramas, que puede simbolizar la naturaleza o la aventura. El borde de la moneda tiene un diseño de líneas y puntos, que puede representar la tecnología o la magia. La moneda está hecha de metal dorado, y tiene un aspecto brillante y detallado.",
@@ -347,6 +347,118 @@
       "category": "VIDEOGAME",
       "criteria": [3, 12, 15, 19, 23],
       "image": "static/img/product/moneda_trifuerza.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 26,
+    "fields": {
+      "name": "Sello Artozka",
+      "description": "Este sello de Artozka es una pieza majestuosa, adornada con intrincados detalles que capturan la esencia de un país ficticio. El diseño presenta un águila estilizada en tonos dorados y verdes, rodeada por patrones ornamentales que evocan una sensación de elegancia y poder. El nombre “ARTOZKA” se destaca en letras blancas audaces contra un fondo verde oscuro, creando un contraste visual impactante. Este sello sería una adición valiosa para cualquier coleccionista apasionado por los diseños intricados y las piezas únicas. ",
+      "price": "7.99",
+      "stock_amount": "4",
+      "product_type": "SEAL",
+      "category": "VIDEOGAME",
+      "criteria": [1,19],
+      "image": "static/img/product/sello_artozka.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 27,
+    "fields": {
+      "name": "Sello Joanvic",
+      "description": "Este sello es una ilustración en blanco y negro que representa un paisaje nocturno estilizado y monocromático, con dos planetas prominentes en el cielo estrellado, rodeados de terreno ondulado y formaciones rocosas. El sello es una pieza artística y mística, que evoca un mundo fantástico y lejano. El sello tiene una forma circular y está impreso en papel de alta calidad. El valor nominal del sello es de 20 galaxias, la moneda ficticia del juego Galaxia, del que se inspira el diseño. El sello es una edición limitada y exclusiva, que solo se puede encontrar en nuestra tienda. Si eres un fan de los juegos de ciencia ficción y de las ilustraciones detalladas, no puedes dejar pasar este sello que te hará soñar con otros mundos.\n ",
+      "price": "4.99",
+      "stock_amount": "87",
+      "product_type": "SEAL",
+      "category": "HISTORICAL",
+      "criteria": [19],
+      "image": "static/img/product/sello_paisaje.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 28,
+    "fields": {
+      "name": "Sello Hollow Knight",
+      "description": "Este sello de Hollow Knight es una pieza inspirada en el videojuego del mismo nombre, creado por el estudio independiente Team Cherry. El sello presenta una ilustración en negro del personaje principal, Hollow Knight, un caballero insecto que explora un vasto mundo subterráneo lleno de secretos y peligros. El diseño es simple y elegante, utilizando líneas negras audaces para definir la forma y los detalles del personaje. El fondo del sello es de color crema claro, creando un contraste con el diseño central. El sello tiene una forma redonda con bordes irregulares, similar a un sello de cera, que le da un toque antiguo y misterioso. El sello mide 3 cm de diámetro y tiene un valor nominal de 10 geo, la moneda del juego. (editado)\n",
+      "price": "1.99",
+      "stock_amount": "27",
+      "product_type": "SEAL",
+      "category": "VIDEOGAME",
+      "criteria": [20],
+      "image": "static/img/product/sello_hollowknight.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 29,
+    "fields": {
+      "name": "Sello de Out of the Night",
+      "description": "Este sello es un diseño inspirado en el cómic Out of the Night, una serie de terror y suspenso publicada entre 1952 y 1954 por la editorial American Comics Group. El sello muestra una escena de una ciudad con rascacielos y un murciélago volando en el cielo, rodeado por un borde decorativo con texto. El texto dice “OUT OF THE NIGHT” y “8”, que es el número del cómic del que se tomó la imagen. El sello es redondo, con un diseño detallado en negro sobre un fondo blanco. El sello tiene un valor nominal de 25 centavos, y es una pieza de colección para los amantes del género de terror y de los cómics clásicos. El sello es una edición limitada y exclusiva, que solo se puede encontrar en nuestra tienda. No te pierdas este sello que te hará sentir el escalofrío de las historias de Out of the Night.",
+      "price": "21.99",
+      "stock_amount": "6",
+      "product_type": "SEAL",
+      "category": "HISTORICAL",
+      "criteria": [21],
+      "image": "static/img/product/sello_ciudad.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 30,
+    "fields": {
+      "name": "Sello Místico",
+      "description": "El diseño muestra un símbolo que consiste en una combinación de triángulos y formas aladas, rodeado por círculos concéntricos adornados con patrones y caracteres que parecen ser de un lenguaje no identificado o estilizado. El diseño tiene una estética antigua o mística, similar a los sellos o emblemas encontrados en la literatura de fantasía.",
+      "price": "14.99",
+      "stock_amount": "3",
+      "product_type": "SEAL",
+      "category": "HISTORICAL",
+      "criteria": [20],
+      "image": "static/img/product/sello_hyrule.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 31,
+    "fields": {
+      "name": "Sello de Anime",
+      "description": "El sello es una pieza de colección para los fans de Bleach, el manga y anime que narra las aventuras de Ichigo Kurosaki, un joven que se convierte en shinigami y lucha contra las amenazas sobrenaturales. El sello es una edición limitada y exclusiva, que solo se puede encontrar en nuestra tienda. No te pierdas este sello que te hará sentir la magia y la acción de Soul Society.",
+      "price": "2.99",
+      "stock_amount": "31",
+      "product_type": "SEAL",
+      "category": "NOVELTY",
+      "criteria": [20],
+      "image": "static/img/product/sello_sociedad.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 32,
+    "fields": {
+      "name": "Sello usado de España",
+      "description": "Un sello antiguo usado de España. Se conserva en buen estado, aunque el pegamento ha sido gastado con el paso del tiempo.",
+      "price": "0.79",
+      "stock_amount": "1",
+      "product_type": "SEAL",
+      "category": "HISTORICAL",
+      "criteria": [20],
+      "image": "static/img/product/sello_espana.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 33,
+    "fields": {
+      "name": "Sello Paisaje Montañas",
+      "description": "Un hermoso sello creado delicamente que muestra un hermoso paisaje. Mide 10 cm de diámetro. Disponible en negro, rojo, azul y verde.",
+      "price": "14.49",
+      "stock_amount": "11",
+      "product_type": "SEAL",
+      "category": "ANCIENT",
+      "criteria": [20],
+      "image": "static/img/product/sello_valle.jpg"
     }
   }
 

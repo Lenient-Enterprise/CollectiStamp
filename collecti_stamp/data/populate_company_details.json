@@ -6,9 +6,10 @@
             "name": "CollectiStamp",
             "address": "Calle Filatelia 1, Sevilla",
             "contact_phone": "+1234567890",
-            "contact_email": "info@collectistamp.com",
-            "description": "En Collecti Stamp, nos enorgullece ser una entidad líder en el apasionante mundo del coleccionismo. Nos especializamos en la venta y compra de sellos y monedas, ofreciendo a coleccionistas de todas partes una experiencia única y satisfactoria.\n\nNuestra empresa ha sido meticulosamente diseñada para atender a la creciente comunidad de apasionados coleccionistas que buscan artículos de calidad y rareza. Contamos con una extensa selección de sellos postales y monedas procedentes de todo el mundo, abarcando diversas épocas y estilos numismáticos.\n\nEn Collecti Stamp, entendemos la importancia de cada pieza en una colección y nos esforzamos por proporcionar productos auténticos y de alta calidad. Nuestro equipo de expertos está comprometido con la autenticación y evaluación precisa de cada artículo, asegurando la satisfacción y confianza de nuestros clientes.",
-            "logo": "static/img/company/company_logo.png"
+            "contact_email": "info@collectistamp.us.es",
+            "description": "En Collectistamp, nos enorgullece ser una entidad comprometida con la difusión cultural y el apoyo a la comunidad universitaria. Nos especializamos exclusivamente en la venta y compra de monedas y sellos para coleccionistas, ofreciendo a estudiantes, profesores y entusiastas de la Universidad de Sevilla una experiencia única y enriquecedora.\n\nNuestra empresa ha sido cuidadosamente diseñada para alinearse con los valores y objetivos de la universidad. Contamos con una amplia selección de monedas y sellos que reflejan la riqueza numismática e histórica, contribuyendo así al conocimiento y aprecio de la cultura.\n\nEn Collectistamp, entendemos la importancia de preservar la historia y la cultura a través de objetos tangibles. Nuestro equipo de expertos está comprometido con la autenticación y preservación precisa de cada artículo, contribuyendo así a la memoria y la identidad de la Universidad de Sevilla.",
+            "logo": "static/img/company/company_logo.png",
+            "cif": "B12345678"
         }
     }
 ]

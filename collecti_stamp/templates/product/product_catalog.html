@@ -26,34 +26,6 @@
             flex-wrap: wrap;
             justify-content: space-around;
         }
-
-        li.catalog-item {
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            margin: 10px;
-            padding: 20px;
-            width: 250px; /* Ajusta el ancho del elemento según tu preferencia */
-            text-align: center;
-        }
-
-        img.catalog-image {
-            max-width: 100%;
-            max-height: 150px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-
-        h2.catalog-title {
-            color: #444aa0;
-            font-size: 1.2em; /* Ajusta el tamaño de la fuente según tu preferencia */
-        }
-
-        p.catalog-description {
-            color: #555;
-            font-size: 0.9em; /* Ajusta el tamaño de la fuente según tu preferencia */
-        }
-
         p.catalog-price {
             color: #333;
             font-size: 1.1em; /* Ajusta el tamaño de la fuente según tu preferencia */
@@ -73,22 +45,90 @@
         a.catalog-link:hover {
             background-color: #000000;
         }
+        .filters-container {
+            background-color: #343a40;
+            color: #fff;
+            padding: 20px;
+            text-align: left;
+            margin-bottom: 20px;
+            border-radius: 7px;
+        }
+
+        .filter-select {
+            width: calc(25% - 16px);
+            padding: 8px;
+            margin: 8px;
+            border-radius: 4px;
+            box-sizing: border-box;
+            display: inline-block;
+        }
+
+        .filter-label {
+            display: inline-block;
+            margin-bottom: 10px;
+            font-size: 1em;
+            margin-right: 10px;
+        }
+
+        .filter-button {
+            display: inline-block;
+            padding: 8px 16px; /* Ajustar el padding del botón */
+            background-color: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            margin-top: 8px; /* Ajustar el margen superior del botón */
+            cursor: pointer;
+        }
+
+        .filter-button:hover {
+            background-color: #45a049;
+        }
+
+        .filter-label {
+        display: block;
+        margin-bottom: 5px; /* Ajusta el espacio entre las etiquetas de filtro */
+        }
     </style>
+
     <h1>Catálogo de productos</h1>
+
+    <div class="filters-container">
+        <form method="get">
+            {% csrf_token %}
+            <label for="criteria1" class="filter-label">Criterio 1:</label>
+            <select id="criteria1" name="criteria1" class="filter-select">
+                <option value="">Seleccione un criterio</option>
+                {% for criterion in criteria %}
+                    <option value="{{ criterion.id }}">{{ criterion.name }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="criteria2" class="filter-label">Criterio 2:</label>
+            <select id="criteria2" name="criteria2" class="filter-select">
+                <option value="">Seleccione un criterio</option>
+                {% for criterion in criteria %}
+                    <option value="{{ criterion.id }}">{{ criterion.name }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="criteria3" class="filter-label">Criterio 3:</label>
+            <select id="criteria3" name="criteria3" class="filter-select">
+                <option value="">Seleccione un criterio</option>
+                {% for criterion in criteria %}
+                    <option value="{{ criterion.id }}">{{ criterion.name }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit" class="btn btn-primary">Aplicar filtro</button>
+        </form>
+    </div>
+
+
     <ul class="catalog-list">
         {% for product in products %}
-            <li class="catalog-item">
-                <h2 class="catalog-title">{{ product.name }}</h2>
-                {% if product.image %}
-                    {%  include "product/out_of_stock.html" with base_path=product.image.url overlay_path="/static/img/out_of_stock.png" stock_amount=product.stock_amount%}
-                {% else %}
-
-                    <img class="catalog-image" src="{% static 'placeholder-image.jpg' %}" alt="Placeholder Image">
-                {% endif %}
-                <p class="catalog-description">Stock: {{ product.stock_amount }}</p>
-                <p class="catalog-price" style="font-size: 2em;">{{ product.price }} €</p>
-                <a class="catalog-link" href="{% url 'product_details' product.id %}">Ver detalles</a>
-            </li>
+            {% include "product/product_card.html"%}
         {% endfor %}
     </ul>
 {% endblock %}
