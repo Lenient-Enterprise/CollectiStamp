@@ -12,9 +12,5 @@ import os
 from django.core.wsgi import get_wsgi_application
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'collecti_stamp.settings'
-# if os.environ.get('RENDER_EXTERNAL_HOSTNAME'):
-os.environ.setdefault('MODE', 'development')
-# else:
-#    os.environ.setdefault('MODE', 'deployment')
 
 application = get_wsgi_application()

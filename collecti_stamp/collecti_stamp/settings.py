@@ -48,16 +48,10 @@ elif MODE == 'development':
     }
 else:
     DEBUG = False
-    RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
     SECRET_KEY = os.environ.get('SECRET_KEY')
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
-    ALLOWED_ORIGINS = [f'https://{RENDER_EXTERNAL_HOSTNAME}']
-    CSRF_COOKIE_SECURE = True
-    CSRF_COOKIE_SAMESITE = 'Strict'
-    CSRF_TRUSTED_ORIGINS = ALLOWED_ORIGINS.copy()
-    KEYBITS = 256
 
 # Custom user model
 AUTH_USER_MODEL = 'customer.User'
