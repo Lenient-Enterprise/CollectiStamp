@@ -8,8 +8,6 @@ VENV_DIR="$BASE_DIR/venv"
 REQUIREMENTS_FILE="$BASE_DIR/requirements.txt"
 MIGRATIONS_DIR=$(find "$BASE_DIR" -type d -name migrations)
 JSON_DATA_FILE="$BASE_DIR/data/populate_user.json $BASE_DIR/data/populate_company_details.json $BASE_DIR/data/populate_criteria.json $BASE_DIR/data/populate_product.json"
-DELETE_DB=true
-
 DELETE_DB=false
 DELETE_ENV=false
 
