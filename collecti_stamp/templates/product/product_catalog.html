@@ -125,12 +125,19 @@
         </form>
     </div>
 
-
+    <h1>Monedas</h1>
     <ul class="catalog-list">
-        {% for product in products %}
-            {% include "product/product_card.html"%}
+        {% for coin in coins %}
+            {% include "product/product_card.html" with product=coin%}
         {% endfor %}
     </ul>
+
+    <h1>Sellos</h1>
+    <ul class="catalog-list">
+        {% for seal in seals %}
+            {% include "product/product_card.html" with product=seal%}
+        {% endfor %}
+    </ul
 {% endblock %}
 
 
