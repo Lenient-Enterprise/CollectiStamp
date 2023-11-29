@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}Inicio de Sesión{% endblock %}
+{% block title %}Conformación de compra{% endblock %}
 
 {% block content %}
-    <title>Confirmación de Compra - Paso 1</title>
+<head>
+    <title>Confirmación de Compra - Paso 2</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -51,32 +52,22 @@
 <div class="container3 mt-5">
     <h2>Confirmación de Compra - Paso 1</h2>
 
-    <h3>Productos Comprados</h3>
-    <ul class="list-group">
-        {% for product in order_products %}
-            <li class="list-group-item">{{ product_instance.name }} - Cantidad: {{ product.quantity }} - Precio: {{ product.product.price }} €</li>
-        {% endfor %}
-    </ul>
-
-    <h3>Selecciona un Método de Pago</h3>
-
+    <h3>Selecciona Método de Entrega</h3>
     <form method="post">
         {% csrf_token %}
         <div class="form-group">
-            <label for="payment_method">Método de Pago:</label>
-            <select class="form-control" id="payment_method" name="payment_method">
-                <option value="" selected>Elige un Método de Pago</option>
-                {% for method in payment_methods %}
-                    <option value="{{ method.0 }}">{{ method.1 }}</option>
-                {% endfor %}
-            </select>
+            {{ form.as_p }}
         </div>
-
-        <a href="{% url 'purchase_step2' order_id %}" class="btn btn-primary">
-            Pasar al Siguiente Paso
-        </a>
-        
+        <br>
+        <input type="submit" value="Pasar al Siguiente Paso" class="btn btn-primary">
     </form>
 </div>
+    
+    
+    
+    
+</body>    
+    
+    
 
 {% endblock %}

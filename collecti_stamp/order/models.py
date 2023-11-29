@@ -5,7 +5,6 @@ from product.models import *
 
 
 class PaymentMethod(models.TextChoices):
-
     CASH_ON_DELIVERY = 'CASH_ON_DELIVERY', 'Contrarrembolso'
     PAYMENT_GATEWAY = 'PAYMENT_GATEWAY', 'Pasarelas de Pago'
     METHOD_C = 'C', 'C'
@@ -18,9 +17,9 @@ class DeliveryStatus(models.TextChoices):
 
 
 class DeliveryMethod(models.TextChoices):
-    METHOD_A = 'A', 'A'
-    METHOD_B = 'B', 'B'
-    METHOD_C = 'C', 'C'
+    STANDARD_SHIPPING = 'STD', 'Envío estándar'
+    EXPRESS_SHIPPING = 'EXP', 'Envío express'
+    PICKUP_IN_STORE = 'PICK', 'Recogida en tienda'
 
 
 class Order(models.Model):
