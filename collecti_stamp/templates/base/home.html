@@ -1,21 +1,117 @@
 {% extends "base.html" %}
 
-{% block title %}Tickets{% endblock %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-6 offset-md-3">
-        <h2 class="mb-4">Solicitar Ticket</h2>
-        <form method="POST">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="ticket_id">UUID del Ticket:</label>
-                <input type="text" class="form-control" id="ticket_id" name="ticket_id" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Solicitar</button>
-        </form>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .store-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #e6f7ff; /* Cambia el color de fondo a tu preferencia */
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        ul.catalog-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px; /* Añade espacio entre las tarjetas */
+        }
+
+        .scrolling-container {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+        }
+
+        .scrolling-card {
+            flex: 0 0 auto;
+            border: solid 1px black;
+            margin: 10px;
+            width: 250px;
+            height: 150px;
+            text-align: center;
+        }
+
+        .scrolling-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrolling-buttons-container {
+            display: flex;
+            justify-content: space-between;
+            font-size: 25px;
+            margin-left: 25px;
+            margin-right: 25px;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const rightBtn = document.querySelector("#scrolling-button-right");
+            const leftBtn = document.querySelector("#scrolling-button-left");
+
+            const content = document.querySelector(".scrolling-container");
+
+            rightBtn.addEventListener("click", () => {
+                content.scrollLeft += 800;
+            });
+
+            leftBtn.addEventListener("click", () => {
+                content.scrollLeft -= 800;
+            });
+        });
+    </script>
+    <h1>Bienvenido a la tienda</h1>
+    <div class="store-container">
+        <h2>Monedas</h2>
+        <div class="scrolling-buttons-container">
+            <span id="scrolling-button-left">👈</span>
+            <span id="scrolling-button-right">👉</span>
+        </div>
+        <div class="scrolling-container">
+            {% for product in products %}
+                {% if product.product_type == "COIN" %}
+                    {% include "product/product_card.html" %}
+                {% endif %}
+            {% endfor %}
+        </div>
     </div>
-</div>
+    <div class="store-container">
+        <h2>Sellos</h2>
+        <div class="scrolling-buttons-container">
+            <span id="scrolling-button-left">👈</span>
+            <span id="scrolling-button-right">👉</span>
+        </div>
+        <div class="scrolling-container">
+            {% for product in products %}
+                {% if product.product_type == "SEAL" %}
+                    {% include "product/product_card.html" %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
 {% endblock %}
+
+
 
 

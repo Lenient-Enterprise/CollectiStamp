@@ -36,6 +36,17 @@ APIS = {
     'product': BASE_URL
 }
 
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
 
 
 # Database configuration
@@ -52,5 +63,7 @@ CSRF_TRUSTED_ORIGINS = ALLOWED_ORIGINS.copy()
 
 # number of bits for the key, all auths should use the same number of bits
 KEYBITS = 256
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
