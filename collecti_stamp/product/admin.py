@@ -9,6 +9,7 @@ class CriteriaAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     icon_name = 'style'
 
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'stock_amount', 'product_type', 'category')

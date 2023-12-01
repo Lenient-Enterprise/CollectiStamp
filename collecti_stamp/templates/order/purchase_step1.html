@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio de Sesión{% endblock %}
+
+{% block content %}
+    <title>Confirmación de Compra - Paso 1</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container3 {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        h3 {
+            color: #343a40;
+        }
+
+        .list-group-item {
+            background-color: #f8f9fa;
+            border: none;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container3 mt-5">
+    <h2>Confirmación de Compra - Paso 1</h2>
+
+    <h3>Productos Comprados</h3>
+    <ul class="list-group">
+        {% for product in order_products %}
+            <li class="list-group-item">{{ product_instance.name }} - Cantidad: {{ product.quantity }} - Precio: {{ product.product.price }} €</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Selecciona un Método de Pago</h3>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="payment_method">Método de Pago:</label>
+            <select class="form-control" id="payment_method" name="payment_method">
+                <option value="" selected>Elige un Método de Pago</option>
+                {% for method in payment_methods %}
+                    <option value="{{ method.0 }}">{{ method.1 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <a href="{% url 'purchase_step2' order_id %}" class="btn btn-primary">
+            Pasar al Siguiente Paso
+        </a>
+        
+    </form>
+</div>
+
+{% endblock %}
