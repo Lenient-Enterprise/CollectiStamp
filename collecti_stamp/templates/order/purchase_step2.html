@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Conformación de compra{% endblock %}
+
+{% block content %}
+<head>
+    <title>Confirmación de Compra - Paso 2</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container3 {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        h3 {
+            color: #343a40;
+        }
+
+        .list-group-item {
+            background-color: #f8f9fa;
+            border: none;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .error-message {
+            color: red;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container3 mt-5">
+    <h2>Confirmación de Compra - Paso 1</h2>
+
+    <h3>Selecciona Método de Entrega</h3>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        <br>
+        <input type="submit" value="Pasar al Siguiente Paso" class="btn btn-primary">
+    </form>
+</div>
+    
+    
+    
+    
+</body>    
+    
+    
+
+{% endblock %}
