@@ -90,6 +90,14 @@
         display: block;
         margin-bottom: 5px; /* Ajusta el espacio entre las etiquetas de filtro */
         }
+        .category {
+            background-color: rgba(169, 169, 169, 0.7);
+            color: white; 
+            padding: 10px; 
+            margin-bottom: 10px; 
+            width: 100%; 
+            box-sizing: border-box; 
+        }
     </style>
 
     <h1>Catálogo de productos</h1>
@@ -126,18 +134,33 @@
     </div>
 
     <h1>Monedas</h1>
-    <ul class="catalog-list">
-        {% for coin in coins %}
-            {% include "product/product_card.html" with product=coin%}
-        {% endfor %}
-    </ul>
+    {% for category in categories %}
+        <div class="category">
+            <h2>{{ category.1 }}</h2>
+            <ul class="catalog-list">
+                {% for coin in coins %}
+                    {% if coin.category == category.0 %}
+                        {% include "product/product_card.html" with product=coin %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
 
     <h1>Sellos</h1>
-    <ul class="catalog-list">
-        {% for seal in seals %}
-            {% include "product/product_card.html" with product=seal%}
-        {% endfor %}
-    </ul
+    {% for category in categories %}
+        <div class="category">
+            <h2>{{ category.1 }}</h2>
+            <ul class="catalog-list">
+                {% for seal in seals %}
+                    {% if coin.category == category.0 %}
+                        {% include "product/product_card.html" with product=coin %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+    
 {% endblock %}
 
 
