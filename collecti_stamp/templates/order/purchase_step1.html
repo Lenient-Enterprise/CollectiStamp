@@ -45,38 +45,34 @@
             background-color: #0056b3;
         }
     </style>
-</head>
-<body>
 
-<div class="container3 mt-5">
-    <h2>Confirmación de Compra - Paso 1</h2>
+    <div class="container3 mt-5">
+        <h2>Confirmación de Compra - Paso 1</h2>
 
-    <h3>Productos Comprados</h3>
-    <ul class="list-group">
-        {% for product in order_products %}
-            <li class="list-group-item">{{ product_instance.name }} - Cantidad: {{ product.quantity }} - Precio: {{ product.product.price }} €</li>
-        {% endfor %}
-    </ul>
+        <h3>Productos Comprados</h3>
+        <ul class="list-group">
+            {% for product in order_products %}
+                <li class="list-group-item">{{ product.product_instance.name }} - Cantidad: {{ product.quantity }} - Precio: {{ product.product.price }} €</li>
+            {% endfor %}
+        </ul>
 
-    <h3>Selecciona un Método de Pago</h3>
+        <h3>Selecciona un Método de Pago</h3>
 
-    <form method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="payment_method">Método de Pago:</label>
-            <select class="form-control" id="payment_method" name="payment_method">
-                <option value="" selected>Elige un Método de Pago</option>
-                {% for method in payment_methods %}
-                    <option value="{{ method.0 }}">{{ method.1 }}</option>
-                {% endfor %}
-            </select>
-        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="payment_method">Método de Pago:</label>
+                <select class="form-control" id="payment_method" name="payment_method">
+                    <option value="" selected>Elige un Método de Pago</option>
+                    {% for method in payment_methods %}
+                        <option value="{{ method.0 }}">{{ method.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-        <a href="{% url 'purchase_step2' order_id %}" class="btn btn-primary">
-            Pasar al Siguiente Paso
-        </a>
-        
-    </form>
-</div>
-
+            <button type="submit" class="btn btn-primary">
+                Pasar al Siguiente Paso
+            </button>
+        </form>
+    </div>
 {% endblock %}
