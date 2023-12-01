@@ -25,6 +25,9 @@ def product_catalog(request):
         products = products.filter(criteria__id=criteria2)
     if criteria3:
         products = products.filter(criteria__id=criteria3)
-
-    return render(request, 'product/product_catalog.html', {'products': products, 'criteria': criteria})
+     
+    coins=products.filter(product_type="COIN")
+    seals=products.filter(product_type="SEAL")
+     
+    return render(request, 'product/product_catalog.html', {'coins': coins, 'seals': seals, 'criteria': criteria})
 
