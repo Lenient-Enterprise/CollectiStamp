@@ -1,6 +1,8 @@
 from django.urls import path
 from .views import finish_order, purchase_steps, purchase_step2, purchase_step3
 
+app_name = 'order'
+
 urlpatterns = [
     path('finish/', finish_order, name='finish_order'),
     path('finish/<int:new_order_id>/', purchase_steps, name='purchase_steps'),
