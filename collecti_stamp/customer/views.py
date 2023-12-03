@@ -9,7 +9,8 @@ from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
-from .forms import CustomUserCreationForm, EmailForm, PasswordForm, CustomUserEditionForm
+from collecti_stamp import settings, development_settings
+from .forms import CustomUserCreationForm, EmailForm, PasswordForm, CustomUserEditionForm, CustomAuthenticationForm
 from .models import User
 from .utils import validate_email, get_user
 from collecti_stamp import settings
@@ -18,12 +19,14 @@ from collecti_stamp import settings
 # Vista para iniciar sesión
 def login_view(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
+        form = CustomAuthenticationForm(request.POST)
+        print("asdasd")
+        print(form.errors)
         if form.is_valid():
             login(request, form.get_user())
             return redirect('/')
     else:
-        form = AuthenticationForm()
+        form = CustomAuthenticationForm()
     return render(request, 'customer/login.html', {'form': form})
 
 
@@ -37,11 +40,14 @@ def logout_view(request):
 def signin_view(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
-        if form.is_valid() and User.objects.filter(email=form.cleaned_data['email']).count() == 0 and User.objects.filter(
-                username=form.cleaned_data['username']).count() == 0:
+        if form.is_valid() and User.objects.filter(email=form.cleaned_data['email']).count() == 0:
             user = form.save()
 
             if validate_email(user.email):
+                # Asignar nombre de usuario
+                user.username = user.email.split('@')[0]
+                user.save()
+
                 # Generar el token único
                 token = default_token_generator.make_token(user)
 
@@ -106,6 +112,7 @@ def request_password_reset(request):
         form = EmailForm()
         return render(request, 'customer/make_petition_form.html', {'form': form})
 
+
 def change_password(request, uidb64, token):
     user = get_user(uidb64)
     if user is not None and default_token_generator.check_token(user, token):
@@ -120,11 +127,12 @@ def change_password(request, uidb64, token):
             return render(request, 'customer/change_password_form.html', {'form': form})
     else:
         return redirect('/?message=Error al cambiar la contraseña&status=Error')
-    
-@login_required   
+
+
+@login_required
 def edit_user_view(request, user_id):
-    user=get_object_or_404(User, id=user_id)
-    
+    user = get_object_or_404(User, id=user_id)
+
     if request.method == 'POST':
         form = CustomUserEditionForm(request.POST, instance=user)
         if form.is_valid():
