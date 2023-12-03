@@ -45,7 +45,17 @@
         a.catalog-link:hover {
             background-color: #000000;
         }
+
         .filters-container {
+            position: fixed;
+            top: 0; /* Ajusta según la altura de tu header */
+            left: 0;
+            width: 20rem;
+            height: 100vh;
+            padding: 1.25rem;
+            box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            overflow-y: auto;
             background-color: #343a40;
             color: #fff;
             padding: 20px;
@@ -53,11 +63,16 @@
             margin-bottom: 20px;
             border-radius: 7px;
         }
+        
+        .filter-content {
+            margin-top: 15rem;
+            padding: 1.25rem;
+        }
 
         .filter-select {
-            width: calc(25% - 16px);
             padding: 8px;
             margin: 8px;
+            margin-left:0;
             border-radius: 4px;
             box-sizing: border-box;
             display: inline-block;
@@ -96,7 +111,7 @@
             flex-wrap: nowrap;
             overflow-x: auto;
             scroll-behavior: smooth;
-            background-color: rgba(169, 169, 169, 0.7);
+            background-color: #e6f7ff;
             color: white; 
             padding: 10px; 
             margin-bottom: 10px; 
@@ -133,54 +148,40 @@
             margin-right: 25px;
         }
     </style>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const rightBtn = document.querySelector("#scrolling-button-right");
-            const leftBtn = document.querySelector("#scrolling-button-left");
-
-            const content = document.querySelector(".scrolling-container");
-
-            rightBtn.addEventListener("click", () => {
-                content.scrollLeft += 800;
-            });
-
-            leftBtn.addEventListener("click", () => {
-                content.scrollLeft -= 800;
-            });
-        });
-    </script>
 
     <h1>Catálogo de productos</h1>
 
     <div class="filters-container">
-        <form method="get">
-            {% csrf_token %}
-            <label for="criteria1" class="filter-label">Criterio 1:</label>
-            <select id="criteria1" name="criteria1" class="filter-select">
-                <option value="">Seleccione un criterio</option>
-                {% for criterion in criteria %}
-                    <option value="{{ criterion.id }}">{{ criterion.name }}</option>
-                {% endfor %}
-            </select>
+        <div class="filter-content">
+            <form method="get">
+                {% csrf_token %}
+                <label for="criteria1" class="filter-label">Criterio 1:</label>
+                <select id="criteria1" name="criteria1" class="filter-select">
+                    <option value="">Seleccione un criterio</option>
+                    {% for criterion in criteria %}
+                        <option value="{{ criterion.id }}">{{ criterion.name }}</option>
+                    {% endfor %}
+                </select>
 
-            <label for="criteria2" class="filter-label">Criterio 2:</label>
-            <select id="criteria2" name="criteria2" class="filter-select">
-                <option value="">Seleccione un criterio</option>
-                {% for criterion in criteria %}
-                    <option value="{{ criterion.id }}">{{ criterion.name }}</option>
-                {% endfor %}
-            </select>
+                <label for="criteria2" class="filter-label">Criterio 2:</label>
+                <select id="criteria2" name="criteria2" class="filter-select">
+                    <option value="">Seleccione un criterio</option>
+                    {% for criterion in criteria %}
+                        <option value="{{ criterion.id }}">{{ criterion.name }}</option>
+                    {% endfor %}
+                </select>
 
-            <label for="criteria3" class="filter-label">Criterio 3:</label>
-            <select id="criteria3" name="criteria3" class="filter-select">
-                <option value="">Seleccione un criterio</option>
-                {% for criterion in criteria %}
-                    <option value="{{ criterion.id }}">{{ criterion.name }}</option>
-                {% endfor %}
-            </select>
-
-            <button type="submit" class="btn btn-primary">Aplicar filtro</button>
-        </form>
+                <label for="criteria3" class="filter-label">Criterio 3:</label>
+                <select id="criteria3" name="criteria3" class="filter-select">
+                    <option value="">Seleccione un criterio</option>
+                    {% for criterion in criteria %}
+                        <option value="{{ criterion.id }}">{{ criterion.name }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <button type="submit" class="btn btn-primary">Aplicar filtro</button>
+            </form>
+        </div>
     </div>
 
     {% for category in categories %}
