@@ -3,7 +3,7 @@ from .models import Order, DeliveryMethod, PaymentMethod
 
 
 class CustomerDataForm(forms.Form):
-    nombre = forms.CharField(max_length=100, required=True)
+    name = forms.CharField(max_length=100, required=True)
     delivery_address = forms.CharField(max_length=250, required=True)
     user_email = forms.EmailField(required=True)
     

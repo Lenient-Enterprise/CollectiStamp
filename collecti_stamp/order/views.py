@@ -44,6 +44,7 @@ def finish_order(request):
 def purchase_step1(request, new_order_id):
     order_products = OrderProduct.objects.filter(order_id=new_order_id)
     payment_methods = PaymentMethod.choices
+    user_is_logged_in = request.user.is_authenticated
 
     if request.method == 'POST':
         form = PaymentMethodForm(request.POST)
@@ -54,13 +55,12 @@ def purchase_step1(request, new_order_id):
             return redirect('order:purchase_step2', new_order_id=new_order_id)
         else:
             products = get_order_products(order_products, new_order_id)
-            return render(request, 'order/purchase_step1.html',
-                          {'order_products': order_products, 'payment_methods': payment_methods,
-                           'order_id': new_order_id, 'form': form, 'products': products})
+            return render(request, 'order/purchase_step1.html', {'order_products': order_products, 'payment_methods': payment_methods, 'order_id': new_order_id, 'form': form, 'products': products, 'user_is_logged_in': user_is_logged_in})
     else:
         form = PaymentMethodForm()
         products = get_order_products(order_products, new_order_id)
-        return render(request, 'order/purchase_step1.html', {'order_products': order_products, 'payment_methods': payment_methods, 'order_id': new_order_id, 'form': form, 'products': products})
+        return render(request, 'order/purchase_step1.html', {'order_products': order_products, 'payment_methods': payment_methods, 'order_id': new_order_id, 'form': form, 'products': products, 'user_is_logged_in': user_is_logged_in})
+
 
 @require_http_methods(["GET", "POST"])
 def purchase_step2(request, new_order_id):
@@ -89,6 +89,7 @@ def purchase_step2(request, new_order_id):
 def purchase_step3(request, new_order_id):
     order_products = OrderProduct.objects.filter(order_id=new_order_id)
     payment_methods = PaymentMethod.choices
+    user_is_logged_in = request.user.is_authenticated
 
     if request.method == 'POST':
         customer_form = CustomerDataForm(request.POST)
@@ -105,7 +106,7 @@ def purchase_step3(request, new_order_id):
             if purchase_failed == False:
                 order = get_object_or_404(Order, id=new_order_id)
                 order.user_email = customer_form.cleaned_data['user_email']
-                order.user_name = customer_form.cleaned_data['nombre']
+                order.user_name = customer_form.cleaned_data['name']
                 order.delivery_address = customer_form.cleaned_data['delivery_address']
                 order.delivery_status = DeliveryStatus.STATUS_A
                 order.order_is_finished = True
@@ -126,7 +127,7 @@ def purchase_step3(request, new_order_id):
     else:
         form = CustomerDataForm()
         products = get_order_products(order_products, new_order_id)
-        return render(request, 'order/purchase_step3.html', {'order_products': order_products, 'payment_methods': payment_methods, 'new_order_id': new_order_id, 'customer_form': form, 'products': products})
+        return render(request, 'order/purchase_step3.html', {'order_products': order_products, 'payment_methods': payment_methods, 'new_order_id': new_order_id, 'customer_form': form, 'products': products, 'user_is_logged_in': user_is_logged_in})
 
 
 def get_order_products(order_products, order_id):
