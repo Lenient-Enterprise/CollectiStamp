@@ -118,9 +118,9 @@ def purchase_step3(request, new_order_id):
                     product.stock_amount -= order_product.quantity
                     product.save()
                 order.save()
-                return redirect('order:purchase_confirm', new_order_id=new_order_id)
+                return redirect('/?message=Compra Realizada&status=Success')
             else:
-                return redirect('order:purchase_confirm', new_order_id=new_order_id)
+                return redirect('/?message=Uno de los productos se ha agotado&status=Error')
         else:
             form = CustomerDataForm()
             products = get_order_products(order_products, new_order_id)
@@ -132,29 +132,6 @@ def purchase_step3(request, new_order_id):
         products = get_order_products(order_products, new_order_id)
         return render(request, 'order/purchase_step3.html', {'order_products': order_products, 'payment_methods': payment_methods, 'new_order_id': new_order_id, 'customer_form': form, 'products': products})
 
-@require_http_methods(["POST"])
-def purchase_confirm(request, new_order_id):
-    print("INICIANDO COMPRA")
-    order = Order.objects.filter(order_id=new_order_id)
-    order_products = OrderProduct.objects.filter(order_id=new_order_id)
-
-    for order_product in order_products:
-        print("INICIANDO COMPRA")
-        product_id = order_product.product_id.first().id
-        product = Product.objects.get(id=product_id)
-        if order_product.quantity > product.stock:
-            return render(request, 'order/purchase_failed.html', {'order_id': new_order_id})
-
-
-    if request.method == 'POST':
-        customer_form = CustomerDataForm(request.POST)
-        if customer_form.is_valid():
-            order.user_email = customer_form.cleaned_data['user_email']
-            order.payment_method = customer_form.cleaned_data['payment_method']
-            order.delivery_status = 'Pending'
-            order.save()
-
-            return redirect('order:purchase_complete', new_order_id=new_order_id)
 
 def get_order_products(order_products, order_id):
     products = []
