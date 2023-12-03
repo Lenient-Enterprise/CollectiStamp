@@ -1,5 +1,5 @@
 from django import forms
-from .models import Order, DeliveryMethod
+from .models import Order, DeliveryMethod, PaymentMethod
 
 
 class CustomerDataForm(forms.Form):
@@ -19,3 +19,17 @@ class delivery_method_selection(forms.Form):
         if delivery_method != 'PICK' and not delivery_address:
             self.add_error('delivery_address', 'Este campo es obligatorio si el método de entrega no es "Recogida en tienda"')
         return cleaned_data
+
+class PaymentMethodForm(forms.Form):
+    default_choice = 'default'
+    payment_method = forms.ChoiceField(
+        choices=[(default_choice, 'Selecciona un método de pago')] + list(PaymentMethod.choices),
+        required=True,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    def clean_payment_method(self):
+        payment_method = self.cleaned_data['payment_method']
+        if payment_method == self.default_choice:
+            raise forms.ValidationError("Por favor, seleccione un método de pago válido.")
+        return payment_method

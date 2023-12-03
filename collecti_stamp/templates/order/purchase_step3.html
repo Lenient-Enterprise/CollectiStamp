@@ -3,8 +3,51 @@
 {% block title %}Datos del Cliente{% endblock %}
 
 {% block content %}
-    <div style="text-align: center; margin: 50px 0;">
-        <h2 style="color: #007bff;">Datos del Cliente</h2>
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container3 {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        h2 {
+            color: #007bff;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        h3 {
+            color: #343a40;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .list-group-item {
+            background-color: #f8f9fa;
+            border: none;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+    </style>
+
+    <div class="container3 mt-5">
+        <h2>Confirmación de Compra - Paso 3</h2>
+        <h3>Productos Comprados</h3>
+            <ul class="list-group">
+                {% for product in order_products %}
+                    <li class="list-group-item">{{ product.product_instance.name }} - Cantidad: {{ product.quantity }} - Precio: {{ product.product.price }} €</li>
+                {% endfor %}
+            </ul>
+        <h3>Introducir datos</h3>
         <form method="post" style="width: 60%; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
             {% csrf_token %}
             <div style="margin-bottom: 20px;">
@@ -19,7 +62,9 @@
                 <span style="display: block; margin-bottom: 8px; color: #333;">Dirección de Envío:</span>
                 {{ customer_form.delivery_address }}
             </div>
-            <button type="submit" style="background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; padding: 10px 15px;">Continuar</button>
+            <button type="submit" class="btn btn-primary">
+                Pasar al Siguiente Paso
+            </button>
         </form>
     </div>
 {% endblock %}

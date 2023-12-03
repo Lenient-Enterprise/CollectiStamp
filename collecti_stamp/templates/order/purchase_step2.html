@@ -4,7 +4,7 @@
 
 {% block content %}
 <head>
-    <title>Confirmación de Compra - Paso 2</title>
+
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -21,10 +21,15 @@
 
         h2 {
             color: #007bff;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            text-align: center;
         }
 
         h3 {
             color: #343a40;
+            text-align: center;
+            margin-bottom: 25px;
         }
 
         .list-group-item {
@@ -34,10 +39,7 @@
 
         .form-group {
             margin-bottom: 20px;
-        }
 
-        .error-message {
-            color: red;
         }
 
         button {
@@ -45,11 +47,23 @@
             color: #ffffff;
             border: none;
         }
+
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
 
 <div class="container3 mt-5">
+    <h2>Confirmación de Compra - Paso 2</h2>
+
+        <h3>Productos Comprados</h3>
+        <ul class="list-group">
+            {% for product in order_products %}
+                <li class="list-group-item">{{ product.product_instance.name }} - Cantidad: {{ product.quantity }} - Precio: {{ product.product.price }} €</li>
+            {% endfor %}
+        </ul>
     <h3>Selecciona Método de Entrega</h3>
     <form method="post">
         {% csrf_token %}

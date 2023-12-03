@@ -20,10 +20,15 @@
 
         h2 {
             color: #007bff;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            text-align: center;
         }
 
         h3 {
             color: #343a40;
+            text-align: center;
+            margin-bottom: 25px;
         }
 
         .list-group-item {
@@ -33,6 +38,7 @@
 
         .form-group {
             margin-bottom: 20px;
+
         }
 
         button {
@@ -60,19 +66,11 @@
 
         <form method="post">
             {% csrf_token %}
-            <div class="form-group">
-                <label for="payment_method">Método de Pago:</label>
-                <select class="form-control" id="payment_method" name="payment_method">
-                    <option value="" selected>Elige un Método de Pago</option>
-                    {% for method in payment_methods %}
-                        <option value="{{ method.0 }}">{{ method.1 }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-
+            {{ form.as_p }}
             <button type="submit" class="btn btn-primary">
                 Pasar al Siguiente Paso
             </button>
         </form>
+
     </div>
 {% endblock %}

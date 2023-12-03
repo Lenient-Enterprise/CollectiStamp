@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_http_methods
+from django.shortcuts import get_object_or_404
 
-from .forms import CustomerDataForm, delivery_method_selection
-from .models import Order, OrderProduct, PaymentMethod, DeliveryMethod
+from .forms import CustomerDataForm, delivery_method_selection, PaymentMethodForm
+from .models import Order, OrderProduct, PaymentMethod, DeliveryMethod, DeliveryStatus
 from datetime import date
 from preorder import cart
 
@@ -37,27 +38,31 @@ def finish_order(request):
         order_product.product_id.set([product_id])
         order_product.save()
 
-    return redirect(str(new_order_id) + "/")
+    return redirect(str(new_order_id)+"/step1/")
 
 @require_http_methods(["GET", "POST"])
-def purchase_steps(request, new_order_id):
+def purchase_step1(request, new_order_id):
     order_products = OrderProduct.objects.filter(order_id=new_order_id)
     payment_methods = PaymentMethod.choices
 
     if request.method == 'POST':
-        # Lógica para manejar el formulario en caso de solicitud POST
-        customer_form = CustomerDataForm(request.POST)
-        if customer_form.is_valid():
-            request.session['customer_data'] = customer_form.cleaned_data
-            return redirect('order:purchase_complete', new_order_id=new_order_id)
+        form = PaymentMethodForm(request.POST)
+        if form.is_valid():
+            order = get_object_or_404(Order, id=new_order_id)
+            order.payment_method = form.cleaned_data['payment_method']
+            order.save()
+            return redirect('order:purchase_step2', new_order_id=new_order_id)
+        else:
+            return render(request, 'order/purchase_step1.html',
+                          {'order_products': order_products, 'payment_methods': payment_methods,
+                           'order_id': new_order_id, 'form': form})
     else:
-        # Lógica para manejar la solicitud GET
-        customer_form = CustomerDataForm()
+        form = PaymentMethodForm()
+        return render(request, 'order/purchase_step1.html', {'order_products': order_products, 'payment_methods': payment_methods, 'order_id': new_order_id, 'form': form})
 
-    return render(request, 'order/purchase_step1.html', {'order_products': order_products, 'payment_methods': payment_methods, 'order_id': new_order_id, 'customer_form': customer_form})
-
-@require_http_methods(["POST"])
+@require_http_methods(["GET", "POST"])
 def purchase_step2(request, new_order_id):
+    order_products = OrderProduct.objects.filter(order_id=new_order_id)
     delivery_choices = DeliveryMethod.choices
     if request.method == 'POST':
         form = delivery_method_selection(request.POST)
@@ -71,11 +76,16 @@ def purchase_step2(request, new_order_id):
             order.delivery_address = delivery_address
             order.save()
             return redirect('order:purchase_step3', new_order_id=new_order_id)
+        else:
+            form = delivery_method_selection()
+            return render(request, 'order/purchase_step2.html',
+                          {'order_products': order_products, 'new_order_id': new_order_id,
+                           'delivery_method': delivery_choices, 'form': form})
     else:
         form = delivery_method_selection()
-    return render(request, 'order/purchase_step2.html', {'new_order_id': new_order_id, 'delivery_method': delivery_choices, 'form': form})
+        return render(request, 'order/purchase_step2.html', {'order_products': order_products, 'new_order_id': new_order_id, 'delivery_method': delivery_choices, 'form': form})
 
-@require_http_methods(["POST"])
+@require_http_methods(["POST", "GET"])
 def purchase_step3(request, new_order_id):
     order_products = OrderProduct.objects.filter(order_id=new_order_id)
     payment_methods = PaymentMethod.choices
@@ -84,13 +94,60 @@ def purchase_step3(request, new_order_id):
         customer_form = CustomerDataForm(request.POST)
         if customer_form.is_valid():
             request.session['customer_data'] = customer_form.cleaned_data
-            return redirect('order:purchase_complete', new_order_id=new_order_id)
+            purchase_failed = False
 
-    if request.user.is_authenticated:
-        user_data, created = User.objects.get_or_create(id=request.user.id)
-        customer_form = CustomerDataForm(instance=user_data)
+            for order_product in order_products:
+                print("####################\n"+str(order_product.product_id.first().id)+"\n###########4#####")
+                product = get_object_or_404(Product, id=order_product.product_id.first().id)
+                print("Checking stock...")
+                if product.stock_amount < order_product.quantity:
+                    purchase_failed = True
+                    break
+
+            if purchase_failed == False:
+                order = get_object_or_404(Order, id=new_order_id)
+                order.user_email = customer_form.cleaned_data['user_email']
+                order.user_name = customer_form.cleaned_data['nombre']
+                order.delivery_address = customer_form.cleaned_data['delivery_address']
+                order.delivery_status = DeliveryStatus.STATUS_A
+                order.order_is_finished = True
+                for order_product in order_products:
+                    product = get_object_or_404(Product, id=order_product.product_id.first().id)
+                    product.stock_amount -= order_product.quantity
+                    product.save()
+                order.save()
+                return redirect('order:purchase_confirm', new_order_id=new_order_id)
+            else:
+                return redirect('order:purchase_confirm', new_order_id=new_order_id)
+        else:
+            form = CustomerDataForm()
+            return render(request, 'order/purchase_step3.html',
+                          {'order_products': order_products, 'payment_methods': payment_methods,
+                           'new_order_id': new_order_id, 'customer_form': form})
     else:
-        customer_form = CustomerDataForm()
+        form = CustomerDataForm()
+        return render(request, 'order/purchase_step3.html', {'order_products': order_products, 'payment_methods': payment_methods, 'new_order_id': new_order_id, 'customer_form': form})
 
-    delete_cart(request)
-    return render(request, 'order/purchase_step3.html', {'order_products': order_products, 'payment_methods': payment_methods, 'customer_form': customer_form, 'new_order_id': new_order_id})
+@require_http_methods(["POST"])
+def purchase_confirm(request, new_order_id):
+    print("INICIANDO COMPRA")
+    order = Order.objects.filter(order_id=new_order_id)
+    order_products = OrderProduct.objects.filter(order_id=new_order_id)
+
+    for order_product in order_products:
+        print("INICIANDO COMPRA")
+        product_id = order_product.product_id.first().id
+        product = Product.objects.get(id=product_id)
+        if order_product.quantity > product.stock:
+            return render(request, 'order/purchase_failed.html', {'order_id': new_order_id})
+
+
+    if request.method == 'POST':
+        customer_form = CustomerDataForm(request.POST)
+        if customer_form.is_valid():
+            order.user_email = customer_form.cleaned_data['user_email']
+            order.payment_method = customer_form.cleaned_data['payment_method']
+            order.delivery_status = 'Pending'
+            order.save()
+
+            return redirect('order:purchase_complete', new_order_id=new_order_id)
