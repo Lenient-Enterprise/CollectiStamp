@@ -4,7 +4,7 @@
 
 {% block content %}
 <head>
-    <title>Confirmación de Compra - Paso 2</title>
+
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -21,10 +21,15 @@
 
         h2 {
             color: #007bff;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            text-align: center;
         }
 
         h3 {
             color: #343a40;
+            text-align: center;
+            margin-bottom: 25px;
         }
 
         .list-group-item {
@@ -34,24 +39,48 @@
 
         .form-group {
             margin-bottom: 20px;
-        }
 
-        .error-message {
-            color: red;
         }
 
         button {
+            margin-top: 10px;
+            border: none;
+            margin-right: 10px;
+        }
+
+        #previous-btn {
             background-color: #007bff;
             color: #ffffff;
-            border: none;
         }
+
+        #auto-fill-btn {
+            background-color: #28a745;
+            color: #ffffff;
+        }
+
+        #next-btn {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+</style>
     </style>
 </head>
 <body>
 
 <div class="container3 mt-5">
-    <h2>Confirmación de Compra - Paso 1</h2>
+    <h2>Confirmación de Compra - Paso 2</h2>
 
+    <h3>Productos Comprados</h3>
+        <ul class="list-group">
+            {% for product in products %}
+                <li class="list-group-item">{{ product.name }} {{ product.quantity }} - Precio por unidad: {{ product.price }} €</li>
+            {% endfor %}
+        </ul>
     <h3>Selecciona Método de Entrega</h3>
     <form method="post">
         {% csrf_token %}
@@ -59,15 +88,28 @@
             {{ form.as_p }}
         </div>
         <br>
-        <input type="submit" value="Pasar al Siguiente Paso" class="btn btn-primary">
+        <div class="text-center button-container">
+            <button type="button" class="btn" id="previous-btn" onclick="goToPreviousStep()">Ir al Paso Anterior</button>
+            <button type="button" class="btn" id="auto-fill-btn" {% if user_is_logged_in %}onclick="autoFillData()" {% endif %}>Rellenar Automáticamente</button>
+            <button type="submit" class="btn btn-primary" id="next-btn">Ir al Siguiente Paso</button>
+        </div>
+
     </form>
+
 </div>
-    
-    
-    
-    
-</body>    
-    
-    
+
+<script>
+    function goToPreviousStep() {
+        var order_id = '{{ new_order_id }}';
+        var previousStepUrl = '/order/finish/' + order_id + '/step1/';
+        window.location.href = previousStepUrl;
+    }
+
+    function autoFillData() {
+
+    }
+</script>
+
+</body>
 
 {% endblock %}

@@ -20,10 +20,15 @@
 
         h2 {
             color: #007bff;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            text-align: center;
         }
 
         h3 {
             color: #343a40;
+            text-align: center;
+            margin-bottom: 25px;
         }
 
         .list-group-item {
@@ -33,50 +38,68 @@
 
         .form-group {
             margin-bottom: 20px;
+
         }
 
         button {
+            margin-top: 10px;
+            border: none;
+            margin-right: 10px;
+        }
+
+        #previous-btn {
             background-color: #007bff;
             color: #ffffff;
-            border: none;
         }
 
-        button:hover {
-            background-color: #0056b3;
+        #auto-fill-btn {
+            background-color: #28a745;
+            color: #ffffff;
+        }
+
+        #next-btn {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        .button-container {
+            margin-top: 20px;
         }
     </style>
-</head>
-<body>
 
-<div class="container3 mt-5">
-    <h2>Confirmación de Compra - Paso 1</h2>
+    <div class="container3 mt-5">
+        <h2>Confirmación de Compra - Paso 1</h2>
 
-    <h3>Productos Comprados</h3>
-    <ul class="list-group">
-        {% for product in order_products %}
-            <li class="list-group-item">{{ product_instance.name }} - Cantidad: {{ product.quantity }} - Precio: {{ product.product.price }} €</li>
-        {% endfor %}
-    </ul>
+        <h3>Productos Comprados</h3>
+        <ul class="list-group">
+            {% for product in products %}
+                <li class="list-group-item">{{ product.name }} {{ product.quantity }} - Precio por unidad: {{ product.price }} €</li>
+            {% endfor %}
+        </ul>
 
-    <h3>Selecciona un Método de Pago</h3>
+        <h3>Selecciona un Método de Pago</h3>
 
-    <form method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="payment_method">Método de Pago:</label>
-            <select class="form-control" id="payment_method" name="payment_method">
-                <option value="" selected>Elige un Método de Pago</option>
-                {% for method in payment_methods %}
-                    <option value="{{ method.0 }}">{{ method.1 }}</option>
-                {% endfor %}
-            </select>
-        </div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="text-center button-container">
+                <button type="button" class="btn" id="previous-btn" onclick="goToPreviousStep()">Cancelar Compra</button>
+                <button type="button" class="btn" id="auto-fill-btn" {% if user_is_logged_in %}onclick="autoFillData()" {% endif %}>Rellenar Automáticamente</button>
+                <button type="submit" class="btn btn-primary" id="next-btn">Ir al Siguiente Paso</button>
+            </div>
+        </form>
 
-        <a href="{% url 'purchase_step2' order_id %}" class="btn btn-primary">
-            Pasar al Siguiente Paso
-        </a>
-        
-    </form>
-</div>
+    </div>
+
+<script>
+    function goToPreviousStep() {
+        window.location.href = '/product/catalog/'
+
+    }
+
+    function autoFillData() {
+
+    }
+</script>
 
 {% endblock %}
