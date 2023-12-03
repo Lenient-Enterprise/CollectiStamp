@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import finish_order, purchase_step1, purchase_step2, purchase_step3
+from . import views
 
 app_name = 'order'
 
