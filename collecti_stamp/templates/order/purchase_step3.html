@@ -37,6 +37,32 @@
 
         .form-group {
             margin-bottom: 20px;
+        }
+
+                button {
+            margin-top: 10px;
+            border: none;
+            margin-right: 10px;
+        }
+
+        #previous-btn {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        #auto-fill-btn {
+            background-color: #28a745;
+            color: #ffffff;
+        }
+
+        #next-btn {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
     </style>
 
     <div class="container3 mt-5">
@@ -62,11 +88,26 @@
                 <span style="display: block; margin-bottom: 8px; color: #333;">Dirección de Envío:</span>
                 {{ customer_form.delivery_address }}
             </div>
-            <button type="submit" class="btn btn-primary">
-                Pasar al Siguiente Paso
-            </button>
+            <div class="text-center button-container">
+                <button type="button" class="btn" id="previous-btn" onclick="goToPreviousStep()">Ir al Paso Anterior</button>
+                <button type="button" class="btn" id="auto-fill-btn" {% if user_is_logged_in %}onclick="autoFillData()" {% endif %}>Rellenar Automáticamente</button>
+                <button type="submit" class="btn btn-primary" id="next-btn">Finalizar Compra</button>
+            </div>
         </form>
     </div>
+
+<script>
+    function goToPreviousStep() {
+        var order_id = '{{ new_order_id }}';
+        var previousStepUrl = '/order/finish/' + order_id + '/step2/';
+        window.location.href = previousStepUrl;
+    }
+
+    function autoFillData() {
+
+    }
+</script>
+
 {% endblock %}
 
 

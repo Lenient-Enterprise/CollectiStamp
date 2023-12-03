@@ -42,13 +42,28 @@
         }
 
         button {
-            background-color: #007bff;
-            color: #ffffff;
+            margin-top: 10px;
             border: none;
+            margin-right: 10px;
         }
 
-        button:hover {
-            background-color: #0056b3;
+        #previous-btn {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        #auto-fill-btn {
+            background-color: #28a745;
+            color: #ffffff;
+        }
+
+        #next-btn {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        .button-container {
+            margin-top: 20px;
         }
     </style>
 
@@ -67,10 +82,24 @@
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">
-                Pasar al Siguiente Paso
-            </button>
+            <div class="text-center button-container">
+                <button type="button" class="btn" id="previous-btn" onclick="goToPreviousStep()">Cancelar Compra</button>
+                <button type="button" class="btn" id="auto-fill-btn" {% if user_is_logged_in %}onclick="autoFillData()" {% endif %}>Rellenar Automáticamente</button>
+                <button type="submit" class="btn btn-primary" id="next-btn">Ir al Siguiente Paso</button>
+            </div>
         </form>
 
     </div>
+
+<script>
+    function goToPreviousStep() {
+        window.location.href = '/product/catalog/'
+
+    }
+
+    function autoFillData() {
+
+    }
+</script>
+
 {% endblock %}
