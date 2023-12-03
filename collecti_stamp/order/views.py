@@ -71,11 +71,7 @@ def purchase_step2(request, new_order_id):
         if form.is_valid():
             order = Order.objects.get(id=new_order_id)
             delivery_method = form.cleaned_data['delivery_method']
-            delivery_address = form.cleaned_data['delivery_address']
-            if delivery_method == 'PICK':
-                delivery_address = 'Recogida en tienda'
             order.delivery_method = delivery_method
-            order.delivery_address = delivery_address
             order.save()
             return redirect('order:purchase_step3', new_order_id=new_order_id)
         else:
