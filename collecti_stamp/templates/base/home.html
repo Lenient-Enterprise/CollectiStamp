@@ -43,6 +43,13 @@
             scroll-behavior: smooth;
         }
 
+        .scrolling-container2 {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+        }
+
         .scrolling-card {
             flex: 0 0 auto;
             border: solid 1px black;
@@ -63,6 +70,7 @@
             margin-left: 25px;
             margin-right: 25px;
         }
+        
     </style>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -70,6 +78,22 @@
             const leftBtn = document.querySelector("#scrolling-button-left");
 
             const content = document.querySelector(".scrolling-container");
+
+            rightBtn.addEventListener("click", () => {
+                content.scrollLeft += 800;
+            });
+
+            leftBtn.addEventListener("click", () => {
+                content.scrollLeft -= 800;
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const rightBtn = document.querySelector("#scrolling-button-right2");
+            const leftBtn = document.querySelector("#scrolling-button-left2");
+
+            const content = document.querySelector(".scrolling-container2");
 
             rightBtn.addEventListener("click", () => {
                 content.scrollLeft += 800;
@@ -98,10 +122,10 @@
     <div class="store-container">
         <h2>Sellos</h2>
         <div class="scrolling-buttons-container">
-            <span id="scrolling-button-left">👈</span>
-            <span id="scrolling-button-right">👉</span>
+            <span id="scrolling-button-left2">👈</span>
+            <span id="scrolling-button-right2">👉</span>
         </div>
-        <div class="scrolling-container">
+        <div class="scrolling-container2">
             {% for product in products %}
                 {% if product.product_type == "SEAL" %}
                     {% include "product/product_card.html" %}
