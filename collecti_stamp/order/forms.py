@@ -3,21 +3,20 @@ from .models import Order, DeliveryMethod, PaymentMethod
 
 
 class CustomerDataForm(forms.Form):
-    nombre = forms.CharField(max_length=100, required=False)
-    delivery_address = forms.CharField(max_length=250, required=False)
-    user_email = forms.EmailField(required=False)
+    nombre = forms.CharField(max_length=100, required=True)
+    delivery_address = forms.CharField(max_length=250, required=True)
+    user_email = forms.EmailField(required=True)
     
 class delivery_method_selection(forms.Form):
-    delivery_method = forms.ChoiceField(choices=DeliveryMethod.choices)
-    delivery_address = forms.CharField(required=False)
-    
+    choices_with_default = [('', 'Seleccione metodo de entrega')] + list(DeliveryMethod.choices)
+    delivery_method = forms.ChoiceField(choices=choices_with_default, required=True)
+
     def clean(self):
         cleaned_data = super().clean()
         delivery_method = cleaned_data.get("delivery_method")
-        delivery_address = cleaned_data.get("delivery_address")
 
-        if delivery_method != 'PICK' and not delivery_address:
-            self.add_error('delivery_address', 'Este campo es obligatorio si el método de entrega no es "Recogida en tienda"')
+        if not delivery_method or delivery_method == '':
+            self.add_error('delivery_method', 'Por favor, seleccione un método de entrega.')
         return cleaned_data
 
 class PaymentMethodForm(forms.Form):
