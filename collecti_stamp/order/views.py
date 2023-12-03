@@ -53,12 +53,14 @@ def purchase_step1(request, new_order_id):
             order.save()
             return redirect('order:purchase_step2', new_order_id=new_order_id)
         else:
+            products = get_order_products(order_products, new_order_id)
             return render(request, 'order/purchase_step1.html',
                           {'order_products': order_products, 'payment_methods': payment_methods,
-                           'order_id': new_order_id, 'form': form})
+                           'order_id': new_order_id, 'form': form, 'products': products})
     else:
         form = PaymentMethodForm()
-        return render(request, 'order/purchase_step1.html', {'order_products': order_products, 'payment_methods': payment_methods, 'order_id': new_order_id, 'form': form})
+        products = get_order_products(order_products, new_order_id)
+        return render(request, 'order/purchase_step1.html', {'order_products': order_products, 'payment_methods': payment_methods, 'order_id': new_order_id, 'form': form, 'products': products})
 
 @require_http_methods(["GET", "POST"])
 def purchase_step2(request, new_order_id):
@@ -78,12 +80,14 @@ def purchase_step2(request, new_order_id):
             return redirect('order:purchase_step3', new_order_id=new_order_id)
         else:
             form = delivery_method_selection()
+            products = get_order_products(order_products, new_order_id)
             return render(request, 'order/purchase_step2.html',
                           {'order_products': order_products, 'new_order_id': new_order_id,
-                           'delivery_method': delivery_choices, 'form': form})
+                           'delivery_method': delivery_choices, 'form': form, 'products': products})
     else:
         form = delivery_method_selection()
-        return render(request, 'order/purchase_step2.html', {'order_products': order_products, 'new_order_id': new_order_id, 'delivery_method': delivery_choices, 'form': form})
+        products = get_order_products(order_products, new_order_id)
+        return render(request, 'order/purchase_step2.html', {'order_products': order_products, 'new_order_id': new_order_id, 'delivery_method': delivery_choices, 'form': form, 'products': products})
 
 @require_http_methods(["POST", "GET"])
 def purchase_step3(request, new_order_id):
@@ -97,9 +101,7 @@ def purchase_step3(request, new_order_id):
             purchase_failed = False
 
             for order_product in order_products:
-                print("####################\n"+str(order_product.product_id.first().id)+"\n###########4#####")
                 product = get_object_or_404(Product, id=order_product.product_id.first().id)
-                print("Checking stock...")
                 if product.stock_amount < order_product.quantity:
                     purchase_failed = True
                     break
@@ -121,12 +123,14 @@ def purchase_step3(request, new_order_id):
                 return redirect('order:purchase_confirm', new_order_id=new_order_id)
         else:
             form = CustomerDataForm()
+            products = get_order_products(order_products, new_order_id)
             return render(request, 'order/purchase_step3.html',
                           {'order_products': order_products, 'payment_methods': payment_methods,
-                           'new_order_id': new_order_id, 'customer_form': form})
+                           'new_order_id': new_order_id, 'customer_form': form, 'products': products})
     else:
         form = CustomerDataForm()
-        return render(request, 'order/purchase_step3.html', {'order_products': order_products, 'payment_methods': payment_methods, 'new_order_id': new_order_id, 'customer_form': form})
+        products = get_order_products(order_products, new_order_id)
+        return render(request, 'order/purchase_step3.html', {'order_products': order_products, 'payment_methods': payment_methods, 'new_order_id': new_order_id, 'customer_form': form, 'products': products})
 
 @require_http_methods(["POST"])
 def purchase_confirm(request, new_order_id):
@@ -151,3 +155,10 @@ def purchase_confirm(request, new_order_id):
             order.save()
 
             return redirect('order:purchase_complete', new_order_id=new_order_id)
+
+def get_order_products(order_products, order_id):
+    products = []
+    for order_product in order_products:
+        product = get_object_or_404(Product, id=order_product.product_id.first().id)
+        products.append(product)
+    return products

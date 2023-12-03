@@ -68,13 +68,13 @@
     <div class="container3 mt-5">
         <h2>Confirmación de Compra - Paso 3</h2>
         <h3>Productos Comprados</h3>
-            <ul class="list-group">
-                {% for product in order_products %}
-                    <li class="list-group-item">{{ product.product_instance.name }} - Cantidad: {{ product.quantity }} - Precio: {{ product.product.price }} €</li>
-                {% endfor %}
-            </ul>
+        <ul class="list-group">
+            {% for product in products %}
+                <li class="list-group-item">{{ product.name }} {{ product.quantity }} - Precio por unidad: {{ product.price }} €</li>
+            {% endfor %}
+        </ul>
         <h3>Introducir datos</h3>
-        <form method="post" style="width: 60%; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <form method="post" style="width: 60%; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center;">
             {% csrf_token %}
             <div style="margin-bottom: 20px;">
                 <span style="display: block; margin-bottom: 8px; color: #333;">Correo Electrónico:</span>

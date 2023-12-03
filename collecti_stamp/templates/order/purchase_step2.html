@@ -76,11 +76,11 @@
     <h2>Confirmación de Compra - Paso 2</h2>
 
     <h3>Productos Comprados</h3>
-    <ul class="list-group">
-        {% for product in order_products %}
-            <li class="list-group-item">{{ product.product_instance.name }} - Cantidad: {{ product.quantity }} - Precio: {{ product.product.price }} €</li>
-        {% endfor %}
-    </ul>
+        <ul class="list-group">
+            {% for product in products %}
+                <li class="list-group-item">{{ product.name }} {{ product.quantity }} - Precio por unidad: {{ product.price }} €</li>
+            {% endfor %}
+        </ul>
     <h3>Selecciona Método de Entrega</h3>
     <form method="post">
         {% csrf_token %}
