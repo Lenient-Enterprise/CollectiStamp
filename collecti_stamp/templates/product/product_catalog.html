@@ -90,7 +90,65 @@
         display: block;
         margin-bottom: 5px; /* Ajusta el espacio entre las etiquetas de filtro */
         }
+
+        .scrolling-container {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            background-color: rgba(169, 169, 169, 0.7);
+            color: white; 
+            padding: 10px; 
+            margin-bottom: 10px; 
+            width: 100%; 
+            box-sizing: border-box;
+        }
+
+        .catalog-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #e6f7ff; /* Cambia el color de fondo a tu preferencia */
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .scrolling-card {
+            flex: 0 0 auto;
+            border: solid 1px black;
+            margin: 10px;
+            width: 250px;
+            height: 150px;
+            text-align: center;
+        }
+
+        .scrolling-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrolling-buttons-container {
+            display: flex;
+            justify-content: space-between;
+            font-size: 25px;
+            margin-left: 25px;
+            margin-right: 25px;
+        }
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const rightBtn = document.querySelector("#scrolling-button-right");
+            const leftBtn = document.querySelector("#scrolling-button-left");
+
+            const content = document.querySelector(".scrolling-container");
+
+            rightBtn.addEventListener("click", () => {
+                content.scrollLeft += 800;
+            });
+
+            leftBtn.addEventListener("click", () => {
+                content.scrollLeft -= 800;
+            });
+        });
+    </script>
 
     <h1>Catálogo de productos</h1>
 
@@ -125,19 +183,38 @@
         </form>
     </div>
 
-    <h1>Monedas</h1>
-    <ul class="catalog-list">
-        {% for coin in coins %}
-            {% include "product/product_card.html" with product=coin%}
-        {% endfor %}
-    </ul>
+    {% for category in categories %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const rightBtn = document.querySelector("#{{category.0}}-right");
+            const leftBtn = document.querySelector("#{{category.0}}-left");
 
-    <h1>Sellos</h1>
-    <ul class="catalog-list">
-        {% for seal in seals %}
-            {% include "product/product_card.html" with product=seal%}
-        {% endfor %}
-    </ul
+            const content = document.querySelector("#{{category.0}}-container");
+
+            rightBtn.addEventListener("click", () => {
+                content.scrollLeft += 800;
+            });
+
+            leftBtn.addEventListener("click", () => {
+                content.scrollLeft -= 800;
+            });
+        });
+    </script>
+        <div class="catalog-container">
+            <h2>{{ category.1 }}</h2>
+            <div class="scrolling-buttons-container">
+                <span id= {{category.0}}-left>👈</span>
+                <span id= {{category.0}}-right>👉</span>
+            </div>
+            <ul class="scrolling-container" id= {{category.0}}-container>
+                {% for product in products %}
+                    {% if product.category == category.0 %}
+                        {% include "product/product_card.html" with product=product %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %} 
 {% endblock %}
 
 
