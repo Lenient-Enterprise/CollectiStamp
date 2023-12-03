@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
-from collecti_stamp import settings, development_settings
+from collecti_stamp import settings
 from .forms import CustomUserCreationForm, EmailForm, PasswordForm, CustomUserEditionForm, CustomAuthenticationForm
 from .models import User
 from .utils import validate_email, get_user
