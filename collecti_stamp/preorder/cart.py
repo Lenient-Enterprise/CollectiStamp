@@ -18,7 +18,7 @@ class Cart:
             image_url = settings.MEDIA_URL + str(product.image) if product.image else None
             self.cart[product_id] = {
                 "product_id": product_id,
-                "name": product.user_name,
+                "name": product.name,
                 "price": float(product.price),
                 "amount": amount,
                 "image": image_url,
