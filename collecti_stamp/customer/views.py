@@ -1,18 +1,19 @@
 from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import get_template
 from django.urls import reverse
-from django.utils.encoding import force_bytes, force_str
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.contrib.auth.decorators import login_required
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 
 from collecti_stamp import settings, development_settings
 from .forms import CustomUserCreationForm, EmailForm, PasswordForm, CustomUserEditionForm, CustomAuthenticationForm
 from .models import User
 from .utils import validate_email, get_user
+from collecti_stamp import settings
 
 
 # Vista para iniciar sesión
@@ -56,8 +57,7 @@ def signin_view(request):
 
                 # Enviar el correo electrónico de verificación
                 template = get_template('customer/verification_email.html')
-                content = template.render(
-                    {'verify_url': development_settings.BASE_URL + verify_url, 'username': user.username})
+                content = template.render({'verify_url': request.build_absolute_uri('/') + verify_url, 'username': user.username})
                 message = EmailMultiAlternatives(
                     'Verificación de correo electrónico',
                     content,
@@ -95,7 +95,7 @@ def request_password_reset(request):
 
                 template = get_template('customer/password_email.html')
                 content = template.render(
-                    {'new_password_url': settings.BASE_URL + new_password_url, 'username': user.username})
+                    {'new_password_url': request.build_absolute_uri('/') + new_password_url, 'username': user.username})
                 message = EmailMultiAlternatives(
                     'Cambio de contraseña',
                     content,
