@@ -71,11 +71,7 @@ def purchase_step2(request, new_order_id):
         if form.is_valid():
             order = Order.objects.get(id=new_order_id)
             delivery_method = form.cleaned_data['delivery_method']
-            delivery_address = form.cleaned_data['delivery_address']
-            if delivery_method == 'PICK':
-                delivery_address = 'Recogida en tienda'
             order.delivery_method = delivery_method
-            order.delivery_address = delivery_address
             order.save()
             return redirect('order:purchase_step3', new_order_id=new_order_id)
         else:
@@ -110,7 +106,7 @@ def purchase_step3(request, new_order_id):
             if purchase_failed == False:
                 order = get_object_or_404(Order, id=new_order_id)
                 order.user_email = customer_form.cleaned_data['user_email']
-                order.user_name = customer_form.cleaned_data['name']
+                order.user_name = customer_form.cleaned_data['user_name']
                 order.delivery_address = customer_form.cleaned_data['delivery_address']
                 order.delivery_status = DeliveryStatus.STATUS_A
                 order.order_is_finished = True

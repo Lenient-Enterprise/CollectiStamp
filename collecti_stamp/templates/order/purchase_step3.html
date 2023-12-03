@@ -82,7 +82,7 @@
             </div>
             <div style="margin-bottom: 20px;">
                 <span style="display: block; margin-bottom: 8px; color: #333;">Nombre:</span>
-                {{ customer_form.name }}
+                {{ customer_form.user_name }}
             </div>
             <div style="margin-bottom: 20px;">
                 <span style="display: block; margin-bottom: 8px; color: #333;">Dirección de Envío:</span>
@@ -104,16 +104,13 @@
     }
 
     function autoFillData() {
-        // Obtén los datos del usuario del contexto del formulario
-        var name = "{{ request.user.name }}";
-        var delivery_address = "{{ request.user.delivery_address }}";
-        var user_email = "{{ request.user.user_email }}";
+        var user_name = "{{ user_data.username }}";
+        var delivery_address = "{{ user_data.address }}";
+        var user_email = "{{ user_data.email }}";
 
-        document.getElementById('name').value = name ;
-        document.getElementById('delivery_address').value = delivery_address ;
-        document.getElementById('user_email').value = user_email ;
-
-
+        document.getElementById('id_user_name').value = user_name ;
+        document.getElementById('id_delivery_address').value = delivery_address ;
+        document.getElementById('id_user_email').value = user_email ;
     }
 </script>
 
