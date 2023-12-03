@@ -66,6 +66,8 @@ def purchase_step1(request, new_order_id):
 def purchase_step2(request, new_order_id):
     order_products = OrderProduct.objects.filter(order_id=new_order_id)
     delivery_choices = DeliveryMethod.choices
+    user_is_logged_in = request.user.is_authenticated
+
     if request.method == 'POST':
         form = delivery_method_selection(request.POST)
         if form.is_valid():
@@ -79,11 +81,14 @@ def purchase_step2(request, new_order_id):
             products = get_order_products(order_products, new_order_id)
             return render(request, 'order/purchase_step2.html',
                           {'order_products': order_products, 'new_order_id': new_order_id,
-                           'delivery_method': delivery_choices, 'form': form, 'products': products})
+                           'delivery_method': delivery_choices, 'form': form, 'products': products, 'user_is_logged_in': user_is_logged_in})
     else:
         form = delivery_method_selection()
         products = get_order_products(order_products, new_order_id)
-        return render(request, 'order/purchase_step2.html', {'order_products': order_products, 'new_order_id': new_order_id, 'delivery_method': delivery_choices, 'form': form, 'products': products})
+        return render(request, 'order/purchase_step2.html', {'order_products': order_products,
+                                                             'new_order_id': new_order_id,
+                                                             'delivery_method': delivery_choices, 'form': form,
+                                                             'products': products, 'user_is_logged_in': user_is_logged_in})
 
 @require_http_methods(["POST", "GET"])
 def purchase_step3(request, new_order_id):
@@ -133,14 +138,16 @@ def purchase_step3(request, new_order_id):
             return render(request, 'order/purchase_step3.html',
                           {'order_products': order_products, 'payment_methods': payment_methods,
                            'new_order_id': new_order_id, 'customer_form': form, 'products': products,
-                           'user_name': user_name, 'user_email': user_email, 'delivery_address': delivery_address})
+                           'user_name': user_name, 'user_email': user_email, 'delivery_address': delivery_address,
+                           'user_is_logged_in': user_is_logged_in})
     else:
         form = CustomerDataForm()
         products = get_order_products(order_products, new_order_id)
         return render(request, 'order/purchase_step3.html',
                       {'order_products': order_products, 'payment_methods': payment_methods,
                        'new_order_id': new_order_id, 'customer_form': form, 'products': products,
-                       'user_name': user_name, 'user_email': user_email, 'delivery_address': delivery_address})
+                       'user_name': user_name, 'user_email': user_email, 'delivery_address': delivery_address,
+                       'user_is_logged_in': user_is_logged_in})
 
 
 def get_order_products(order_products, order_id):

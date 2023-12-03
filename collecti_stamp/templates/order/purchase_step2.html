@@ -106,6 +106,11 @@
     }
 
     function autoFillData() {
+        // Obtén los datos del usuario del contexto del formulario
+        var delivery_method = "{{ request.user.delivery_method }}";
+
+        document.getElementById('id_delivery_method').value = delivery_method ;
+
 
     }
 </script>
