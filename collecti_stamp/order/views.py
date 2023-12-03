@@ -91,6 +91,15 @@ def purchase_step3(request, new_order_id):
     payment_methods = PaymentMethod.choices
     user_is_logged_in = request.user.is_authenticated
 
+    user_name = "Nulo"
+    user_email = "Nulo"
+    delivery_address = "Nulo"
+
+    if user_is_logged_in:
+        user_name = request.user.username
+        user_email = request.user.email
+        delivery_address = request.user.address
+    print(user_name)
     if request.method == 'POST':
         customer_form = CustomerDataForm(request.POST)
         if customer_form.is_valid():
@@ -123,11 +132,15 @@ def purchase_step3(request, new_order_id):
             products = get_order_products(order_products, new_order_id)
             return render(request, 'order/purchase_step3.html',
                           {'order_products': order_products, 'payment_methods': payment_methods,
-                           'new_order_id': new_order_id, 'customer_form': form, 'products': products})
+                           'new_order_id': new_order_id, 'customer_form': form, 'products': products,
+                           'user_name': user_name, 'user_email': user_email, 'delivery_address': delivery_address})
     else:
         form = CustomerDataForm()
         products = get_order_products(order_products, new_order_id)
-        return render(request, 'order/purchase_step3.html', {'order_products': order_products, 'payment_methods': payment_methods, 'new_order_id': new_order_id, 'customer_form': form, 'products': products, 'user_is_logged_in': user_is_logged_in})
+        return render(request, 'order/purchase_step3.html',
+                      {'order_products': order_products, 'payment_methods': payment_methods,
+                       'new_order_id': new_order_id, 'customer_form': form, 'products': products,
+                       'user_name': user_name, 'user_email': user_email, 'delivery_address': delivery_address})
 
 
 def get_order_products(order_products, order_id):
