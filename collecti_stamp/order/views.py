@@ -1,3 +1,4 @@
+from django.http import HttpResponseNotAllowed
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404
@@ -90,64 +91,52 @@ def purchase_step2(request, new_order_id):
                                                              'delivery_method': delivery_choices, 'form': form,
                                                              'products': products, 'user_is_logged_in': user_is_logged_in})
 
-@require_http_methods(["POST", "GET"])
+@require_http_methods(["GET", "POST"])
 def purchase_step3(request, new_order_id):
-    order_products = OrderProduct.objects.filter(order_id=new_order_id)
-    payment_methods = PaymentMethod.choices
-    user_is_logged_in = request.user.is_authenticated
+    if request.method == 'GET':
+        order_products = OrderProduct.objects.filter(order_id=new_order_id)
+        payment_methods = PaymentMethod.choices
+        user_is_logged_in = request.user.is_authenticated
 
-    user_name = "Nulo"
-    user_email = "Nulo"
-    delivery_address = "Nulo"
+        form = CustomerDataForm()
+        products = get_order_products(order_products, new_order_id)
 
-    if user_is_logged_in:
-        user_name = request.user.username
-        user_email = request.user.email
-        delivery_address = request.user.address
-    print(user_name)
-    if request.method == 'POST':
+        return render(request, 'order/purchase_step3.html', {
+            'order_products': order_products,
+            'payment_methods': payment_methods,
+            'new_order_id': new_order_id,
+            'customer_form': form,
+            'products': products,
+            'user_is_logged_in': user_is_logged_in,
+        })
+
+    elif request.method == 'POST':
         customer_form = CustomerDataForm(request.POST)
+
         if customer_form.is_valid():
-            request.session['customer_data'] = customer_form.cleaned_data
-            purchase_failed = False
+            order = get_object_or_404(Order, id=new_order_id)
+            order.user_email = customer_form.cleaned_data['user_email']
+            order.user_name = customer_form.cleaned_data['user_name']
+            order.delivery_address = customer_form.cleaned_data['delivery_address']
+            order.delivery_status = DeliveryStatus.STATUS_A
+            order.order_is_finished = True
+
+            order_products = OrderProduct.objects.filter(order_id=new_order_id)
 
             for order_product in order_products:
                 product = get_object_or_404(Product, id=order_product.product_id.first().id)
                 if product.stock_amount < order_product.quantity:
-                    purchase_failed = True
-                    break
+                    return redirect('/?message=Uno de los productos se ha agotado&status=Error')
 
-            if purchase_failed == False:
-                order = get_object_or_404(Order, id=new_order_id)
-                order.user_email = customer_form.cleaned_data['user_email']
-                order.user_name = customer_form.cleaned_data['user_name']
-                order.delivery_address = customer_form.cleaned_data['delivery_address']
-                order.delivery_status = DeliveryStatus.STATUS_A
-                order.order_is_finished = True
-                for order_product in order_products:
-                    product = get_object_or_404(Product, id=order_product.product_id.first().id)
-                    product.stock_amount -= order_product.quantity
-                    product.save()
-                order.save()
-                return redirect('/?message=Compra Realizada&status=Success')
-            else:
-                return redirect('/?message=Uno de los productos se ha agotado&status=Error')
-        else:
-            form = CustomerDataForm()
-            products = get_order_products(order_products, new_order_id)
-            return render(request, 'order/purchase_step3.html',
-                          {'order_products': order_products, 'payment_methods': payment_methods,
-                           'new_order_id': new_order_id, 'customer_form': form, 'products': products,
-                           'user_name': user_name, 'user_email': user_email, 'delivery_address': delivery_address,
-                           'user_is_logged_in': user_is_logged_in})
-    else:
-        form = CustomerDataForm()
-        products = get_order_products(order_products, new_order_id)
-        return render(request, 'order/purchase_step3.html',
-                      {'order_products': order_products, 'payment_methods': payment_methods,
-                       'new_order_id': new_order_id, 'customer_form': form, 'products': products,
-                       'user_name': user_name, 'user_email': user_email, 'delivery_address': delivery_address,
-                       'user_is_logged_in': user_is_logged_in})
+                product.stock_amount -= order_product.quantity
+                product.save()
+
+            order.save()
+            return redirect('/?message=Compra Realizada&status=Success')
+
+    # Si se recibe una solicitud con un método no permitido, devolver un error 405 (Method Not Allowed)
+    return HttpResponseNotAllowed(["GET", "POST"])
+
 
 
 def get_order_products(order_products, order_id):
