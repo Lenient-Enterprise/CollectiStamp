@@ -1,17 +1,19 @@
-from django.shortcuts import render, redirect
-from django.views.decorators.http import require_http_methods
-from django.shortcuts import get_object_or_404
+from datetime import date
 
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import EmailMultiAlternatives
+from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import get_template
+from django.urls import reverse
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+from django.views.decorators.http import require_http_methods
+from preorder.context_processor import total_cart
+from product.models import Product
+
+from collecti_stamp import settings
 from .forms import CustomerDataForm, delivery_method_selection, PaymentMethodForm
 from .models import Order, OrderProduct, PaymentMethod, DeliveryMethod, DeliveryStatus
-from datetime import date
-from preorder import cart
-
-from preorder.context_processor import total_cart
-from preorder.views import delete_cart
-
-from product.models import Product
-from customer.models import User
 
 
 @require_http_methods(["POST"])
@@ -38,7 +40,8 @@ def finish_order(request):
         order_product.product_id.set([product_id])
         order_product.save()
 
-    return redirect(str(new_order_id)+"/step1/")
+    return redirect(str(new_order_id) + "/step1/")
+
 
 @require_http_methods(["GET", "POST"])
 def purchase_step1(request, new_order_id):
@@ -60,7 +63,10 @@ def purchase_step1(request, new_order_id):
     else:
         form = PaymentMethodForm()
         products = get_order_products(order_products, new_order_id)
-        return render(request, 'order/purchase_step1.html', {'order_products': order_products, 'payment_methods': payment_methods, 'order_id': new_order_id, 'form': form, 'products': products})
+        return render(request, 'order/purchase_step1.html',
+                      {'order_products': order_products, 'payment_methods': payment_methods, 'order_id': new_order_id,
+                       'form': form, 'products': products})
+
 
 @require_http_methods(["GET", "POST"])
 def purchase_step2(request, new_order_id):
@@ -87,7 +93,10 @@ def purchase_step2(request, new_order_id):
     else:
         form = delivery_method_selection()
         products = get_order_products(order_products, new_order_id)
-        return render(request, 'order/purchase_step2.html', {'order_products': order_products, 'new_order_id': new_order_id, 'delivery_method': delivery_choices, 'form': form, 'products': products})
+        return render(request, 'order/purchase_step2.html',
+                      {'order_products': order_products, 'new_order_id': new_order_id,
+                       'delivery_method': delivery_choices, 'form': form, 'products': products})
+
 
 @require_http_methods(["POST", "GET"])
 def purchase_step3(request, new_order_id):
@@ -118,6 +127,23 @@ def purchase_step3(request, new_order_id):
                     product.stock_amount -= order_product.quantity
                     product.save()
                 order.save()
+                #details_url = reverse('verify_email', args=[order.code]) #
+                details_url = "1234"
+
+                # Enviar el correo electrónico de verificación
+                template = get_template('order/email_details.html')
+                content = template.render(
+                    {'absolute_url': request.build_absolute_uri('/'), 'details_url': details_url, 'order': order, 'order_products': order_products})
+                message = EmailMultiAlternatives(
+                    'Verificación de correo electrónico',
+                    content,
+                    settings.EMAIL_HOST_USER,
+                    [order.user_email]
+                )
+
+                message.attach_alternative(content, 'text/html')
+                message.send()
+
                 return redirect('/?message=Compra Realizada&status=Success')
             else:
                 return redirect('/?message=Uno de los productos se ha agotado&status=Error')
@@ -130,7 +156,9 @@ def purchase_step3(request, new_order_id):
     else:
         form = CustomerDataForm()
         products = get_order_products(order_products, new_order_id)
-        return render(request, 'order/purchase_step3.html', {'order_products': order_products, 'payment_methods': payment_methods, 'new_order_id': new_order_id, 'customer_form': form, 'products': products})
+        return render(request, 'order/purchase_step3.html',
+                      {'order_products': order_products, 'payment_methods': payment_methods,
+                       'new_order_id': new_order_id, 'customer_form': form, 'products': products})
 
 
 def get_order_products(order_products, order_id):
