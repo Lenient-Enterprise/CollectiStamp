@@ -24,7 +24,9 @@ if MODE == 'deployment':
     STATIC_ROOT = '/app/static'
     STATICFILES_DIRS = ['/app/static']
 else:
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
     STATICFILES_DIRS = [BASE_DIR /'static']
+
 
 # Database configuration
 if MODE == 'deployment':
