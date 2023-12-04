@@ -1,0 +1,88 @@
+[
+    {
+      "model": "order.Order",
+      "pk": 1,
+      "fields": {
+        "code": "8b4ce9ea-102b-406b-9cae-d509a2a62bad",
+        "user_email": "admin@example.com",
+        "user_name": "admin",
+        "order_date": "2022-11-12",
+        "order_total": "23.67",
+        "order_is_finished": "False",
+        "payment_method": "CASH_ON_DELIVERY",
+        "delivery_status": "DELIVERED",
+        "delivery_method": "STANDARD_SHIPPING",
+        "delivery_cost": "2.79",
+        "delivery_adress": "177013"
+      }
+    },
+    {
+        "model": "order.Order",
+        "pk": 1,
+        "fields": {
+          "code": "8b4ce9ea-102b-406b-9cae-d509a2a62bad",
+          "user_email": "admin@example.com",
+          "user_name": "admin",
+          "order_date": "2022-11-12",
+          "order_total": "200.69",
+          "order_is_finished": "False",
+          "payment_method": "CASH_ON_DELIVERY",
+          "delivery_status": "DELIVERED",
+          "delivery_method": "STANDARD_SHIPPING",
+          "delivery_cost": "2.79",
+          "delivery_adress": "177013"
+        }
+      },
+      {
+        "model": "order.Order",
+        "pk": 1,
+        "fields": {
+          "code": "8b4ce9ea-102b-406b-9cae-d509a2a62bad",
+          "user_email": "admin@example.com",
+          "user_name": "admin",
+          "order_date": "2022-11-12",
+          "order_total": "200.69",
+          "order_is_finished": "False",
+          "payment_method": "CASH_ON_DELIVERY",
+          "delivery_status": "DELIVERED",
+          "delivery_method": "STANDARD_SHIPPING",
+          "delivery_cost": "2.79",
+          "delivery_adress": "177013"
+        }
+      },
+      {
+        "model": "order.Order",
+        "pk": 1,
+        "fields": {
+          "code": "8b4ce9ea-102b-406b-9cae-d509a2a62bad",
+          "user_email": "admin@example.com",
+          "user_name": "admin",
+          "order_date": "2022-11-12",
+          "order_total": "200.69",
+          "order_is_finished": "False",
+          "payment_method": "CASH_ON_DELIVERY",
+          "delivery_status": "DELIVERED",
+          "delivery_method": "STANDARD_SHIPPING",
+          "delivery_cost": "2.79",
+          "delivery_adress": "177013"
+        }
+      },
+      {
+        "model": "order.Order",
+        "pk": 1,
+        "fields": {
+          "code": "8b4ce9ea-102b-406b-9cae-d509a2a62bad",
+          "user_email": "admin@example.com",
+          "user_name": "admin",
+          "order_date": "2022-11-12",
+          "order_total": "200.69",
+          "order_is_finished": "False",
+          "payment_method": "CASH_ON_DELIVERY",
+          "delivery_status": "DELIVERED",
+          "delivery_method": "STANDARD_SHIPPING",
+          "delivery_cost": "2.79",
+          "delivery_adress": "177013"
+        }
+      }
+
+]

@@ -8,10 +8,8 @@ from datetime import date
 from preorder import cart
 
 from preorder.context_processor import total_cart
-from preorder.views import delete_cart
 
 from product.models import Product
-from customer.models import User
 
 
 @require_http_methods(["POST"])
@@ -111,7 +109,7 @@ def purchase_step3(request, new_order_id):
                 order.user_email = customer_form.cleaned_data['user_email']
                 order.user_name = customer_form.cleaned_data['nombre']
                 order.delivery_address = customer_form.cleaned_data['delivery_address']
-                order.delivery_status = DeliveryStatus.STATUS_A
+                order.delivery_status = DeliveryStatus.IN_WAREHOUSE
                 order.order_is_finished = True
                 for order_product in order_products:
                     product = get_object_or_404(Product, id=order_product.product_id.first().id)
