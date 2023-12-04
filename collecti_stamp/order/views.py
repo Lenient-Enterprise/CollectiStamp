@@ -135,7 +135,7 @@ def purchase_step3(request, new_order_id):
                 content = template.render(
                     {'details_url': details_url, 'order': order, 'order_products': order_products})
                 message = EmailMultiAlternatives(
-                    'Verificación de correo electrónico',
+                    'Detalles de compra',
                     content,
                     settings.EMAIL_HOST_USER,
                     [order.user_email]
