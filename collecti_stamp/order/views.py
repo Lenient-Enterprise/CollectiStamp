@@ -133,7 +133,7 @@ def purchase_step3(request, new_order_id):
                 # Enviar el correo electrónico de verificación
                 template = get_template('order/email_details.html')
                 content = template.render(
-                    {'absolute_url': request.build_absolute_uri('/'), 'details_url': details_url, 'order': order, 'order_products': order_products})
+                    {'details_url': details_url, 'order': order, 'order_products': order_products})
                 message = EmailMultiAlternatives(
                     'Verificación de correo electrónico',
                     content,

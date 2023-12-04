@@ -1526,7 +1526,7 @@
                         <!-- Logo Image -->
                         <div class="logo-center" align="center" id="emb-email-header"><img
                                 style="display: block;height: auto;width: 100%;border: 0;max-width: 141px;"
-                                src="{{ absolute_url }}{% static 'img/company/company_logo.png' %}" alt="" width="141"/>
+                                src="http://localhost:8000{% static 'img/company/company_logo.png' %}" alt="" width="141"/>
                         </div>
                     </div>
                     <!--[if mso]></td></tr></table><![endif]-->
@@ -1550,7 +1550,7 @@
                                     <!-- Backgground image -->
                                     <img style="border: 0;display: block;height: auto;width: 100%;max-width: 900px;"
                                          alt="" width="560"
-                                         src="{{ absolute_url }}static/img/header.jpg"/>
+                                         src="http://localhost:8000/static/img/header.jpg"/>
                                 </div>
                             </div>
 
@@ -1567,7 +1567,7 @@
                                         lang="x-size-32">CollectiStamp</h1>
                                     <!-- Description -->
                                     <p class="size-16"
-                                       style="Margin-top: 20px;Margin-bottom: 0;font-size: 16px;line-height: 24px;text-align: left;"
+                                       style="Margin-top: 20px;Margin-bottom: 0;font-size: 16px;line-height: 24px;text-align: left; color: #808080"
                                        lang="x-size-16">Es una empresa comprometida con la difusión cultural y el apoyo
                                         a la comunidad universitaria de la Universidad de Sevilla. Se especializa en la
                                         venta y compra de monedas y sellos para coleccionistas, ofreciendo una
@@ -1581,7 +1581,7 @@
                                         style="Margin-top: 20px;Margin-bottom: 0;font-style: normal;font-weight: normal;color: #3dfda0;font-size: 17px;line-height: 26px;font-family: Avenir,sans-serif;text-align: left;"
                                         lang="x-size-20">Los detalles de tu cuenta</h2>
                                     <p class="size-16"
-                                       style="Margin-top: 16px;Margin-bottom: 20px;font-size: 16px;line-height: 24px;"
+                                       style="Margin-top: 16px;Margin-bottom: 20px;font-size: 16px;line-height: 24px; color: #808080"
                                        lang="x-size-16">
                                         Usuario: {{ order.user_name }}<br/>
                                         Correo: {{ order.user_email }}<br/>
@@ -1632,7 +1632,7 @@
                                                         <img style="border: 0;display: block;height: auto;width: 100%;max-width: 480px;"
                                                              alt="" width="250"
                                                              src="
-                                                                     {{ absolute_url }}{{ order_product.product_id.first.image.url }}"/>
+                                               http://localhost:8000/{{ order_product.product_id.first.image.url }}"/>
                                                     </div>
                                                 </div>
 
@@ -1648,7 +1648,7 @@
                                                            style="Margin-top: 20px;Margin-bottom: 0;font-size: 17px;line-height: 26px;"
                                                            lang="x-size-18"><a
                                                                 style="text-decoration: underline;transition: opacity 0.1s ease-in;color: #3dfda0;"
-                                                                href="{{ absolute_url }}product/product/{{ order_product.product_id.first.id }}"
+                                                                href="http://localhost:8000/product/product/{{ order_product.product_id.first.id }}"
                                                                 data-emb-iscopy="true">Ver detalles
                                                         </a>
                                                         </p>
@@ -1750,7 +1750,7 @@
                                  align="center">
                                 <div style="margin-right: 20px;" emb-flexible-footer-logo align="center"><img
                                         style="border: 0;display: block;height: auto;width: 100%;max-width: 141px;"
-                                        src="{% static 'img/company/company_logo.png' %}" alt="" width="141"/></div>
+                                        src="http://localhost:8000{% static 'img/company/company_logo.png' %}" alt="" width="141"/></div>
                             </div>
                         </div>
                         <!--[if mso]></td><![endif]-->
@@ -1782,14 +1782,16 @@
                                                  style="font-size: 12px;line-height: 19px;margin-bottom: 15px;">
                                                 <div style="Margin-bottom: 12px;">
                                                     <div>© 2023 CollectiStamp. Todos los derechos reservados.</div>
-                                                    <div>Soporte: <a href="mailto:lennient.enterprise@gmail.com">lennient.enterprise@gmail.com</a></div>
+                                                    <div>Soporte: <a href="mailto:lennient.enterprise@gmail.com">lennient.enterprise@gmail.com</a>
+                                                    </div>
                                                     <div>Contacto: <a href="tel:+34123456789">+34 123 456 789</a></div>
-                                                    <div>Dirección: <a href="https://maps.app.goo.gl/FfV92hjNyzYp8sXQ7">Calle Filatelia 1, Sevilla</a></div>
+                                                    <div>Dirección: <a href="https://maps.app.goo.gl/FfV92hjNyzYp8sXQ7">Calle
+                                                        Filatelia 1, Sevilla</a></div>
 
+                                                </div>
+                                                <!--[if mso]>&nbsp;<![endif]-->
                                             </div>
-                                            <!--[if mso]>&nbsp;<![endif]-->
                                         </div>
-                                    </div>
                                 </td>
                             </tr>
                             </tbody>
