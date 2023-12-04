@@ -12,16 +12,21 @@
             </div>
         </div>
         <div class="company-info">
+            <hr> <!-- Separador -->
             <p><strong class="company-info-label">Dirección:</strong> {{ company.address }}</p>
             <hr> <!-- Separador -->
             <p><strong class="company-info-label">Teléfono de contacto:</strong> {{ company.contact_phone }}</p>
             <hr> <!-- Separador -->
             <p><strong class="company-info-label">Correo electrónico de contacto:</strong> {{ company.contact_email }}</p>
+            <hr> <!-- Separador -->
+            <p><strong class="company-info-label">CIF:</strong> {{ company.cif }}</p>
         </div>
         <div class="company-description">
             <hr> <!-- Separador -->
-            <p style="white-space: pre-line;">{{ company.description }}</p>
+            <p style="white-space: pre-line;">{{ company.description|safe }}</p>
         </div>
+
+
     </div>
     <style>
         body {
@@ -62,6 +67,5 @@
         }
     </style>
 {% endblock %}
-
 
 

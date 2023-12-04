@@ -45,7 +45,17 @@
         a.catalog-link:hover {
             background-color: #000000;
         }
+
         .filters-container {
+            position: fixed;
+            top: 0; /* Ajusta según la altura de tu header */
+            left: 0;
+            width: 20rem;
+            height: 100vh;
+            padding: 1.25rem;
+            box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            overflow-y: auto;
             background-color: #343a40;
             color: #fff;
             padding: 20px;
@@ -53,11 +63,16 @@
             margin-bottom: 20px;
             border-radius: 7px;
         }
+        
+        .filter-content {
+            margin-top: 15rem;
+            padding: 1.25rem;
+        }
 
         .filter-select {
-            width: calc(25% - 16px);
             padding: 8px;
             margin: 8px;
+            margin-left:0;
             border-radius: 4px;
             box-sizing: border-box;
             display: inline-block;
@@ -90,47 +105,117 @@
         display: block;
         margin-bottom: 5px; /* Ajusta el espacio entre las etiquetas de filtro */
         }
+
+        .scrolling-container {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            background-color: #e6f7ff;
+            color: white; 
+            padding: 10px; 
+            margin-bottom: 10px; 
+            width: 100%; 
+            box-sizing: border-box;
+        }
+
+        .catalog-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #e6f7ff; /* Cambia el color de fondo a tu preferencia */
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .scrolling-card {
+            flex: 0 0 auto;
+            border: solid 1px black;
+            margin: 10px;
+            width: 250px;
+            height: 150px;
+            text-align: center;
+        }
+
+        .scrolling-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrolling-buttons-container {
+            display: flex;
+            justify-content: space-between;
+            font-size: 25px;
+            margin-left: 25px;
+            margin-right: 25px;
+        }
     </style>
 
     <h1>Catálogo de productos</h1>
 
     <div class="filters-container">
-        <form method="get">
-            {% csrf_token %}
-            <label for="criteria1" class="filter-label">Criterio 1:</label>
-            <select id="criteria1" name="criteria1" class="filter-select">
-                <option value="">Seleccione un criterio</option>
-                {% for criterion in criteria %}
-                    <option value="{{ criterion.id }}">{{ criterion.name }}</option>
-                {% endfor %}
-            </select>
+        <div class="filter-content">
+            <form method="get">
+                {% csrf_token %}
+                <label for="criteria1" class="filter-label">Criterio 1:</label>
+                <select id="criteria1" name="criteria1" class="filter-select">
+                    <option value="">Seleccione un criterio</option>
+                    {% for criterion in criteria %}
+                        <option value="{{ criterion.id }}">{{ criterion.name }}</option>
+                    {% endfor %}
+                </select>
 
-            <label for="criteria2" class="filter-label">Criterio 2:</label>
-            <select id="criteria2" name="criteria2" class="filter-select">
-                <option value="">Seleccione un criterio</option>
-                {% for criterion in criteria %}
-                    <option value="{{ criterion.id }}">{{ criterion.name }}</option>
-                {% endfor %}
-            </select>
+                <label for="criteria2" class="filter-label">Criterio 2:</label>
+                <select id="criteria2" name="criteria2" class="filter-select">
+                    <option value="">Seleccione un criterio</option>
+                    {% for criterion in criteria %}
+                        <option value="{{ criterion.id }}">{{ criterion.name }}</option>
+                    {% endfor %}
+                </select>
 
-            <label for="criteria3" class="filter-label">Criterio 3:</label>
-            <select id="criteria3" name="criteria3" class="filter-select">
-                <option value="">Seleccione un criterio</option>
-                {% for criterion in criteria %}
-                    <option value="{{ criterion.id }}">{{ criterion.name }}</option>
-                {% endfor %}
-            </select>
-
-            <button type="submit" class="btn btn-primary">Aplicar filtro</button>
-        </form>
+                <label for="criteria3" class="filter-label">Criterio 3:</label>
+                <select id="criteria3" name="criteria3" class="filter-select">
+                    <option value="">Seleccione un criterio</option>
+                    {% for criterion in criteria %}
+                        <option value="{{ criterion.id }}">{{ criterion.name }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <button type="submit" class="btn btn-primary">Aplicar filtro</button>
+            </form>
+        </div>
     </div>
 
+    {% for category in categories %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const rightBtn = document.querySelector("#{{category.0}}-right");
+            const leftBtn = document.querySelector("#{{category.0}}-left");
 
-    <ul class="catalog-list">
-        {% for product in products %}
-            {% include "product/product_card.html"%}
-        {% endfor %}
-    </ul>
+            const content = document.querySelector("#{{category.0}}-container");
+
+            rightBtn.addEventListener("click", () => {
+                content.scrollLeft += 800;
+            });
+
+            leftBtn.addEventListener("click", () => {
+                content.scrollLeft -= 800;
+            });
+        });
+    </script>
+        <div class="catalog-container">
+            <h2>{{ category.1 }}</h2>
+            <div class="scrolling-buttons-container">
+                <span id= {{category.0}}-left>👈</span>
+                <span id= {{category.0}}-right>👉</span>
+            </div>
+            <ul class="scrolling-container" id= {{category.0}}-container>
+                {% for product in products %}
+                    {% if product.category == category.0 %}
+                        {% include "product/product_card.html" with product=product %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %} 
 {% endblock %}
 
 

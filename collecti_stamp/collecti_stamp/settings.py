@@ -1,49 +1,73 @@
+# settings.py
+
 import os
+from pathlib import Path
+import dj_database_url
 
-# Accede a la variable de enorno MODE
+# Access the environment variable MODE
 MODE = os.environ.get('MODE')
-print(MODE)
+ROOT_URLCONF = 'collecti_stamp.urls'
+DEBUG = True
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-if MODE == 'production':
-    from collecti_stamp.production_settings import *
-elif MODE == 'deployment':
-    from collecti_stamp.deployment_settings import *
+# Security settings
+ALLOWED_HOSTS = ['*']  # Add your actual domain here instead of '*'
+CSRF_TRUSTED_ORIGINS = ['http://10.5.0.1:8000', 'http://localhost:8000', 'http://127.0.0.1:8000']
+ALLOWED_ORIGINS = ['http://10.5.0.1:8000', 'http://localhost:8000', 'http://127.0.0.1:8000']
+
+STATICFILES_DIRS = []
+
+# For Deployment
+if MODE == 'deployment':
+    STATIC_ROOT = '/app/static'
+    STATICFILES_DIRS = ['/app/static']
 else:
-    from collecti_stamp.development_settings import *
+    STATICFILES_DIRS = [BASE_DIR /'static']
+
+# Database configuration
+if MODE == 'deployment':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('DB_NAME', 'postgres'),
+            'USER': os.environ.get('DB_USER', 'postgres'),
+            'PASSWORD': os.environ.get('DB_PASSWORD', 'postgres'),
+            'HOST': os.environ.get('DB_HOST', 'db'),
+            'PORT': 5432,
+        }
+    }
+    MEDIA_ROOT = '/app/static/media/'
+elif MODE == 'development':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    DEBUG = False
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
 
 # Custom user model
 AUTH_USER_MODEL = 'customer.User'
 
-
-
 # Quick-start development settings
-SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
-
-ALLOWED_HOSTS = []
+SECRET_KEY = os.environ.get('SECRET_KEY', default='your-secret-key')
 
 # Installed applications
 INSTALLED_APPS = [
     'material',
     'material.admin',
-    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'base',
-    'catalog',
-    'claim',
-    'company',
-    'customer',
-    'order',
-    'postorder',
-    'preorder',
-    'product'
-]
-
-MODULES = [
     'base',
     'catalog',
     'claim',
@@ -65,8 +89,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-ROOT_URLCONF = 'collecti_stamp.urls'
 
 # Template configuration
 TEMPLATES = [
@@ -113,38 +135,25 @@ USE_TZ = True
 
 # Static files configuration
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Default primary key field type
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'  # TODO: Change to django.db.models.UUIDField
 
 # Email configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'alex.0002002@gmail.com'
-EMAIL_HOST_PASSWORD = 'whxj cvwg vxnv dybu'
+EMAIL_HOST_USER = 'lennient.enterprise@gmail.com'
+EMAIL_HOST_PASSWORD = 'yltf khuu xjdk vrah'
 
 # Admin site configuration
 MATERIAL_ADMIN_SITE = {
-    'HEADER':  'CollectiStamp - Administración',  # Admin site header
-    'TITLE': 'Panel de Control de CollectiStamp',  # Admin site title
-    # 'FAVICON':  'path/to/favicon',  # Admin site favicon (path to static should be specified)
-    # 'MAIN_BG_COLOR':  'color',  # Admin site main color, css color should be specified
-    # 'MAIN_HOVER_COLOR':  'color',  # Admin site main hover color, css color should be specified
-    # 'PROFILE_PICTURE':  'path/to/image',  # Admin site profile picture (path to static should be specified)
-    # 'PROFILE_BG':  'path/to/image',  # Admin site profile background (path to static should be specified)
-    # 'LOGIN_LOGO':  'path/to/image',  # Admin site logo on login page (path to static should be specified)
-    # 'LOGOUT_BG':  'path/to/image',  # Admin site background on login/logout pages (path to static should be specified)
-    'SHOW_THEMES':  True,  #  Show default admin themes button
-    'TRAY_REVERSE': True,  # Hide object-tools and additional-submit-line by default
-    'NAVBAR_REVERSE': True,  # Hide side navbar by default
-    'SHOW_COUNTS': True, # Show instances counts for each model
+    'HEADER': 'CollectiStamp - Administración',
+    'TITLE': 'Panel de Control de CollectiStamp',
+    'SHOW_THEMES': True,
+    'TRAY_REVERSE': True,
+    'NAVBAR_REVERSE': True,
+    'SHOW_COUNTS': True,
 }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',  # Using Pathlib for platform-independent path concatenation
-    }
-}
+

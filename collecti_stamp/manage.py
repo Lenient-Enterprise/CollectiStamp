@@ -4,8 +4,6 @@
 import os
 import sys
 
-from collecti_stamp import settings
-
 
 def set_mode_settings():
     """Set Django settings module based on the --mode argument."""
@@ -26,15 +24,12 @@ def set_mode_settings():
             sys.exit(1)
     else:
         # Añade al entorno el modo
-        print("hola")
         os.environ['MODE'] = "development"
 
 def main():
     """Run administrative tasks."""
-    print("hola")
-    set_mode_settings()
     os.environ['DJANGO_SETTINGS_MODULE'] = 'collecti_stamp.settings'
-
+    set_mode_settings()
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

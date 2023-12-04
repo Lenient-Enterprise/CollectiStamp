@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Datos del Cliente{% endblock %}
+
+{% block content %}
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container3 {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        h2 {
+            color: #007bff;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        h3 {
+            color: #343a40;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .list-group-item {
+            background-color: #f8f9fa;
+            border: none;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+                button {
+            margin-top: 10px;
+            border: none;
+            margin-right: 10px;
+        }
+
+        #previous-btn {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        #auto-fill-btn {
+            background-color: #28a745;
+            color: #ffffff;
+        }
+
+        #next-btn {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+    </style>
+
+    <div class="container3 mt-5">
+        <h2>Confirmación de Compra - Paso 3</h2>
+        <h3>Productos Comprados</h3>
+        <ul class="list-group">
+            {% for product in products %}
+                <li class="list-group-item">{{ product.name }} {{ product.quantity }} - Precio por unidad: {{ product.price }} €</li>
+            {% endfor %}
+        </ul>
+        <h3>Introducir datos</h3>
+        <form method="post" style="width: 60%; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center;">
+            {% csrf_token %}
+            <div style="margin-bottom: 20px;">
+                <span style="display: block; margin-bottom: 8px; color: #333;">Correo Electrónico:</span>
+                {{ customer_form.user_email }}
+            </div>
+            <div style="margin-bottom: 20px;">
+                <span style="display: block; margin-bottom: 8px; color: #333;">Nombre:</span>
+                {{ customer_form.nombre }}
+            </div>
+            <div style="margin-bottom: 20px;">
+                <span style="display: block; margin-bottom: 8px; color: #333;">Dirección de Envío:</span>
+                {{ customer_form.delivery_address }}
+            </div>
+            <div class="text-center button-container">
+                <button type="button" class="btn" id="previous-btn" onclick="goToPreviousStep()">Ir al Paso Anterior</button>
+                <button type="button" class="btn" id="auto-fill-btn" {% if user_is_logged_in %}onclick="autoFillData()" {% endif %}>Rellenar Automáticamente</button>
+                <button type="submit" class="btn btn-primary" id="next-btn">Finalizar Compra</button>
+            </div>
+        </form>
+    </div>
+
+<script>
+    function goToPreviousStep() {
+        var order_id = '{{ new_order_id }}';
+        var previousStepUrl = '/order/finish/' + order_id + '/step2/';
+        window.location.href = previousStepUrl;
+    }
+
+    function autoFillData() {
+
+    }
+</script>
+
+{% endblock %}
+
+

@@ -110,8 +110,6 @@
             margin-bottom: 5px;
         }
     </style>
-    {% block scripts %}
-    {% endblock %}
 </head>
 
 <body>
@@ -119,8 +117,7 @@
     <div class="container">
         <div class="row">
                 <div class="col">
-                    <a href="#" class="logo-link"><img src="{% static 'img/logo.png' %}" alt="Logo" class="logo">Tickets</a>
-                </div>
+                    <a href="#" class="logo-link"><img src="{% static 'img/company/company_logo.png' %}" alt="Logo" class="logo">CollectiStamp</a>
                 <div class="col-7">
                     {% include "finder.html" %}
                 </div>
@@ -201,7 +198,7 @@
 
 <footer class="bg-dark text-light py-3 mt-auto">
     <div class="container">
-        <p class="text-center">&copy; {{ year|date:"Y" }} Tickets</p>
+        <p class="text-center">&copy; {{ year|date:"Y" }} CollectiStamp</p>
         <ul class="text-center">
             <a href="{% url 'company_details' %}">Sobre nosotros</a>
         </ul>

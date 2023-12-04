@@ -29,3 +29,5 @@ urlpatterns = [
     path('preorder/', include('preorder.urls')),
     path('product/', include('product.urls')),
 ]
+
+

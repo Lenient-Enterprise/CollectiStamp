@@ -4,6 +4,8 @@ from .models import Product
 from .models import Criteria
 from .models import ProductReview
 from .forms import ProductReviewForm
+from .models import Category
+from django.db.models import Q
 
 def product_details(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
@@ -19,8 +21,6 @@ def product_details(request, product_id):
 
     return render(request, 'product/details.html', {'product': product, 'form': form})
 
-
-from django.db.models import Q
 
 def product_catalog(request):
     products = Product.objects.all()

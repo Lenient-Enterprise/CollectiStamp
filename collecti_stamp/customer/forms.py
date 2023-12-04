@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 from .models import User
 
@@ -9,7 +9,7 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['email']
 
 class EmailForm(forms.Form):
     email = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'usuario@dominio.com'}))
@@ -52,7 +52,7 @@ class CustomUserEditionForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name']
+        fields = ['username', 'email', 'address', 'delivery_method', 'payment_method', 'first_name', 'last_name']
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -65,4 +65,29 @@ class CustomUserEditionForm(forms.ModelForm):
         if User.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
             raise forms.ValidationError('El correo electrónico ya está en uso.')
         return email
+
+
+class CustomAuthenticationForm(forms.Form):
+    email = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'usuario@dominio.com'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': '********'}))
+
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get('email')
+        password = cleaned_data.get('password')
+
+        if email and password:
+            if not User.objects.filter(email=email).exists():
+                self.add_error('email', 'El correo electrónico no está registrado.')
+            else:
+                user = User.objects.get(email=email)
+                if not user.check_password(password):
+                    self.add_error('password', 'La contraseña es incorrecta.')
+                elif not user.email_verified:
+                    self.add_error('email', 'El correo electrónico no está verificado.')
+        return cleaned_data
+
+    def get_user(self):
+        email = self.cleaned_data['email']
+        return User.objects.get(email=email)
 
