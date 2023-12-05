@@ -1,27 +1,31 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views import View
 from django.views.decorators.http import require_http_methods
 
 from .models import Product
 from .models import Criteria
 from .models import ProductReview
 from .forms import ProductReviewForm
-from .models import Category
-from django.db.models import Q
 
-def product_details(request, product_id):
-    product = get_object_or_404(Product, pk=product_id)
-    if request.method == 'POST':
+
+class ProductDetailsView(View):
+    template_name = 'product/details.html'
+
+    def get(self, request, product_id):
+        product = get_object_or_404(Product, pk=product_id)
+        form = ProductReviewForm()
+        return render(request, self.template_name, {'product': product, 'form': form})
+
+    def post(self, request, product_id):
+        product = get_object_or_404(Product, pk=product_id)
         form = ProductReviewForm(request.POST)
         if form.is_valid():
             review = form.save(commit=False)
             review.product = product
             review.save()
             return redirect('product_details', product_id=product_id)
-    else:
-        form = ProductReviewForm()
 
-    return render(request, 'product/details.html', {'product': product, 'form': form})
-
+        return render(request, self.template_name, {'product': product, 'form': form})
 
 @require_http_methods(["GET"])
 def product_catalog(request):
