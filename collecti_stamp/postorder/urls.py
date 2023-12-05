@@ -5,5 +5,5 @@ from postorder.views import get_order_tracking
 
 
 urlpatterns = [
-    path('order/<int:code>/', get_order_tracking, name='order_details'),
+    path('<uuid:code>', get_order_tracking, name='order_details'),
 ]

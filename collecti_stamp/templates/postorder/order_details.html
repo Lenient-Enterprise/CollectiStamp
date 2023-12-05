@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block title %}Inicio de Sesión{% endblock %}
-
 {% block content %}
     <style>
         body {
@@ -103,21 +102,20 @@
             background-color: #343a40;
             color: white;
             border-radius: 2px;
-        }
-
+        }    
     </style>
+
     <div class="container2">
         <div class="right-half">
-            <p class="attribute"><strong>Estado:</strong> {{ order.delivery_status }}</p>
+            <p class="attribute"><strong>Estado:</strong> {{ state }}</p>
             <p class="attribute"><strong>Usuario:</strong> {{ order.user_name }}</p>
             <p class="attribute"><strong>Email:</strong> {{ order.user_email }}</p>
             <p class="attribute"><strong>Dirección:</strong> {{ order.delivery_address }}</p>
             <p class="attribute"><strong>Fecha de Pedido:</strong> {{ order.order_date }}</p>
-            <p class="attribute"><strong>Método de Pago :</strong> {{ order.payment_method }}</p>
-            <p class="attribute"><strong>Método de Envío :</strong> {{ order.delivery_method }}</p>
+            <p class="attribute"><strong>Método de Pago :</strong> {{ payment_method }}</p>
+            <p class="attribute"><strong>Método de Envío :</strong> {{ delivery_method }}</p>
             <p class="attribute"><strong>Coste Productos:</strong> {{ order.order_total }}</p>
             <p class="attribute"><strong>Coste envío:</strong> {{ order.delivery_cost }}</p>
-            <p class="attribute"><strong>Terminada:</strong> {{ order.order_is_finished }}</p>
             <p class="attribute"><strong>Código:</strong> {{ order.code }}</p>
         </div>
     </div>
