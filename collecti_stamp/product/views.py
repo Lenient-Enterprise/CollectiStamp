@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.http import require_http_methods
 
 from .models import Product
 from .models import Criteria
@@ -22,6 +23,7 @@ def product_details(request, product_id):
     return render(request, 'product/details.html', {'product': product, 'form': form})
 
 
+@require_http_methods(["GET"])
 def product_catalog(request):
     products = Product.objects.all()
     criteria = Criteria.objects.all()

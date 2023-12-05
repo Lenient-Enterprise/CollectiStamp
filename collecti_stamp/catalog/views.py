@@ -1,7 +1,9 @@
 from django.shortcuts import render
+from django.views.decorators.http import require_http_methods
 
 from product.models import Criteria, Product
 
+@require_http_methods(["GET"])
 def product_catalog(request):
     products = Product.objects.all()
     criteria = Criteria.objects.all()
