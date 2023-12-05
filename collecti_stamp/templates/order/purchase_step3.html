@@ -82,7 +82,7 @@
             </div>
             <div style="margin-bottom: 20px;">
                 <span style="display: block; margin-bottom: 8px; color: #333;">Nombre:</span>
-                {{ customer_form.nombre }}
+                {{ customer_form.user_name }}
             </div>
             <div style="margin-bottom: 20px;">
                 <span style="display: block; margin-bottom: 8px; color: #333;">Dirección de Envío:</span>
@@ -90,23 +90,34 @@
             </div>
             <div class="text-center button-container">
                 <button type="button" class="btn" id="previous-btn" onclick="goToPreviousStep()">Ir al Paso Anterior</button>
-                <button type="button" class="btn" id="auto-fill-btn" {% if user_is_logged_in %}onclick="autoFillData()" {% endif %}>Rellenar Automáticamente</button>
+                {% if user_is_logged_in %}
+                    <button type="button" class="btn" id="auto-fill-btn" onclick="autoFillData()">Rellenar Automáticamente</button>
+                {% endif %}
                 <button type="submit" class="btn btn-primary" id="next-btn">Finalizar Compra</button>
             </div>
         </form>
     </div>
 
-<script>
-    function goToPreviousStep() {
-        var order_id = '{{ new_order_id }}';
-        var previousStepUrl = '/order/finish/' + order_id + '/step2/';
-        window.location.href = previousStepUrl;
-    }
+    <script>
+        function goToPreviousStep() {
+            var order_id = '{{ new_order_id }}';
+            var previousStepUrl = '/order/finish/' + order_id + '/step2/';
+            window.location.href = previousStepUrl;
+        }
 
-    function autoFillData() {
+        function autoFillData() {
+            var user_name = "{{ request.user.username }}";
+            var delivery_address = "{{ request.user.address|default:'' }}";  // Usar cadena vacía si es None
+            var user_email = "{{ request.user.email }}";
 
-    }
-</script>
+            document.getElementById('id_user_name').value = user_name || '';
+            document.getElementById('id_delivery_address').value = delivery_address || '';
+            document.getElementById('id_user_email').value = user_email || '';
+        }
+    </script>
+
+
+
 
 {% endblock %}
 
