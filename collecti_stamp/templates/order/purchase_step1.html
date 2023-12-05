@@ -84,7 +84,9 @@
             {{ form.as_p }}
             <div class="text-center button-container">
                 <button type="button" class="btn" id="previous-btn" onclick="goToPreviousStep()">Cancelar Compra</button>
-                <button type="button" class="btn" id="auto-fill-btn" {% if user_is_logged_in %}onclick="autoFillData()" {% else %}disabled{% endif %}>Mi método de pago favorito</button>
+                {% if user_is_logged_in %}
+                    <button type="button" class="btn" id="auto-fill-btn" onclick="autoFillData()">Mi método favorito</button>
+                {% endif %}
                 <button type="submit" class="btn btn-primary" id="next-btn">Ir al Siguiente Paso</button>
             </div>
         </form>
