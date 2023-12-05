@@ -7,13 +7,10 @@ from django.shortcuts import get_object_or_404
 from .forms import CustomerDataForm, delivery_method_selection, PaymentMethodForm
 from .models import Order, OrderProduct, PaymentMethod, DeliveryMethod, DeliveryStatus
 from datetime import date
-from preorder import cart
 
 from preorder.context_processor import total_cart
-from preorder.views import delete_cart
 
 from product.models import Product
-from customer.models import User
 
 
 @require_http_methods(["POST"])
@@ -42,27 +39,46 @@ def finish_order(request):
 
     return redirect(str(new_order_id)+"/step1/")
 
-@require_http_methods(["GET", "POST"])
-def purchase_step1(request, new_order_id):
-    order_products = OrderProduct.objects.filter(order_id=new_order_id)
-    payment_methods = PaymentMethod.choices
-    user_is_logged_in = request.user.is_authenticated
+class PurchaseStep1View(View):
+    template_name = 'order/purchase_step1.html'
 
-    if request.method == 'POST':
+    def get(self, request, new_order_id):
+        order_products = OrderProduct.objects.filter(order_id=new_order_id)
+        payment_methods = PaymentMethod.choices
+        user_is_logged_in = request.user.is_authenticated
+        form = PaymentMethodForm(request.POST)
+        products = get_order_products(order_products)
+        return render(request, self.template_name,
+               {
+                'order_products': order_products,
+                'payment_methods': payment_methods,
+                'order_id': new_order_id,
+                'form': form, 'products': products,
+                'user_is_logged_in': user_is_logged_in
+                })
+
+    def post(self, request, new_order_id):
+
         form = PaymentMethodForm(request.POST)
         if form.is_valid():
             order = get_object_or_404(Order, id=new_order_id)
             order.payment_method = form.cleaned_data['payment_method']
             order.save()
             return redirect('order:purchase_step2', new_order_id=new_order_id)
-        else:
-            products = get_order_products(order_products)
-            return render(request, 'order/purchase_step1.html', {'order_products': order_products, 'payment_methods': payment_methods, 'order_id': new_order_id, 'form': form, 'products': products, 'user_is_logged_in': user_is_logged_in})
-    else:
-        form = PaymentMethodForm()
-        products = get_order_products(order_products)
-        return render(request, 'order/purchase_step1.html', {'order_products': order_products, 'payment_methods': payment_methods, 'order_id': new_order_id, 'form': form, 'products': products, 'user_is_logged_in': user_is_logged_in})
 
+        order_products = OrderProduct.objects.filter(order_id=new_order_id)
+        payment_methods = PaymentMethod.choices
+        user_is_logged_in = request.user.is_authenticated
+        form = PaymentMethodForm(request.POST)
+        products = get_order_products(order_products)
+        return render(request, self.template_name,
+               {
+                'order_products': order_products,
+                'payment_methods': payment_methods,
+                'order_id': new_order_id,
+                'form': form, 'products': products,
+                'user_is_logged_in': user_is_logged_in
+                })
 
 @require_http_methods(["GET", "POST"])
 def purchase_step2(request, new_order_id):
@@ -136,12 +152,11 @@ class PurchaseStep3View(View):
             order.save()
             return redirect('/?message=Compra Realizada&status=Success')
 
-        # Handle invalid form data, you might want to render the form again with errors
         order_products = OrderProduct.objects.filter(order_id=new_order_id)
         payment_methods = PaymentMethod.choices
         user_is_logged_in = request.user.is_authenticated
 
-        form = customer_form  # Pass the form with errors
+        form = customer_form
         products = get_order_products(order_products)
 
         return render(request, self.template_name, {

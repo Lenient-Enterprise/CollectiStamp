@@ -19,6 +19,7 @@ class delivery_method_selection(forms.Form):
             self.add_error('delivery_method', 'Por favor, seleccione un método de entrega.')
         return cleaned_data
 
+
 class PaymentMethodForm(forms.Form):
     default_choice = 'default'
     payment_method = forms.ChoiceField(
@@ -27,8 +28,12 @@ class PaymentMethodForm(forms.Form):
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['payment_method'].label = 'Método de Pago'
+
     def clean_payment_method(self):
         payment_method = self.cleaned_data['payment_method']
         if payment_method == self.default_choice:
-            raise forms.ValidationError("Por favor, seleccione un método de pago válido.")
+            raise forms.ValidationError("Por favor, selecciona un método de pago válido.")
         return payment_method
