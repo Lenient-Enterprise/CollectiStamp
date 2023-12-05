@@ -47,21 +47,18 @@
         }
 
         .filters-container {
+            display: none;
             position: fixed;
-            top: 0; /* Ajusta según la altura de tu header */
-            left: 0;
-            width: 20rem;
-            height: 100vh;
-            padding: 1.25rem;
-            box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            overflow-y: auto;
+            top: 20px;
+            left: 20px;
             background-color: #343a40;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 10px;
             color: #fff;
-            padding: 20px;
-            text-align: left;
-            margin-bottom: 20px;
-            border-radius: 7px;
+            text-align: center;
         }
         
         .filter-content {
@@ -86,15 +83,16 @@
         }
 
         .filter-button {
-            display: inline-block;
-            padding: 8px 16px; /* Ajustar el padding del botón */
+            display: block;
+            margin-top: 10px;
+            padding: 10px 20px;
             background-color: #4CAF50;
             color: #fff;
             text-decoration: none;
             border-radius: 4px;
             transition: background-color 0.3s ease;
-            margin-top: 8px; /* Ajustar el margen superior del botón */
             cursor: pointer;
+            margin: 0 auto;
         }
 
         .filter-button:hover {
@@ -103,7 +101,7 @@
 
         .filter-label {
         display: block;
-        margin-bottom: 5px; /* Ajusta el espacio entre las etiquetas de filtro */
+        margin-bottom: 5px;
         }
 
         .scrolling-container {
@@ -149,7 +147,11 @@
         }
     </style>
 
+
     <h1>Catálogo de productos</h1>
+
+
+    <button id="toggleFilters" class="filter-button">Mostrar/Ocultar Filtros</button>
 
     <div class="filters-container">
         <div class="filter-content">
@@ -215,7 +217,20 @@
                 {% endfor %}
             </ul>
         </div>
-    {% endfor %} 
+    {% endfor %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggleFiltersButton = document.getElementById("toggleFilters");
+            const filtersContainer = document.querySelector(".filters-container");
+
+            toggleFiltersButton.addEventListener("click", function () {
+                if (filtersContainer.style.display === "none") {
+                    filtersContainer.style.display = "block";
+                } else {
+                    filtersContainer.style.display = "none";
+                }
+            });
+        });
+    </script>
 {% endblock %}
-
-
