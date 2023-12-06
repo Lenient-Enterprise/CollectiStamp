@@ -38,7 +38,7 @@
                     <td>{{ order.delivery_status }}</td>
                     <td>
                         <!-- Enlace a la página de detalles con el ID del ticket como parámetro -->
-                        <a href="{% url 'details' order.code %}" class="btn btn-sm btn-primary">Detalles</a>
+                        <a href="{% url 'order_details' order.code %}" class="btn btn-sm btn-primary">Detalles</a>
                     </td>
                 </tr>
                 {% endfor %}

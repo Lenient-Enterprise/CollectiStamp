@@ -29,4 +29,4 @@ def get_order_tracking(request, code):  # Change the parameter name
 @login_required
 def list_order_tracking(request):
     orders = Order.objects.filter(user_email=request.user.email)
-    return render(request, 'postorder/list.html', {'orders': orders})
+    return render(request, 'postorder/order_list.html', {'orders': orders})
