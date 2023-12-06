@@ -127,8 +127,7 @@ def purchase_step3(request, new_order_id):
                     product.stock_amount -= order_product.quantity
                     product.save()
                 order.save()
-                #details_url = reverse('verify_email', args=[order.code]) #
-                details_url = "1234"
+                details_url = reverse('details', args=[order.code])
 
                 # Enviar el correo electrónico de verificación
                 template = get_template('order/email_details.html')
