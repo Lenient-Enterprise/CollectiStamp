@@ -21,7 +21,7 @@
  "pk": 2,
  "fields": {
   "code": "55daa597-d237-4c01-9493-d31836dd6b60",
-  "user_email": "admin@gmail.com",
+  "user_email": "admin@example.com",
   "user_name": "Test",
   "order_date": "2023-12-04",
   "order_total": "14.99",
