@@ -136,7 +136,7 @@ class PurchaseStep3View(View):
             order.user_email = customer_form.cleaned_data['user_email']
             order.user_name = customer_form.cleaned_data['user_name']
             order.delivery_address = customer_form.cleaned_data['delivery_address']
-            order.delivery_status = DeliveryStatus.STATUS_A
+            order.delivery_status = DeliveryStatus.IN_WAREHOUSE
             order.order_is_finished = True
 
             order_products = OrderProduct.objects.filter(order_id=new_order_id)
