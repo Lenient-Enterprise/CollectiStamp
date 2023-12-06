@@ -28,24 +28,25 @@
         border-radius: 4px;
     }
 
-    button {
-        background-color: #4caf50;
+    .claim {
+        background-color: #007BFF;
         color: #fff;
         padding: 10px 15px;
         border: none;
         border-radius: 4px;
         cursor: pointer;
     }
-
-    button:hover {
-        background-color: #45a049;
+    
+    .claim:hover {
+        background-color: #0056b3;
     }
 </style>
 <div>
     <form action="#" method="post">
         {% csrf_token %}
-        <label for="username">Nombre:</label>
-        <input type="text" id="username" name="username" required>
+        
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required>
 
         <label for="title">Asunto:</label>
         <input type="text" id="title" name="title" required>
@@ -53,7 +54,7 @@
         <label for="content">Contenido de la Reclamación:</label>
         <textarea id="content" name="content" rows="4" required></textarea>
 
-        <button type="submit">Enviar</button>
+        <button class="claim" type="submit">Enviar</button>
     </form>
 </div>
 
