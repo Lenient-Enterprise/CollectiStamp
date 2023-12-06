@@ -1,0 +1,174 @@
+[
+{
+ "model": "order.order",
+ "pk": 1,
+ "fields": {
+  "code": "037dc8a1-974b-4616-9aee-35b107abb3e1",
+  "user_email": "alex.0002002@gmail.com",
+  "user_name": "Paco",
+  "order_date": "2023-12-03",
+  "order_total": "41.91",
+  "order_is_finished": true,
+  "payment_method": "PAYMENT_GATEWAY",
+  "delivery_status": "IN_WAREHOUSE",
+  "delivery_method": "STANDARD_SHIPPING",
+  "delivery_cost": "3.99",
+  "delivery_address": "177013"
+ }
+},
+{
+ "model": "order.order",
+ "pk": 2,
+ "fields": {
+  "code": "55daa597-d237-4c01-9493-d31836dd6b60",
+  "user_email": "admin@example.com",
+  "user_name": "Test",
+  "order_date": "2023-12-04",
+  "order_total": "14.99",
+  "order_is_finished": true,
+  "payment_method": "CASH_ON_DELIVERY",
+  "delivery_status": "IN_WAREHOUSE",
+  "delivery_method": "STANDARD_SHIPPING",
+  "delivery_cost": "3.99",
+  "delivery_address": "hola 1A"
+ }
+},
+{
+ "model": "order.order",
+ "pk": 3,
+ "fields": {
+  "code": "62c12b99-03a4-4763-b1c5-5f750101fbb5",
+  "user_email": "user@example.com",
+  "user_name": "El gato que le puso un 1 a Tadeo",
+  "order_date": "2023-12-04",
+  "order_total": "169.97",
+  "order_is_finished": true,
+  "payment_method": "PAYMENT_GATEWAY",
+  "delivery_status": "IN_WAREHOUSE",
+  "delivery_method": "EXPRESS_SHIPPING",
+  "delivery_cost": "3.99",
+  "delivery_address": "192.168.63.17"
+ }
+},
+{
+ "model": "order.order",
+ "pk": 4,
+ "fields": {
+  "code": "da105dcd-0469-4312-b51a-e8361e5bf602",
+  "user_email": "tcabgom222@gmail.com",
+  "user_name": "De parte de Nacho",
+  "order_date": "2023-12-04",
+  "order_total": "2939.58",
+  "order_is_finished": true,
+  "payment_method": "PAYMENT_GATEWAY",
+  "delivery_status": "IN_WAREHOUSE",
+  "delivery_method": "PICKUP_IN_STORE",
+  "delivery_cost": "3.99",
+  "delivery_address": "Se me olvido donde vives"
+ }
+},
+{
+ "model": "order.orderproduct",
+ "pk": 1,
+ "fields": {
+  "quantity": 1,
+  "order_id": [
+   1
+  ],
+  "product_id": [
+   14
+  ]
+ }
+},
+{
+ "model": "order.orderproduct",
+ "pk": 2,
+ "fields": {
+  "quantity": 1,
+  "order_id": [
+   1
+  ],
+  "product_id": [
+   28
+  ]
+ }
+},
+{
+ "model": "order.orderproduct",
+ "pk": 3,
+ "fields": {
+  "quantity": 1,
+  "order_id": [
+   1
+  ],
+  "product_id": [
+   25
+  ]
+ }
+},
+{
+ "model": "order.orderproduct",
+ "pk": 4,
+ "fields": {
+  "quantity": 2,
+  "order_id": [
+   1
+  ],
+  "product_id": [
+   27
+  ]
+ }
+},
+{
+ "model": "order.orderproduct",
+ "pk": 5,
+ "fields": {
+  "quantity": 1,
+  "order_id": [
+   2
+  ],
+  "product_id": [
+   11
+  ]
+ }
+},
+{
+ "model": "order.orderproduct",
+ "pk": 6,
+ "fields": {
+  "quantity": 1,
+  "order_id": [
+   3
+  ],
+  "product_id": [
+   9
+  ]
+ }
+},
+{
+ "model": "order.orderproduct",
+ "pk": 7,
+ "fields": {
+  "quantity": 2,
+  "order_id": [
+   3
+  ],
+  "product_id": [
+   5
+  ]
+ }
+},
+{
+ "model": "order.orderproduct",
+ "pk": 8,
+ "fields": {
+  "quantity": 42,
+  "order_id": [
+   4
+  ],
+  "product_id": [
+   7
+  ]
+ }
+}
+]
