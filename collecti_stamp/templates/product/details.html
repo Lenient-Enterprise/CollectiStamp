@@ -201,6 +201,18 @@
             width: 21%;
             height: 21.5%;
         }
+        .claim {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .claim:hover {
+            background-color: #0056b3;
+        }
 
     </style>
 
@@ -264,5 +276,8 @@
         <p class="no-reviews">No hay reseñas para este producto.</p>
     {% endif %}
 </div>
+<a href="{% url 'create_claim' product.id %}">
+    <button class="claim-deez-nuts">Poner Reclamación</button>
+</a>
 
 {% endblock %}
