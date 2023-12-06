@@ -7,17 +7,24 @@ class CustomerDataForm(forms.Form):
     delivery_address = forms.CharField(max_length=250, required=True)
     user_email = forms.EmailField(required=True)
     
-class delivery_method_selection(forms.Form):
-    choices_with_default = [('', 'Seleccione metodo de entrega')] + list(DeliveryMethod.choices)
-    delivery_method = forms.ChoiceField(choices=choices_with_default, required=True)
 
-    def clean(self):
-        cleaned_data = super().clean()
-        delivery_method = cleaned_data.get("delivery_method")
+class DeliveryMethodSelection(forms.Form):
+    default_choice = 'default'
+    delivery_method = forms.ChoiceField(
+        choices=[(default_choice, 'Selecciona un método de entrega')] + list(DeliveryMethod.choices),
+        required=True,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
 
-        if not delivery_method or delivery_method == '':
-            self.add_error('delivery_method', 'Por favor, seleccione un método de entrega.')
-        return cleaned_data
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['delivery_method'].label = 'Método de Entrega'
+
+    def clean_delivery_method(self):
+        delivery_method = self.cleaned_data['delivery_method']
+        if delivery_method == self.default_choice:
+            raise forms.ValidationError("Por favor, selecciona un método de entrega válido.")
+        return delivery_method
 
 
 class PaymentMethodForm(forms.Form):

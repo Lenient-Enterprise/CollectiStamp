@@ -4,7 +4,7 @@ from django.views import View
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404
 
-from .forms import CustomerDataForm, delivery_method_selection, PaymentMethodForm
+from .forms import CustomerDataForm, DeliveryMethodSelection, PaymentMethodForm
 from .models import Order, OrderProduct, PaymentMethod, DeliveryMethod, DeliveryStatus
 from datetime import date
 
@@ -79,34 +79,48 @@ class PurchaseStep1View(View):
                 'form': form, 'products': products,
                 'user_is_logged_in': user_is_logged_in
                 })
-
-@require_http_methods(["GET", "POST"])
-def purchase_step2(request, new_order_id):
-    order_products = OrderProduct.objects.filter(order_id=new_order_id)
-    delivery_choices = DeliveryMethod.choices
-    user_is_logged_in = request.user.is_authenticated
-
-    if request.method == 'POST':
-        form = delivery_method_selection(request.POST)
+        
+        
+class PurchaseStep2View(View):
+    template_name = 'order/purchase_step2.html'
+    
+    def get(self, request, new_order_id):
+        order_products = OrderProduct.objects.filter(order_id=new_order_id)
+        delivery_method = DeliveryMethod.choices
+        user_is_logged_in = request.user.is_authenticated
+        form = DeliveryMethodSelection(request.POST)
+        products = get_order_products(order_products)
+        return render(request, self.template_name,
+               {
+                'order_products': order_products,
+                'delivery_method': delivery_method,
+                'order_id': new_order_id,
+                'form': form,
+                'products': products,
+                'user_is_logged_in': user_is_logged_in
+                })
+        
+    def post(self, request, new_order_id):
+        form = DeliveryMethodSelection(request.POST)
         if form.is_valid():
-            order = Order.objects.get(id=new_order_id)
-            delivery_method = form.cleaned_data['delivery_method']
-            order.delivery_method = delivery_method
+            order = get_object_or_404(Order, id=new_order_id)
+            order.delivery_method = form.cleaned_data['delivery_method']
             order.save()
             return redirect('order:purchase_step3', new_order_id=new_order_id)
-        else:
-            form = delivery_method_selection()
-            products = get_order_products(order_products)
-            return render(request, 'order/purchase_step2.html',
-                          {'order_products': order_products, 'new_order_id': new_order_id,
-                           'delivery_method': delivery_choices, 'form': form, 'products': products, 'user_is_logged_in': user_is_logged_in})
-    else:
-        form = delivery_method_selection()
+        order_products = OrderProduct.objects.filter(order_id=new_order_id)
+        delivery_method = DeliveryMethod.choices
+        user_is_logged_in = request.user.is_authenticated
+        form = DeliveryMethodSelection(request.POST)
         products = get_order_products(order_products)
-        return render(request, 'order/purchase_step2.html', {'order_products': order_products,
-                                                             'new_order_id': new_order_id,
-                                                             'delivery_method': delivery_choices, 'form': form,
-                                                             'products': products, 'user_is_logged_in': user_is_logged_in})
+        return render(request, self.template_name,
+               {
+                'order_products': order_products,
+                'delivery_method': delivery_method,
+                'order_id': new_order_id,
+                'form': form, 'products': products,
+                'user_is_logged_in': user_is_logged_in
+                })
+
 
 class PurchaseStep3View(View):
     template_name = 'order/purchase_step3.html'
