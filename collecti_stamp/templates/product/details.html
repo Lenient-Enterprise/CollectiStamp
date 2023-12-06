@@ -224,6 +224,9 @@
                 {% endfor %}
             </p>
             {% include "product/expand_text.html" with title="Descripción" description=product.description %}
+            <a href="{% url 'create_claim' product.id %}">
+                <button>Solicitar Reclamación</button>
+            </a>
         </div>
     </div>
 
