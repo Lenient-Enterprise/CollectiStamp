@@ -11,6 +11,7 @@ from django.utils.http import urlsafe_base64_encode
 
 from collecti_stamp import settings
 from .forms import CustomUserCreationForm, EmailForm, PasswordForm, CustomUserEditionForm, CustomAuthenticationForm
+from order.models import DeliveryMethod, PaymentMethod
 from .models import User
 from .utils import validate_email, get_user
 from collecti_stamp import settings
@@ -38,6 +39,15 @@ def logout_view(request):
 
 # Vista para registro de usuario
 def signin_view(request):
+    delivery_methods = {
+        'STANDARD_SHIPPING': 'Envío estándar',
+        'EXPRESS_SHIPPING': 'Envío express',
+        'PICKUP_IN_STORE': 'Recogida en tienda',
+    }
+    payment_methods = {
+        'CASH_ON_DELIVERY': 'Contrarrembolso',
+        'PAYMENT_GATEWAY': 'Pasarelas de Pago',
+    }
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid() and User.objects.filter(email=form.cleaned_data['email']).count() == 0:
@@ -70,7 +80,7 @@ def signin_view(request):
                 return redirect('/?message=Verificación de correo electrónico&status=Success')
     else:
         form = CustomUserCreationForm()
-    return render(request, 'customer/signin.html', {'form': form})
+    return render(request, 'customer/signin.html', {'form': form,'delivery_method':delivery_methods,'payment_method':payment_methods})
 
 
 def verify_email(request, uidb64, token):
