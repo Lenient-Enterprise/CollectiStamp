@@ -4,6 +4,8 @@ from django.views import View
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404
 
+from preorder.cart import Cart
+
 from .forms import CustomerDataForm, DeliveryMethodSelection, PaymentMethodForm
 from .models import Order, OrderProduct, PaymentMethod, DeliveryMethod, DeliveryStatus
 from datetime import date
@@ -164,6 +166,10 @@ class PurchaseStep3View(View):
                 product.save()
 
             order.save()
+            
+            cart = Cart(request)
+            cart.delete_cart()
+            
             return redirect('/?message=Compra Realizada&status=Success')
 
         order_products = OrderProduct.objects.filter(order_id=new_order_id)
