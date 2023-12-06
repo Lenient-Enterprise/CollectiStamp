@@ -4,67 +4,63 @@
 
 {% block content %}
 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
 
-        .container3 {
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-top: 50px;
-        }
+    .container3 {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-top: 50px;
+    }
 
-        h2 {
-            color: #007bff;
-            margin-top: 10px;
-            margin-bottom: 25px;
-            text-align: center;
-        }
+    h2 {
+        color: #007bff;
+        margin-top: 10px;
+        margin-bottom: 25px;
+        text-align: center;
+    }
 
-        h3 {
-            color: #343a40;
-            text-align: center;
-            margin-bottom: 25px;
-        }
+    h3 {
+        color: #343a40;
+        text-align: center;
+        margin-bottom: 25px;
+    }
 
-        .list-group-item {
-            background-color: #f8f9fa;
-            border: none;
-        }
+    .list-group-item {
+        background-color: #f8f9fa;
+        border: none;
+    }
 
-        .form-group {
-            margin-bottom: 20px;
+    .form-group {
+        margin-bottom: 20px;
 
-        }
+    }
 
-        button {
-            margin-top: 10px;
-            border: none;
-            margin-right: 10px;
-        }
+    button {
+        margin-top: 10px;
+        border: none;
+        margin-right: 10px;
+    }
 
-        #previous-btn {
-            background-color: #007bff;
-            color: #ffffff;
-        }
+    #previous-btn {
+        background-color: #007bff;
+        color: #ffffff;
+    }
 
-        #auto-fill-btn {
-            background-color: #28a745;
-            color: #ffffff;
-        }
+    #auto-fill-btn {
+        background-color: #28a745;
+        color: #ffffff;
+    }
 
-        #next-btn {
-            background-color: #007bff;
-            color: #ffffff;
-        }
-
-        .button-container {
-            margin-top: 20px;
-        }
+    #next-btn {
+        background-color: #007bff;
+        color: #ffffff;
+    }
 
         .warning {
             text-align: center;
@@ -86,6 +82,7 @@
 <body>
 
 <div class="container3 mt-5">
+
     <h2>Confirmación de Compra - Paso 2</h2>
 
     <h3>Productos Comprados</h3>
@@ -94,13 +91,13 @@
                 <li class="list-group-item">{{ product.name }} {{ product.quantity }} - Precio por unidad: {{ product.price }} €</li>
             {% endfor %}
         </ul>
+
     <h3>Selecciona Método de Entrega</h3>
+
     <form method="post">
         {% csrf_token %}
-        <div class="form-group">
-            {{ form.as_p }}
-        </div>
-        <br>
+        {{ form.as_p }}
+        
         <div class="text-center button-container">
             <button type="button" class="btn" id="previous-btn" onclick="goToPreviousStep()">Ir al Paso Anterior</button>
             {% if user_is_logged_in %}
@@ -119,8 +116,8 @@
 
 <script>
     function goToPreviousStep() {
-        var order_id = '{{ new_order_id }}';
-        var previousStepUrl = '/order/finish/' + order_id + '/step1/';
+        //var order_id = '{{ new_order_id }}';
+        var previousStepUrl = '/order/finish/' + {{order_id}} + '/step1/';
         window.location.href = previousStepUrl;
     }
 
@@ -129,7 +126,6 @@
         var delivery_method = "{{ request.user.delivery_method }}";
 
         document.getElementById('id_delivery_method').value = delivery_method ;
-
 
     }
 </script>

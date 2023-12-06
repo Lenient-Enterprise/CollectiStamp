@@ -194,6 +194,13 @@
         .add-review-section button:hover {
             background-color: #0056b3;
         }
+        .overlay-image {
+            position: absolute;
+            top: 23rem;
+            left: 33rem;
+            width: 21%;
+            height: 21.5%;
+        }
 
     </style>
 
@@ -201,6 +208,9 @@
         <div class="left-half">
             {% if product.image %}
                 <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                {% if product.stock_amount <= 0 %}
+                    <img class="overlay-image" src="/static/img/out_of_stock.png" alt="Imagen Superpuesta">
+                {% endif %}
             {% else %}
                 <img src="static/img/product/placeholder-image.jpg" alt="{{ product.name }}">
             {% endif %}

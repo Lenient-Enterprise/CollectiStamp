@@ -29,7 +29,9 @@ jobs:
         pip install -r ./collecti_stamp/requirements.txt
 
     - name: Run Migrations
-      run: python ./collecti_stamp/manage.py migrate
+      run: |
+        python ./collecti_stamp/manage.py makemigrations
+        python ./collecti_stamp/manage.py migrate
 
     - name: Collect Static Files
       run: python ./collecti_stamp/manage.py collectstatic --no-input
