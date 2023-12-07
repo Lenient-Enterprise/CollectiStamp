@@ -1,14 +1,14 @@
 from django.urls import path
 
-from .views import login_view, logout_view, signin_view, verify_email, request_password_reset, change_password, \
-    edit_user_view
+from .views import LoginView, LogoutView, SigninView, VerifyEmailView, RequestPasswordResetView, ChangePasswordView, \
+    EditUserView
 
 urlpatterns = [
-    path('login/', login_view, name='login'),
-    path('logout/', logout_view, name='logout'),
-    path('signin/', signin_view, name='signin'),
-    path('verify_email/<str:uidb64>/<str:token>/', verify_email, name='verify_email'),
-    path('password-reset/', request_password_reset, name='request_password_reset'),
-    path('change-password/<str:uidb64>/<str:token>/', change_password, name='change_password'),
-    path('edit/<int:user_id>', edit_user_view, name='edit')
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('signin/', SigninView.as_view(), name='signin'),
+    path('verify_email/<str:uidb64>/<str:token>/', VerifyEmailView.as_view(), name='verify_email'),
+    path('password-reset/', RequestPasswordResetView.as_view(), name='request_password_reset'),
+    path('change-password/<str:uidb64>/<str:token>/', ChangePasswordView.as_view(), name='change_password'),
+    path('edit/<int:user_id>', EditUserView.as_view(), name='edit')
 ]
