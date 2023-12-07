@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import get_template
 from django.urls import reverse
 from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
 from collecti_stamp import settings
 from .forms import CustomUserCreationForm, EmailForm, PasswordForm, CustomUserEditionForm, CustomAuthenticationForm
@@ -16,29 +16,36 @@ from .models import User
 from .utils import validate_email, get_user
 from collecti_stamp import settings
 
-
 # Vista para iniciar sesión
-def login_view(request):
-    if request.method == 'POST':
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from django.views import View
+from .forms import CustomAuthenticationForm
+
+
+class LoginView(View):
+    def get(self, request):
+        form = CustomAuthenticationForm()
+        return render(request, 'customer/login.html', {'form': form})
+
+    def post(self, request):
         form = CustomAuthenticationForm(request.POST)
-        print("asdasd")
-        print(form.errors)
         if form.is_valid():
             login(request, form.get_user())
             return redirect('/')
-    else:
-        form = CustomAuthenticationForm()
-    return render(request, 'customer/login.html', {'form': form})
+        else:
+            return render(request, 'customer/login.html', {'form': form})
 
 
 # Vista para cerrar sesión
-def logout_view(request):
-    logout(request)
-    return redirect('/')
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect('/')
 
 
 # Vista para registro de usuario
-def signin_view(request):
+class SigninView(View):
     delivery_methods = {
         'STANDARD_SHIPPING': 'Envío estándar',
         'EXPRESS_SHIPPING': 'Envío express',
@@ -48,7 +55,14 @@ def signin_view(request):
         'CASH_ON_DELIVERY': 'Contrarrembolso',
         'PAYMENT_GATEWAY': 'Pasarelas de Pago',
     }
-    if request.method == 'POST':
+
+    def get(self, request):
+
+        form = CustomUserCreationForm()
+        return render(request, 'customer/signin.html',
+                      {'form': form, 'delivery_method': self.delivery_methods, 'payment_method': self.payment_methods})
+
+    def post(self, request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid() and User.objects.filter(email=form.cleaned_data['email']).count() == 0:
             user = form.save()
@@ -67,7 +81,8 @@ def signin_view(request):
 
                 # Enviar el correo electrónico de verificación
                 template = get_template('customer/verification_email.html')
-                content = template.render({'verify_url': request.build_absolute_uri('/') + verify_url, 'username': user.username})
+                content = template.render(
+                    {'verify_url': request.build_absolute_uri('/') + verify_url, 'username': user.username})
                 message = EmailMultiAlternatives(
                     'Verificación de correo electrónico',
                     content,
@@ -78,22 +93,28 @@ def signin_view(request):
                 message.attach_alternative(content, 'text/html')
                 message.send()
                 return redirect('/?message=Verificación de correo electrónico&status=Success')
-    else:
-        form = CustomUserCreationForm()
-    return render(request, 'customer/signin.html', {'form': form,'delivery_method':delivery_methods,'payment_method':payment_methods})
+        return render(request, 'customer/signin.html',
+                      {'form': form, 'delivery_method': self.delivery_methods, 'payment_method': self.payment_methods})
 
 
-def verify_email(request, uidb64, token):
-    user = get_user(uidb64)
-    if user is not None and default_token_generator.check_token(user, token):
-        user.email_verified = True
-        user.save()
-        return redirect('/?message=Correo electrónico verificado&status=Success')
-    else:
-        return redirect('/?message=Correo electrónico no verificado&status=Error')
+class VerifyEmailView(View):
 
-def request_password_reset(request):
-    if request.method == 'POST':
+    def get(self, request, uidb64, token):
+        user = get_user(uidb64)
+        if user is not None and default_token_generator.check_token(user, token):
+            user.email_verified = True
+            user.save()
+            return redirect('/?message=Correo electrónico verificado&status=Success')
+        else:
+            return redirect('/?message=Correo electrónico no verificado&status=Error')
+
+
+class RequestPasswordResetView(View):
+    def get(self, request):
+        form = EmailForm()
+        return render(request, 'customer/make_petition_form.html', {'form': form})
+
+    def post(self, request):
         form = EmailForm(request.POST)
         if form.is_valid():
             user = get_object_or_404(User, email=form.cleaned_data['email'])
@@ -118,36 +139,47 @@ def request_password_reset(request):
                 return redirect('/?message=Petición de cambio de contraseña enviada&status=Info')
 
         return render(request, 'customer/request_password_reset.html', {'form': form})
-    else:
-        form = EmailForm()
-        return render(request, 'customer/make_petition_form.html', {'form': form})
 
+class ChangePasswordView(View):
 
-def change_password(request, uidb64, token):
-    user = get_user(uidb64)
-    if user is not None and default_token_generator.check_token(user, token):
-        if request.method == 'POST':
+    def get(self, request, uidb64, token):
+        user = get_user(uidb64)
+        if user is not None and default_token_generator.check_token(user, token):
+            form = PasswordForm()
+            return render(request, 'customer/change_password_form.html', {'form': form})
+        else:
+            return redirect('/?message=Error al cambiar la contraseña&status=Error')
+
+    def post(self, request, uidb64, token):
+        user = get_user(uidb64)
+        if user is not None and default_token_generator.check_token(user, token):
             form = PasswordForm(request.POST)
             if form.is_valid():
                 user.set_password(form.cleaned_data['password'])
                 user.save()
                 return redirect('/?message=Contraseña cambiada&status=Success')
-        else:
-            form = PasswordForm()
-            return render(request, 'customer/change_password_form.html', {'form': form})
-    else:
         return redirect('/?message=Error al cambiar la contraseña&status=Error')
 
 
-@login_required
-def edit_user_view(request, user_id):
-    user = get_object_or_404(User, id=user_id)
+class EditUserView(View):
+    def get(self, request, user_id):
+        user = get_object_or_404(User, id=user_id)
+        form = CustomUserEditionForm(instance=user)
+        return render(request, 'customer/edit.html', {'form': form, 'user': user})
 
-    if request.method == 'POST':
+    def post(self, request, user_id):
+        user = get_object_or_404(User, id=user_id)
         form = CustomUserEditionForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
             return redirect('/?message=Usuario editado&status=Success')
-    else:
-        form = CustomUserEditionForm(instance=user)
-    return render(request, 'customer/edit.html', {'form': form, 'user': user})
+        else:
+            return render(request, 'customer/edit.html', {'form': form, 'user': user})
+
+def get_user(self, uidb64):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = User.objects.get(pk=uid)
+        return user
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        return None

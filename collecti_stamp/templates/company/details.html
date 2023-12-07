@@ -23,7 +23,7 @@
         </div>
         <div class="company-description">
             <hr> <!-- Separador -->
-            <p style="white-space: pre-line;">{{ company.description|default:''|safe }}</p>
+            <p style="white-space: pre-line;">{{ company.description|default:''|striptags  }}</p>
         </div>
     </div>
 
