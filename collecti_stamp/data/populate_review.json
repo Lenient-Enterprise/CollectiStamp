@@ -1,0 +1,57 @@
+[
+  {
+    "model": "product.ProductReview",
+    "pk": 1,
+    "fields": {
+      "name": "Buen producto",
+      "username": "Alicia",
+      "description": "Me ha gustado la moneda, recomendada para el resto de coleccionistas.",
+      "product": 1,
+      "date": "2018-01-01T00:16:44Z"
+    }
+  },
+    {
+    "model": "product.ProductReview",
+    "pk": 2,
+    "fields": {
+      "name": "Demasiado Cara",
+      "username": "Benito",
+      "description": "Encontré la misma moneda en otra tienda a mitad del precio de la que se vende en esta.",
+      "product": 1,
+      "date": "2018-01-02T00:07:30Z"
+    }
+  },
+  {
+    "model": "product.ProductReview",
+    "pk": 3,
+    "fields": {
+      "name": "Reseña sin título",
+      "username": "Anónimo",
+      "description": "¿Si compro una cantidad elevada se me realizará un descuento?",
+      "product": 1,
+      "date": "2018-01-03T00:21:04Z"
+    }
+  },
+  {
+    "model": "product.ProductReview",
+    "pk": 4,
+    "fields": {
+      "name": "Reseña sin título",
+      "username": "Anónimo",
+      "description": "¿Cuándo habrá más monedas disponibles en tienda?",
+      "product": 1,
+      "date": "2018-01-01T00:17:22Z"
+    }
+  },
+  {
+    "model": "product.ProductReview",
+    "pk": 5,
+    "fields": {
+      "name": "Estoy satisfecha con mi compra",
+      "username": "Eva",
+      "description": "La moneda es un poco más grande de lo que parecía en la foto y pesa bastante, aun así es preciosa y estoy segura de que a mi esposo le encantará.",
+      "product": 1,
+      "date": "2018-01-06T00:15:21Z"
+    }
+  }
+]

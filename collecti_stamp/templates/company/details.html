@@ -13,21 +13,20 @@
         </div>
         <div class="company-info">
             <hr> <!-- Separador -->
-            <p><strong class="company-info-label">Dirección:</strong> {{ company.address }}</p>
+            <p><strong class="company-info-label">Dirección:</strong> {{ company.address|default:'' }}</p>
             <hr> <!-- Separador -->
-            <p><strong class="company-info-label">Teléfono de contacto:</strong> {{ company.contact_phone }}</p>
+            <p><strong class="company-info-label">Teléfono de contacto:</strong> {{ company.contact_phone|default:'' }}</p>
             <hr> <!-- Separador -->
-            <p><strong class="company-info-label">Correo electrónico de contacto:</strong> {{ company.contact_email }}</p>
+            <p><strong class="company-info-label">Correo electrónico de contacto:</strong> {{ company.contact_email|default:'' }}</p>
             <hr> <!-- Separador -->
-            <p><strong class="company-info-label">CIF:</strong> {{ company.cif }}</p>
+            <p><strong class="company-info-label">CIF:</strong> {{ company.cif|default:'' }}</p>
         </div>
         <div class="company-description">
             <hr> <!-- Separador -->
-            <p style="white-space: pre-line;">{{ company.description|safe }}</p>
+            <p style="white-space: pre-line;">{{ company.description|default:''|safe }}</p>
         </div>
-
-
     </div>
+
     <style>
         body {
             font-family: 'Arial', sans-serif;

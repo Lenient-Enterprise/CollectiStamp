@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+<!-- Tabla de pedidos para admin-->
+    <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    {% if request.user.is_superuser %}
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Code</th>
+                    {% endif %}
+                    <th scope="col">Fecha de pedido</th>
+                    <th scope="col">Coste</th>
+                    <th scope="col">Método de pago</th>
+                    <th scope="col">Método de envío</th>
+                    <th scope="col">Dirección de envío</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    {% if request.user.is_superuser %}
+                        <td>{{ order.user_name }}</td>
+                        <td>{{ order.code }}</td>
+                    {% endif %}
+                    <td>{{ order.order_date }}</td>
+                    <td>{{ order.order_total }} + {{ order.delivery_cost }}</td>
+                    <td>{{ order.payment_method }}</td>
+                    <td>{{ order.delivery_method }}</td>
+                    <td>{{ order.delivery_address }}</td>
+                    <td>{{ order.delivery_status }}</td>
+                    <td>
+                        <!-- Enlace a la página de detalles con el ID del ticket como parámetro -->
+                        <a href="{% url 'order_details' order.code %}" class="btn btn-sm btn-primary">Detalles</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}

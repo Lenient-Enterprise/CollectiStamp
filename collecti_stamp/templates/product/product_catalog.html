@@ -45,19 +45,30 @@
         a.catalog-link:hover {
             background-color: #000000;
         }
+
         .filters-container {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
             background-color: #343a40;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
             color: #fff;
-            padding: 20px;
-            text-align: left;
-            margin-bottom: 20px;
-            border-radius: 7px;
+            text-align: center;
+        }
+        
+        .filter-content {
+            margin-top: 15rem;
+            padding: 1.25rem;
         }
 
         .filter-select {
-            width: calc(25% - 16px);
             padding: 8px;
             margin: 8px;
+            margin-left:0;
             border-radius: 4px;
             box-sizing: border-box;
             display: inline-block;
@@ -71,14 +82,14 @@
         }
 
         .filter-button {
-            display: inline-block;
-            padding: 8px 16px; /* Ajustar el padding del botón */
+            display: block;
+            margin-top: 10px;
+            padding: 10px 20px;
             background-color: #4CAF50;
             color: #fff;
             text-decoration: none;
             border-radius: 4px;
             transition: background-color 0.3s ease;
-            margin-top: 8px; /* Ajustar el margen superior del botón */
             cursor: pointer;
         }
 
@@ -88,56 +99,183 @@
 
         .filter-label {
         display: block;
-        margin-bottom: 5px; /* Ajusta el espacio entre las etiquetas de filtro */
+        margin-bottom: 5px;
         }
+
+        .scrolling-container {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            background-color: #e6f7ff;
+            color: white; 
+            padding: 10px; 
+            margin-bottom: 10px; 
+            width: 100%; 
+            box-sizing: border-box;
+        }
+
+        .catalog-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #e6f7ff; /* Cambia el color de fondo a tu preferencia */
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .scrolling-card {
+            flex: 0 0 auto;
+            border: solid 1px black;
+            margin: 10px;
+            width: 250px;
+            height: 150px;
+            text-align: center;
+        }
+
+        .scrolling-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrolling-buttons-container {
+            display: flex;
+            justify-content: space-between;
+            font-size: 25px;
+            margin-left: 25px;
+            margin-right: 25px;
+        }
+
+                .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pagination a {
+            color: #fff;
+            background-color: #343a40;
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 0 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .pagination a:hover {
+            background-color: #000000;
+        }
+
+        .pagination .current {
+            color: #000000;
+            background-color: #fff;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin: 0 4px;
+        }
+
     </style>
 
     <h1>Catálogo de productos</h1>
 
+    <button id="toggleFilters" class="filter-button">Mostrar/Ocultar Filtros</button>
+
     <div class="filters-container">
-        <form method="get">
-            {% csrf_token %}
-            <label for="criteria1" class="filter-label">Criterio 1:</label>
-            <select id="criteria1" name="criteria1" class="filter-select">
-                <option value="">Seleccione un criterio</option>
-                {% for criterion in criteria %}
-                    <option value="{{ criterion.id }}">{{ criterion.name }}</option>
-                {% endfor %}
-            </select>
+        <div class="filter-content">
+            <form method="get">
+                {% csrf_token %}
+                <label for="criteria1" class="filter-label">Criterio 1:</label>
+                <select id="criteria1" name="criteria1" class="filter-select">
+                    <option value="">Seleccione un criterio</option>
+                    {% for criterion in criteria %}
+                        <option value="{{ criterion.id }}">{{ criterion.name }}</option>
+                    {% endfor %}
+                </select>
 
-            <label for="criteria2" class="filter-label">Criterio 2:</label>
-            <select id="criteria2" name="criteria2" class="filter-select">
-                <option value="">Seleccione un criterio</option>
-                {% for criterion in criteria %}
-                    <option value="{{ criterion.id }}">{{ criterion.name }}</option>
-                {% endfor %}
-            </select>
+                <label for="criteria2" class="filter-label">Criterio 2:</label>
+                <select id="criteria2" name="criteria2" class="filter-select">
+                    <option value="">Seleccione un criterio</option>
+                    {% for criterion in criteria %}
+                        <option value="{{ criterion.id }}">{{ criterion.name }}</option>
+                    {% endfor %}
+                </select>
 
-            <label for="criteria3" class="filter-label">Criterio 3:</label>
-            <select id="criteria3" name="criteria3" class="filter-select">
-                <option value="">Seleccione un criterio</option>
-                {% for criterion in criteria %}
-                    <option value="{{ criterion.id }}">{{ criterion.name }}</option>
-                {% endfor %}
-            </select>
-
-            <button type="submit" class="btn btn-primary">Aplicar filtro</button>
-        </form>
+                <label for="criteria3" class="filter-label">Criterio 3:</label>
+                <select id="criteria3" name="criteria3" class="filter-select">
+                    <option value="">Seleccione un criterio</option>
+                    {% for criterion in criteria %}
+                        <option value="{{ criterion.id }}">{{ criterion.name }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <button type="submit" class="btn btn-primary">Aplicar filtro</button>
+            </form>
+        </div>
     </div>
 
-    <h1>Monedas</h1>
-    <ul class="catalog-list">
-        {% for coin in coins %}
-            {% include "product/product_card.html" with product=coin%}
-        {% endfor %}
-    </ul>
+    {% for category in categories %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const rightBtn = document.querySelector("#{{category.0}}-right");
+                const leftBtn = document.querySelector("#{{category.0}}-left");
 
-    <h1>Sellos</h1>
-    <ul class="catalog-list">
-        {% for seal in seals %}
-            {% include "product/product_card.html" with product=seal%}
-        {% endfor %}
-    </ul
+                const content = document.querySelector("#{{category.0}}-container");
+
+                rightBtn.addEventListener("click", () => {
+                    content.scrollLeft += 800;
+                });
+
+                leftBtn.addEventListener("click", () => {
+                    content.scrollLeft -= 800;
+                });
+            });
+        </script>
+        <div class="catalog-container">
+            <h2>{{ category.1 }}</h2>
+            <div class="scrolling-buttons-container">
+                <span id="{{ category.0 }}-left">👈</span>
+                <span id="{{ category.0 }}-right">👉</span>
+            </div>
+            <ul class="scrolling-container" id="{{ category.0 }}-container">
+                {% for product in products %}
+                    {% if product.category == category.0 %}
+                        {% include "product/product_card.html" with product=product %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+
+    <!-- Agregar la paginación -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if products.has_previous %}
+                <a href="?page=1">&laquo; Primera</a>
+                <a href="?page={{ products.previous_page_number }}">Anterior</a>
+            {% endif %}
+
+            <span class="current">
+                Página {{ products.number }} de {{ products.paginator.num_pages }}.
+            </span>
+
+            {% if products.has_next %}
+                <a href="?page={{ products.next_page_number }}">Siguiente</a>
+                <a href="?page={{ products.paginator.num_pages }}">Última &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggleFiltersButton = document.getElementById("toggleFilters");
+            const filtersContainer = document.querySelector(".filters-container");
+
+            toggleFiltersButton.addEventListener("click", function () {
+                if (filtersContainer.style.display === "none") {
+                    filtersContainer.style.display = "block";
+                } else {
+                    filtersContainer.style.display = "none";
+                }
+            });
+        });
+    </script>
 {% endblock %}
-
-

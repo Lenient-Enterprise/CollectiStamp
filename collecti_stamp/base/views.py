@@ -1,13 +1,15 @@
 # views.py
 from django.shortcuts import render
+from django.views.decorators.http import require_http_methods
 from product.models import Product
 
+@require_http_methods(["GET"])
 def home(request):
     # Obtén los tres productos más caros y los tres más baratos
-    expensive_products = Product.objects.all().order_by('-price')[:3]
-    cheap_products = Product.objects.all().order_by('price')[:3]
+    coins = Product.objects.all().filter(product_type="COIN").order_by('price')
+    seals = Product.objects.all().filter(product_type="SEAL").order_by('price')
 
     # Combina ambas listas para mostrar en la plantilla
-    products = expensive_products | cheap_products
+    products = coins | seals
 
     return render(request, 'base/home.html', {'products': products})
