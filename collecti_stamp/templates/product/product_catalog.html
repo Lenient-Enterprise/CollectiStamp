@@ -143,11 +143,39 @@
             margin-left: 25px;
             margin-right: 25px;
         }
+
+                .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pagination a {
+            color: #fff;
+            background-color: #343a40;
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 0 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .pagination a:hover {
+            background-color: #000000;
+        }
+
+        .pagination .current {
+            color: #000000;
+            background-color: #fff;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin: 0 4px;
+        }
+
     </style>
 
-
     <h1>Catálogo de productos</h1>
-
 
     <button id="toggleFilters" class="filter-button">Mostrar/Ocultar Filtros</button>
 
@@ -185,29 +213,29 @@
     </div>
 
     {% for category in categories %}
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const rightBtn = document.querySelector("#{{category.0}}-right");
-            const leftBtn = document.querySelector("#{{category.0}}-left");
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const rightBtn = document.querySelector("#{{category.0}}-right");
+                const leftBtn = document.querySelector("#{{category.0}}-left");
 
-            const content = document.querySelector("#{{category.0}}-container");
+                const content = document.querySelector("#{{category.0}}-container");
 
-            rightBtn.addEventListener("click", () => {
-                content.scrollLeft += 800;
+                rightBtn.addEventListener("click", () => {
+                    content.scrollLeft += 800;
+                });
+
+                leftBtn.addEventListener("click", () => {
+                    content.scrollLeft -= 800;
+                });
             });
-
-            leftBtn.addEventListener("click", () => {
-                content.scrollLeft -= 800;
-            });
-        });
-    </script>
+        </script>
         <div class="catalog-container">
             <h2>{{ category.1 }}</h2>
             <div class="scrolling-buttons-container">
-                <span id= {{category.0}}-left>👈</span>
-                <span id= {{category.0}}-right>👉</span>
+                <span id="{{ category.0 }}-left">👈</span>
+                <span id="{{ category.0 }}-right">👉</span>
             </div>
-            <ul class="scrolling-container" id= {{category.0}}-container>
+            <ul class="scrolling-container" id="{{ category.0 }}-container">
                 {% for product in products %}
                     {% if product.category == category.0 %}
                         {% include "product/product_card.html" with product=product %}
@@ -216,6 +244,25 @@
             </ul>
         </div>
     {% endfor %}
+
+    <!-- Agregar la paginación -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if products.has_previous %}
+                <a href="?page=1">&laquo; Primera</a>
+                <a href="?page={{ products.previous_page_number }}">Anterior</a>
+            {% endif %}
+
+            <span class="current">
+                Página {{ products.number }} de {{ products.paginator.num_pages }}.
+            </span>
+
+            {% if products.has_next %}
+                <a href="?page={{ products.next_page_number }}">Siguiente</a>
+                <a href="?page={{ products.paginator.num_pages }}">Última &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {

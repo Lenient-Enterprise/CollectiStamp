@@ -8,7 +8,7 @@ from preorder.cart import Cart
 
 from .forms import CustomerDataForm, DeliveryMethodSelection, PaymentMethodForm
 from .models import Order, OrderProduct, PaymentMethod, DeliveryMethod, DeliveryStatus
-from datetime import date
+from datetime import date, datetime
 
 from preorder.context_processor import total_cart
 
@@ -154,7 +154,7 @@ class PurchaseStep3View(View):
             order.delivery_address = customer_form.cleaned_data['delivery_address']
             order.delivery_status = DeliveryStatus.IN_WAREHOUSE
             order.order_is_finished = True
-
+            order.delivery_date = datetime.now()
             order_products = OrderProduct.objects.filter(order_id=new_order_id)
 
             for order_product in order_products:
