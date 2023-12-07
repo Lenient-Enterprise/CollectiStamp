@@ -63,6 +63,22 @@
         .button-container {
             margin-top: 20px;
         }
+
+        .warning {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+        }
+          
+        .warning p {
+            color: #333;
+            font-size: 18px;
+            line-height: 1.6;
+            font-weight: bold;
+        }
     </style>
 
     <div class="container3 mt-5">
@@ -82,7 +98,7 @@
             </div>
             <div style="margin-bottom: 20px;">
                 <span style="display: block; margin-bottom: 8px; color: #333;">Nombre:</span>
-                {{ customer_form.nombre }}
+                {{ customer_form.user_name }}
             </div>
             <div style="margin-bottom: 20px;">
                 <span style="display: block; margin-bottom: 8px; color: #333;">Dirección de Envío:</span>
@@ -90,23 +106,37 @@
             </div>
             <div class="text-center button-container">
                 <button type="button" class="btn" id="previous-btn" onclick="goToPreviousStep()">Ir al Paso Anterior</button>
-                <button type="button" class="btn" id="auto-fill-btn" {% if user_is_logged_in %}onclick="autoFillData()" {% endif %}>Rellenar Automáticamente</button>
+                {% if user_is_logged_in %}
+                    <button type="button" class="btn" id="auto-fill-btn" onclick="autoFillData()">Rellenar Automáticamente</button>
+                {% endif %}
                 <button type="submit" class="btn btn-primary" id="next-btn">Finalizar Compra</button>
             </div>
         </form>
+        <div class="warning">
+            <p>Por favor, tenga en cuenta que no se admiten devoluciones<p>
+        </div>
     </div>
 
-<script>
-    function goToPreviousStep() {
-        var order_id = '{{ new_order_id }}';
-        var previousStepUrl = '/order/finish/' + order_id + '/step2/';
-        window.location.href = previousStepUrl;
-    }
+    <script>
+        function goToPreviousStep() {
+            var order_id = '{{ new_order_id }}';
+            var previousStepUrl = '/order/finish/' + order_id + '/step2/';
+            window.location.href = previousStepUrl;
+        }
 
-    function autoFillData() {
+        function autoFillData() {
+            var user_name = "{{ request.user.username }}";
+            var delivery_address = "{{ request.user.address|default:'' }}";  // Usar cadena vacía si es None
+            var user_email = "{{ request.user.email }}";
 
-    }
-</script>
+            document.getElementById('id_user_name').value = user_name || '';
+            document.getElementById('id_delivery_address').value = delivery_address || '';
+            document.getElementById('id_user_email').value = user_email || '';
+        }
+    </script>
+
+
+
 
 {% endblock %}
 

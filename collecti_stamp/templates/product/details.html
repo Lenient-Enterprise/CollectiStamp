@@ -104,6 +104,115 @@
             color: white;
             border-radius: 2px;
         }
+        .reviews-section {
+            margin-top: 20px;
+        }
+
+        .reviews-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .review-item {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .review-header strong {
+            font-size: 1.2em;
+        }
+
+        .review-date {
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        .review-description {
+            font-size: 1em;
+            line-height: 1.4;
+        }
+
+        .no-reviews {
+            font-style: italic;
+            color: #777;
+        }
+
+
+        .add-review-section {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .add-review-section h2 {
+            color: #333;
+            font-size: 1.5em;
+        }
+
+        .add-review-section form {
+            margin-top: 15px;
+        }
+
+        .add-review-section label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .add-review-section input[type="text"],
+        .add-review-section textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .add-review-section button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .add-review-section button:hover {
+            background-color: #0056b3;
+        }
+        .overlay-image {
+            position: absolute;
+            top: 23rem;
+            left: 33rem;
+            width: 21%;
+            height: 21.5%;
+        }
+        .claim {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .claim:hover {
+            background-color: #0056b3;
+        }
 
     </style>
 
@@ -111,6 +220,9 @@
         <div class="left-half">
             {% if product.image %}
                 <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                {% if product.stock_amount <= 0 %}
+                    <img class="overlay-image" src="/static/img/out_of_stock.png" alt="Imagen Superpuesta">
+                {% endif %}
             {% else %}
                 <img src="static/img/product/placeholder-image.jpg" alt="{{ product.name }}">
             {% endif %}
@@ -136,5 +248,36 @@
             {% include "product/expand_text.html" with title="Descripción" description=product.description %}
         </div>
     </div>
+
+<div class="reviews-section">
+    <div class="add-review-section">
+        <h2>Añadir Reseña</h2>
+        <form method="post" action="{% url 'product_details' product.id %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+            <button type="submit">Añadir Reseña</button>
+        </form>
+    </div>
+    <h1>Reseñas del Producto</h1>
+    {% if product.productreview_set.all %}
+        <ul class="reviews-list">
+            {% for review in product.productreview_set.all %}
+                <li class="review-item">
+                    <div class="review-header">
+                        <strong>{{ review.username }}</strong>
+                        <p class="review-date">Fecha: {{ review.date }}</p>
+                    </div>
+                    <p class="review-name">{{ review.name }}</p>
+                    <p class="review-description">{{ review.description }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="no-reviews">No hay reseñas para este producto.</p>
+    {% endif %}
+</div>
+<a href="{% url 'create_claim' product.id %}">
+    <button class="claim-deez-nuts">Poner Reclamación</button>
+</a>
 
 {% endblock %}

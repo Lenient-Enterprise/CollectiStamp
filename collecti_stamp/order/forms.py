@@ -3,22 +3,29 @@ from .models import Order, DeliveryMethod, PaymentMethod
 
 
 class CustomerDataForm(forms.Form):
-    nombre = forms.CharField(max_length=100, required=False)
-    delivery_address = forms.CharField(max_length=250, required=False)
-    user_email = forms.EmailField(required=False)
+    user_name = forms.CharField(max_length=100, required=True)
+    delivery_address = forms.CharField(max_length=250, required=True)
+    user_email = forms.EmailField(required=True)
     
-class delivery_method_selection(forms.Form):
-    delivery_method = forms.ChoiceField(choices=DeliveryMethod.choices)
-    delivery_address = forms.CharField(required=False)
-    
-    def clean(self):
-        cleaned_data = super().clean()
-        delivery_method = cleaned_data.get("delivery_method")
-        delivery_address = cleaned_data.get("delivery_address")
 
-        if delivery_method != 'PICK' and not delivery_address:
-            self.add_error('delivery_address', 'Este campo es obligatorio si el método de entrega no es "Recogida en tienda"')
-        return cleaned_data
+class DeliveryMethodSelection(forms.Form):
+    default_choice = 'default'
+    delivery_method = forms.ChoiceField(
+        choices=[(default_choice, 'Selecciona un método de entrega')] + list(DeliveryMethod.choices),
+        required=True,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['delivery_method'].label = 'Método de Entrega'
+
+    def clean_delivery_method(self):
+        delivery_method = self.cleaned_data['delivery_method']
+        if delivery_method == self.default_choice:
+            raise forms.ValidationError("Por favor, selecciona un método de entrega válido.")
+        return delivery_method
+
 
 class PaymentMethodForm(forms.Form):
     default_choice = 'default'
@@ -28,8 +35,12 @@ class PaymentMethodForm(forms.Form):
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['payment_method'].label = 'Método de Pago'
+
     def clean_payment_method(self):
         payment_method = self.cleaned_data['payment_method']
         if payment_method == self.default_choice:
-            raise forms.ValidationError("Por favor, seleccione un método de pago válido.")
+            raise forms.ValidationError("Por favor, selecciona un método de pago válido.")
         return payment_method

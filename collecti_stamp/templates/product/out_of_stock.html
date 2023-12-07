@@ -23,7 +23,6 @@
 <body>
 <div class="container3">
     <img src="{{ base_path }}" alt="Imagen Base" class="catalog-image">
-    <p>Stock: {{ stock_amount }}</p>
     {% if stock_amount <= 0 %}
         <img class="overlay-image" src="{{ overlay_path }}" alt="Imagen Superpuesta">
     {% endif %}
