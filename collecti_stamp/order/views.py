@@ -1,4 +1,4 @@
-import os
+from decouple import config
 
 import paypalrestsdk
 from paypalrestsdk import set_config
@@ -117,9 +117,9 @@ class PurchaseStep2View(View):
             
             delivery_cost = 0.0
             if order.delivery_method == DeliveryMethod.STANDARD_SHIPPING and order.order_total < 50:
-                delivery_cost = 3.0
+                delivery_cost = 2.99
             elif order.delivery_method == DeliveryMethod.EXPRESS_SHIPPING and order.order_total < 50:
-                delivery_cost = 5.0
+                delivery_cost = 4.99
             order.delivery_cost = delivery_cost
             
             order.save()
@@ -218,12 +218,12 @@ def get_order_products(order_products):
     return products
 
 class PayPalPaymentView(View):
-    def get(self,request, order_id):
-
+    def get(self, request, order_id):
         paypalrestsdk.configure({
-            "mode": "sandbox", # sandbox or live
-            "client_id": os.environ.get('PAYPAL_CLIENT_ID'),
-            "client_secret": os.environ.get('PAYPAL_CLIENT_SECRET') })
+            "mode": "sandbox",  # sandbox or live
+            "client_id": config('PAYPAL_CLIENT_ID'),
+            "client_secret": config('PAYPAL_CLIENT_SECRET')
+        })
 
         order= Order.objects.get(id=order_id)
         products= OrderProduct.objects.filter(order_id=order_id)

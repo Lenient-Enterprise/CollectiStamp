@@ -63,10 +63,6 @@
                         </td>
                     </tr>
                 {% endfor %}
-                <tr>
-                    <th scope="row" class="text-center font-weight-bold">Total:</th>
-                    <td colspan="2" class="text-center text-danger font-weight-bold">{{ total_cart }} €</td>
-                </tr>
             {% endif %}
         {% else %}            
             <tr>
@@ -78,6 +74,11 @@
         </tbody>
     </table>
     {% if request.session.cart.items %}
+        <div class="table table-bordered" style="border: 1px solid #000; padding-top: 15px; border-radius: 10px;">
+                <p scope="row" class="text-center font-weight-bold">
+                    Total: <span colspan="2" class="text-center text-danger font-weight-bold">{{ total_cart }} €</span>
+                </p>
+        </div>
         <div class="row text-center">
             <div class="col-6"><a href="{% url 'delete_cart' %}" class="btn btn-danger">Limpiar carro</a></div>
             <div class="col-6">
@@ -87,11 +88,7 @@
                 </form>
             </div>
         </div>
-    <hr>
     {% endif %}
-    <div class="warning">
-        <p>Por favor, tenga en cuenta que no se admiten devoluciones<p>
-    </div>
 </div>
 
 {% endblock %}
