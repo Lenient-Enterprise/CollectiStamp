@@ -1,8 +1,9 @@
 from django.urls import path
 
-from catalog.views import product_catalog
+from catalog.views import product_catalog_coins, product_catalog_seals, product_catalog
 
 urlpatterns = [
     path('', product_catalog, name='finder'),
-    path('catalog/', product_catalog, name='product_catalog'),
+    path('coins/', product_catalog_coins, name='product_catalog_coins'),
+    path('seals/', product_catalog_seals, name='product_catalog_seals'),
 ]
