@@ -57,13 +57,15 @@ class PurchaseStep1View(View):
         user_is_logged_in = request.user.is_authenticated
         form = PaymentMethodForm(request.POST)
         products = get_order_products(order_products)
+        order = get_object_or_404(Order, id=new_order_id) 
         return render(request, self.template_name,
                {
                 'order_products': order_products,
                 'payment_methods': payment_methods,
                 'order_id': new_order_id,
                 'form': form, 'products': products,
-                'user_is_logged_in': user_is_logged_in
+                'user_is_logged_in': user_is_logged_in,
+                'order_total': order.order_total
                 })
 
     def post(self, request, new_order_id):
@@ -80,13 +82,15 @@ class PurchaseStep1View(View):
         user_is_logged_in = request.user.is_authenticated
         form = PaymentMethodForm(request.POST)
         products = get_order_products(order_products)
+        order = get_object_or_404(Order, id=new_order_id) 
         return render(request, self.template_name,
                {
                 'order_products': order_products,
                 'payment_methods': payment_methods,
                 'order_id': new_order_id,
                 'form': form, 'products': products,
-                'user_is_logged_in': user_is_logged_in
+                'user_is_logged_in': user_is_logged_in,
+                'order_total': order.order_total
                 })
         
         
@@ -99,6 +103,7 @@ class PurchaseStep2View(View):
         user_is_logged_in = request.user.is_authenticated
         form = DeliveryMethodSelection(request.POST)
         products = get_order_products(order_products)
+        order = get_object_or_404(Order, id=new_order_id) 
         return render(request, self.template_name,
                {
                 'order_products': order_products,
@@ -106,7 +111,8 @@ class PurchaseStep2View(View):
                 'order_id': new_order_id,
                 'form': form,
                 'products': products,
-                'user_is_logged_in': user_is_logged_in
+                'user_is_logged_in': user_is_logged_in,
+                'order_total': order.order_total
                 })
         
     def post(self, request, new_order_id):
@@ -129,13 +135,15 @@ class PurchaseStep2View(View):
         user_is_logged_in = request.user.is_authenticated
         form = DeliveryMethodSelection(request.POST)
         products = get_order_products(order_products)
+        order = get_object_or_404(Order, id=new_order_id) 
         return render(request, self.template_name,
                {
                 'order_products': order_products,
                 'delivery_method': delivery_method,
                 'order_id': new_order_id,
                 'form': form, 'products': products,
-                'user_is_logged_in': user_is_logged_in
+                'user_is_logged_in': user_is_logged_in,
+                'order_total': order.order_total
                 })
 
 
@@ -149,6 +157,7 @@ class PurchaseStep3View(View):
         
         order = get_object_or_404(Order, id=new_order_id)
         delivery_cost = order.delivery_cost
+        cost = delivery_cost + order.order_total
 
         form = CustomerDataForm()
         products = get_order_products(order_products)
@@ -161,6 +170,7 @@ class PurchaseStep3View(View):
             'customer_form': form,
             'products': products,
             'user_is_logged_in': user_is_logged_in,
+            'cost':cost,
         })
 
     def post(self, request, new_order_id):
