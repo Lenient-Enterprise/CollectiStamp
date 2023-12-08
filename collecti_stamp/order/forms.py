@@ -13,7 +13,8 @@ class DeliveryMethodSelection(forms.Form):
     delivery_method = forms.ChoiceField(
         choices=[(default_choice, 'Selecciona un método de entrega')] + list(DeliveryMethod.choices),
         required=True,
-        widget=forms.Select(attrs={'class': 'form-control'})
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        error_messages={'required': 'Este campo es requerido.'}  # Cambiar el mensaje predeterminado por uno en español
     )
 
     def __init__(self, *args, **kwargs):
