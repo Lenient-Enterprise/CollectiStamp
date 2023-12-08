@@ -30,7 +30,7 @@ def finish_order(request):
         payment_method='',
         delivery_status='',
         delivery_method='',
-        delivery_cost=3.99,
+        delivery_cost=0,
         delivery_address='',
     )
     new_order.save()
@@ -112,6 +112,14 @@ class PurchaseStep2View(View):
         if form.is_valid():
             order = get_object_or_404(Order, id=new_order_id)
             order.delivery_method = form.cleaned_data['delivery_method']
+            
+            delivery_cost = 0.0
+            if order.delivery_method == DeliveryMethod.STANDARD_SHIPPING and order.order_total < 50:
+                delivery_cost = 3.0
+            elif order.delivery_method == DeliveryMethod.EXPRESS_SHIPPING and order.order_total < 50:
+                delivery_cost = 5.0
+            order.delivery_cost = delivery_cost
+            
             order.save()
             return redirect('order:purchase_step3', new_order_id=new_order_id)
         order_products = OrderProduct.objects.filter(order_id=new_order_id)
@@ -136,6 +144,9 @@ class PurchaseStep3View(View):
         order_products = OrderProduct.objects.filter(order_id=new_order_id)
         payment_methods = PaymentMethod.choices
         user_is_logged_in = request.user.is_authenticated
+        
+        order = get_object_or_404(Order, id=new_order_id)
+        delivery_cost = order.delivery_cost
 
         form = CustomerDataForm()
         products = get_order_products(order_products)
@@ -144,6 +155,7 @@ class PurchaseStep3View(View):
             'order_products': order_products,
             'payment_methods': payment_methods,
             'new_order_id': new_order_id,
+            'delivery_cost': delivery_cost,
             'customer_form': form,
             'products': products,
             'user_is_logged_in': user_is_logged_in,
@@ -175,7 +187,7 @@ class PurchaseStep3View(View):
             cart = Cart(request)
             cart.delete_cart()
             
-            if(order.payment_method=="PAYMENT_GATEWAY"):
+            if(order.payment_method=="PAYPAL"):
                 return redirect('order:create_payment', order_id=order.id)
             else:
                 return redirect('/?message=Compra Realizada&status=Success')

@@ -18,7 +18,7 @@ def get_order_tracking(request, code):  # Change the parameter name
     }
     payment_methods = {
         'CASH_ON_DELIVERY': 'Contrarrembolso',
-        'PAYMENT_GATEWAY': 'Pasarelas de Pago',
+        'PAYPAL': 'PayPal',
     } 
     state=state_name.get(order.delivery_status)
     delivery_method=delivery_methods.get(order.delivery_method)

@@ -89,6 +89,10 @@
                 <li class="list-group-item">{{ product.name }} {{ product.quantity }} - Precio por unidad: {{ product.price }} €</li>
             {% endfor %}
         </ul>
+        <br>
+        <div class="list-group">
+            <p class="list-group-item">Gastos de envio: {{ delivery_cost }} €</lp>
+        </div>
         <h3>Introducir datos</h3>
         <form method="post" style="width: 60%; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center;">
             {% csrf_token %}
