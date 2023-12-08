@@ -117,9 +117,9 @@ class PurchaseStep2View(View):
             
             delivery_cost = 0.0
             if order.delivery_method == DeliveryMethod.STANDARD_SHIPPING and order.order_total < 50:
-                delivery_cost = 3.0
+                delivery_cost = 2.99
             elif order.delivery_method == DeliveryMethod.EXPRESS_SHIPPING and order.order_total < 50:
-                delivery_cost = 5.0
+                delivery_cost = 4.99
             order.delivery_cost = delivery_cost
             
             order.save()
