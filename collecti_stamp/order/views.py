@@ -1,3 +1,5 @@
+import os
+
 import paypalrestsdk
 from paypalrestsdk import set_config
 from django.urls import reverse
@@ -220,9 +222,9 @@ class PayPalPaymentView(View):
 
         paypalrestsdk.configure({
             "mode": "sandbox", # sandbox or live
-            "client_id": "AejZtiMeXR3CdKhslKEcJE1IQqqVLjo4oqY2hpehc305GAw9bTikztJtNF8xSciyKgunq4tY5Fnkfvhf",
-            "client_secret": "EC2YcHwJDeKWHGWoUxQS9HMq8yNfh8dHq-WmgSds7uEEK61GTenWMwYBqu41sUd5vQPwIZVQQG1KdnmP" })
-        
+            "client_id": os.environ.get('PAYPAL_CLIENT_ID'),
+            "client_secret": os.environ.get('PAYPAL_CLIENT_SECRET') })
+
         order= Order.objects.get(id=order_id)
         products= OrderProduct.objects.filter(order_id=order_id)
         
