@@ -203,58 +203,58 @@ def get_order_products(order_products):
         products.append(product)
     return products
 
+class PayPalPaymentView(View):
+    def get(self,request, order_id):
 
-def create_payment(request, order_id):
+        paypalrestsdk.configure({
+            "mode": "sandbox", # sandbox or live
+            "client_id": "AejZtiMeXR3CdKhslKEcJE1IQqqVLjo4oqY2hpehc305GAw9bTikztJtNF8xSciyKgunq4tY5Fnkfvhf",
+            "client_secret": "EC2YcHwJDeKWHGWoUxQS9HMq8yNfh8dHq-WmgSds7uEEK61GTenWMwYBqu41sUd5vQPwIZVQQG1KdnmP" })
+        
+        order= Order.objects.get(id=order_id)
+        products= OrderProduct.objects.filter(order_id=order_id)
+        
+        items = [{
+            "name": product.product_id.first().name,
+            "sku": product.product_id.first().id,
+            "price": str(product.product_id.first().price),
+            "currency": "EUR",
+            "quantity": product.quantity
+        } for product in products ]
 
-    paypalrestsdk.configure({
-        "mode": "sandbox", # sandbox or live
-        "client_id": "AejZtiMeXR3CdKhslKEcJE1IQqqVLjo4oqY2hpehc305GAw9bTikztJtNF8xSciyKgunq4tY5Fnkfvhf",
-        "client_secret": "EC2YcHwJDeKWHGWoUxQS9HMq8yNfh8dHq-WmgSds7uEEK61GTenWMwYBqu41sUd5vQPwIZVQQG1KdnmP" })
-    
-    order= Order.objects.get(id=order_id)
-    products= OrderProduct.objects.filter(order_id=order_id)
-    
-    items = [{
-        "name": product.product_id.first().name,
-        "sku": product.product_id.first().id,
-        "price": str(product.product_id.first().price),
-        "currency": "EUR",
-        "quantity": product.quantity
-    } for product in products ]
-
-    payment = Payment({
-        "intent": "sale",
-        "payer": {
-            "payment_method": "paypal"
-        },
-        "redirect_urls": {
-            "return_url": request.build_absolute_uri('http://localhost:8000/order/payment/success/'),
-            "cancel_url": request.build_absolute_uri('http://localhost:8000/order/payment/cancel/')
-        },
-        "transactions": [{
-            "item_list": {
-                    "items": items},
-            "amount": {
-                "total": str(order.order_total),
-                "currency": "EUR"
+        payment = Payment({
+            "intent": "sale",
+            "payer": {
+                "payment_method": "paypal"
             },
-            "description": "Descripción del pago"
-        }]
-    })
+            "redirect_urls": {
+                "return_url": request.build_absolute_uri('http://localhost:8000/order/payment/success/'),
+                "cancel_url": request.build_absolute_uri('http://localhost:8000/order/payment/cancel/')
+            },
+            "transactions": [{
+                "item_list": {
+                        "items": items},
+                "amount": {
+                    "total": str(order.order_total),
+                    "currency": "EUR"
+                },
+                "description": "Descripción del pago"
+            }]
+        })
 
-    if payment.create():
-        print("Payment created successfully")
-        for link in payment.links:
-            if link.rel == "approval_url":
-                approval_url = link.href
-                return redirect(approval_url)
-                #print("Redirigir para aprobación: %s" % (approval_url))
-    else:
-        print(payment.error)
+        if payment.create():
+            print("Payment created successfully")
+            for link in payment.links:
+                if link.rel == "approval_url":
+                    approval_url = link.href
+                    return redirect(approval_url)
+                    #print("Redirigir para aprobación: %s" % (approval_url))
+        else:
+            print(payment.error)
+class PayPalSuccesView(View):
+    def get(self,request):
+        return redirect('/?message=Compra Realizada&status=Success')
 
-def payment_success(request):
-    return redirect('/?message=Compra Realizada&status=Success')
-
-
-def payment_cancel(request):
-    return redirect('/?message=Se ha cancelado de manera satisfactoria&status=Info')
+class PayPalCancelView(View):
+    def payment_cancel(self,request):
+        return redirect('/?message=Se ha cancelado de manera satisfactoria&status=Info')
