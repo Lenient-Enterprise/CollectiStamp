@@ -2,7 +2,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html style="margin: 0;padding: 0;" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="es" xml:lang="es" style="margin: 0; padding: 0;" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
@@ -11,14 +11,8 @@
     <meta name="viewport" content="width=device-width"/>
     <style type="text/css">
         @media only screen and (min-width: 620px) {
-            .column {
-            }
-
             .wrapper {
                 min-width: 600px !important
-            }
-
-            .wrapper h1 {
             }
 
             .wrapper h1 {
@@ -27,14 +21,8 @@
             }
 
             .wrapper h2 {
-            }
-
-            .wrapper h2 {
                 font-size: 20px !important;
                 line-height: 28px !important
-            }
-
-            .wrapper h3 {
             }
 
             .wrapper .size-8, .wrapper .size-8-m, .wrapper .size-8-l {
@@ -690,7 +678,7 @@
             }
         }
 
-        @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+        @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
             .fblike {
                 background-image: url(https://i7.createsend1.com/static/eb/master/13-the-blueprint-3/images/fblike@2x.png) !important;
             }
@@ -766,28 +754,13 @@
         }
 
         .mso h1 {
-        }
-
-        .mso h1 {
             font-size: 26px !important;
             line-height: 34px !important
         }
 
         .mso h2 {
-        }
-
-        .mso h2 {
             font-size: 20px !important;
             line-height: 28px !important
-        }
-
-        .mso h3 {
-        }
-
-        .mso .layout__inner {
-        }
-
-        .mso .footer__share-button p {
         }
 
         .mso .footer__share-button p {
@@ -801,14 +774,8 @@
         }
 
         .mso .w560 .divider {
-        }
-
-        .mso .w560 .divider {
             Margin-left: 260px !important;
             Margin-right: 260px !important
-        }
-
-        .mso .w360 .divider {
         }
 
         .mso .w360 .divider {
@@ -817,14 +784,8 @@
         }
 
         .mso .w260 .divider {
-        }
-
-        .mso .w260 .divider {
             Margin-left: 110px !important;
             Margin-right: 110px !important
-        }
-
-        .mso .w160 .divider {
         }
 
         .mso .w160 .divider {
@@ -833,14 +794,8 @@
         }
 
         .mso .w60 .divider {
-        }
-
-        .mso .w60 .divider {
             Margin-left: 10px !important;
             Margin-right: 10px !important
-        }
-
-        .mso .w354 .divider {
         }
 
         .mso .w354 .divider {
@@ -849,14 +804,8 @@
         }
 
         .mso .w250 .divider {
-        }
-
-        .mso .w250 .divider {
             Margin-left: 105px !important;
             Margin-right: 105px !important
-        }
-
-        .mso .w148 .divider {
         }
 
         .mso .w148 .divider {
@@ -1526,7 +1475,8 @@
                         <!-- Logo Image -->
                         <div class="logo-center" align="center" id="emb-email-header"><img
                                 style="display: block;height: auto;width: 100%;border: 0;max-width: 141px;"
-                                src="https://alesanfe.pythonanywhere.com{% static 'img/company/company_logo.png' %}" alt="" width="141"/>
+                                src="https://alesanfe.pythonanywhere.com{% static 'img/company/company_logo.png' %}"
+                                alt="" width="141"/>
                         </div>
                     </div>
                     <!--[if mso]></td></tr></table><![endif]-->
@@ -1588,27 +1538,27 @@
                                     <p class="size-16"
                                        style="Margin-top: 16px;Margin-bottom: 20px;font-size: 16px;line-height: 24px; color: #808080"
                                        lang="x-size-16">
-                                       Correo: {{ order.user_email }}
+                                        Correo: {{ order.user_email }}
                                     </p>
                                     <p class="size-16"
                                        style="Margin-top: 16px;Margin-bottom: 20px;font-size: 16px;line-height: 24px; color: #808080"
                                        lang="x-size-16">
-                                       Dirección: {{ order.delivery_address }}
+                                        Dirección: {{ order.delivery_address }}
                                     </p>
                                     <p class="size-16"
                                        style="Margin-top: 16px;Margin-bottom: 20px;font-size: 16px;line-height: 24px; color: #808080"
                                        lang="x-size-16">
-                                       Método de entrega: {{ order.delivery_method }}
+                                        Método de entrega: {{ order.delivery_method }}
                                     </p>
                                     <p class="size-16"
                                        style="Margin-top: 16px;Margin-bottom: 20px;font-size: 16px;line-height: 24px; color: #808080"
                                        lang="x-size-16">
-                                       Método de pago: {{ order.delivery_status }}
+                                        Método de pago: {{ order.delivery_status }}
                                     </p>
                                     <p class="size-16"
                                        style="Margin-top: 16px;Margin-bottom: 20px;font-size: 16px;line-height: 24px; color: #808080"
                                        lang="x-size-16">
-                                       Importe total: {{ order.order_total }} € + {{ order.delivery_cost }} €
+                                        Importe total: {{ order.order_total }} € + {{ order.delivery_cost }} €
                                     </p>
                                 </div>
                             </div>
@@ -1633,9 +1583,9 @@
                      style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;">
                     <div class="layout__inner" style="border-collapse: collapse;display: table;width: 100%;">
                         <!--[if mso]>
-                        <table align="center" cellpadding="0" cellspacing="0" role="presentation">
+                        <table align="center" cellspacing="0" role="presentation">
                             <tr>
-                                <td style="width: 290px" valign="top" class="w250"><![endif]-->
+                                <td style="width: 290px" class="w250"><![endif]-->
                         <div class="row">
                             {% for order_product in order_products %}
                                 <div class="col-md-6"
@@ -1683,7 +1633,7 @@
                                 <!--[if mso]></td>
                                              <td style="width: 20px"><![endif]-->
                                 <!--[if mso]></td>
-                                             <td style="width: 290px" valign="top" class="w250"><![endif]-->
+                                             <td style="width: 290px" class="w250"><![endif]-->
                             {% endfor %}
                         </div>
                         <!--[if mso]></td></tr></table><![endif]-->
@@ -1695,7 +1645,7 @@
                     <div class="layout__inner"
                          style="border-collapse: collapse;display: table;width: 100%;background-color: #212a32;">
                         <!--[if mso]>
-                        <table align="center" cellpadding="0" cellspacing="0" role="presentation">
+                        <table align="center" role="presentation">
                             <tr class="layout-fixed-width" style="background-color: #212a32;">
                                 <td style="width: 600px" class="w560"><![endif]-->
                         <div class="column"
@@ -1756,13 +1706,13 @@
                     <div class="layout__inner left-aligned-footer"
                          style="border-collapse: collapse;display: table;width: 100%;">
                         <!--[if mso]>
-                        <table align="center" cellpadding="0" cellspacing="0" role="presentation">
+                        <table align="center" role="presentation">
                             <tr class="layout-email-footer"><![endif]-->
                         <!--[if mso]>
                         <td>
-                            <table cellpadding="0" cellspacing="0"><![endif]-->
+                            <table><![endif]-->
                         <!--[if mso]>
-                        <td valign="top"><![endif]-->
+                        <td><![endif]-->
                         <div class="column"
                              style="text-align: left;font-size: 12px;line-height: 19px;color: #e6e6e6;font-family: Open Sans,sans-serif;">
                             <div class="footer-logo emb-logo-margin-box"
@@ -1770,12 +1720,13 @@
                                  align="center">
                                 <div style="margin-right: 20px;" emb-flexible-footer-logo align="center"><img
                                         style="border: 0;display: block;height: auto;width: 100%;max-width: 141px;"
-                                        src="https://alesanfe.pythonanywhere.com{% static 'img/company/company_logo.png' %}" alt="" width="141"/></div>
+                                        src="https://alesanfe.pythonanywhere.com{% static 'img/company/company_logo.png' %}"
+                                        alt="" width="141"/></div>
                             </div>
                         </div>
                         <!--[if mso]></td><![endif]-->
                         <!--[if mso]>
-                        <td valign="top"><![endif]-->
+                        <td><![endif]-->
                         <div class="column"
                              style="text-align: left;font-size: 12px;line-height: 19px;color: #e6e6e6;font-family: Open Sans,sans-serif;display: none;">
                             <div style="margin-left: 0;margin-right: 0;Margin-top: 10px;Margin-bottom: 10px;">
@@ -1787,34 +1738,24 @@
                         </div>
                         <!--[if mso]></td><![endif]-->
                         <!--[if mso]>
-                        <td valign="top"><![endif]-->
-                        <table style="border-collapse: collapse;table-layout: fixed;display: inline-block;width: 439px;"
+                        <td><![endif]-->
+                        <table style="border-collapse: collapse; table-layout: fixed; display: inline-block; width: 439px;"
                                cellpadding="0" cellspacing="0">
-                            <tbody>
+                            <caption>Información de contacto</caption>
                             <tr>
-                                <td>
-                                    <div class="column js-footer-additional-info"
-                                         style="text-align: left;font-size: 12px;line-height: 19px;color: #e6e6e6;font-family: Open Sans,sans-serif;width: 439px;">
-                                        <div style="margin-left: 0;margin-right: 0;Margin-top: 10px;Margin-bottom: 10px;">
-
-
-                                            <div class="email-footer__additional-info"
-                                                 style="font-size: 12px;line-height: 19px;margin-bottom: 15px;">
-                                                <div style="Margin-bottom: 12px;">
-                                                    <div>© 2023 CollectiStamp. Todos los derechos reservados.</div>
-                                                    <div>Soporte: <a href="mailto:lennient.enterprise@gmail.com">lennient.enterprise@gmail.com</a>
-                                                    </div>
-                                                    <div>Contacto: <a href="tel:+34123456789">+34 123 456 789</a></div>
-                                                    <div>Dirección: <a href="https://maps.app.goo.gl/FfV92hjNyzYp8sXQ7">Calle
-                                                        Filatelia 1, Sevilla</a></div>
-
-                                                </div>
-                                                <!--[if mso]>&nbsp;<![endif]-->
-                                            </div>
-                                        </div>
-                                </td>
+                                <th>© 2023 CollectiStamp. Todos los derechos reservados.</th>
                             </tr>
-                            </tbody>
+                            <tr>
+                                <th>Soporte: <a href="mailto:lennient.enterprise@gmail.com">lennient.enterprise@gmail.com</a>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Contacto: <a href="tel:+34123456789">+34 123 456 789</a></th>
+                            </tr>
+                            <tr>
+                                <th>Dirección: <a href="https://maps.app.goo.gl/FfV92hjNyzYp8sXQ7">Calle Filatelia 1,
+                                    Sevilla</a></th>
+                            </tr>
                         </table>
                         <!--[if mso]></table></td><![endif]-->
                         <!--[if mso]></td></tr></table><![endif]-->
