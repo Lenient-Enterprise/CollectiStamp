@@ -1,4 +1,9 @@
-from django.http import HttpResponseNotAllowed
+import paypalrestsdk
+from paypalrestsdk import set_config
+from django.urls import reverse
+from paypalrestsdk import Payment
+from django.conf import settings
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.decorators.http import require_http_methods
@@ -182,7 +187,10 @@ class PurchaseStep3View(View):
             cart = Cart(request)
             cart.delete_cart()
             
-            return redirect('/?message=Compra Realizada&status=Success')
+            if(order.payment_method=="PAYMENT_GATEWAY"):
+                return redirect('order:create_payment', order_id=order.id)
+            else:
+                return redirect('/?message=Compra Realizada&status=Success')
 
         order_products = OrderProduct.objects.filter(order_id=new_order_id)
         payment_methods = PaymentMethod.choices
@@ -200,11 +208,65 @@ class PurchaseStep3View(View):
             'user_is_logged_in': user_is_logged_in,
         })
 
-
-
 def get_order_products(order_products):
     products = []
     for order_product in order_products:
         product = get_object_or_404(Product, id=order_product.product_id.first().id)
         products.append(product)
     return products
+
+class PayPalPaymentView(View):
+    def get(self,request, order_id):
+
+        paypalrestsdk.configure({
+            "mode": "sandbox", # sandbox or live
+            "client_id": "AejZtiMeXR3CdKhslKEcJE1IQqqVLjo4oqY2hpehc305GAw9bTikztJtNF8xSciyKgunq4tY5Fnkfvhf",
+            "client_secret": "EC2YcHwJDeKWHGWoUxQS9HMq8yNfh8dHq-WmgSds7uEEK61GTenWMwYBqu41sUd5vQPwIZVQQG1KdnmP" })
+        
+        order= Order.objects.get(id=order_id)
+        products= OrderProduct.objects.filter(order_id=order_id)
+        
+        items = [{
+            "name": product.product_id.first().name,
+            "sku": product.product_id.first().id,
+            "price": str(product.product_id.first().price),
+            "currency": "EUR",
+            "quantity": product.quantity
+        } for product in products ]
+
+        payment = Payment({
+            "intent": "sale",
+            "payer": {
+                "payment_method": "paypal"
+            },
+            "redirect_urls": {
+                "return_url": request.build_absolute_uri('http://localhost:8000/order/payment/success/'),
+                "cancel_url": request.build_absolute_uri('http://localhost:8000/order/payment/cancel/')
+            },
+            "transactions": [{
+                "item_list": {
+                        "items": items},
+                "amount": {
+                    "total": str(order.order_total),
+                    "currency": "EUR"
+                },
+                "description": "Descripción del pago"
+            }]
+        })
+
+        if payment.create():
+            print("Payment created successfully")
+            for link in payment.links:
+                if link.rel == "approval_url":
+                    approval_url = link.href
+                    return redirect(approval_url)
+                    #print("Redirigir para aprobación: %s" % (approval_url))
+        else:
+            print(payment.error)
+class PayPalSuccesView(View):
+    def get(self,request):
+        return redirect('/?message=Compra Realizada&status=Success')
+
+class PayPalCancelView(View):
+    def payment_cancel(self,request):
+        return redirect('/?message=Se ha cancelado de manera satisfactoria&status=Info')
