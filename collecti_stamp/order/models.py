@@ -17,9 +17,9 @@ class DeliveryStatus(models.TextChoices):
 
 
 class DeliveryMethod(models.TextChoices):
-    STANDARD_SHIPPING = 'STANDARD_SHIPPING', 'Envío estándar'
-    EXPRESS_SHIPPING = 'EXPRESS_SHIPPING', 'Envío express'
-    PICKUP_IN_STORE = 'PICKUP_IN_STORE', 'Recogida en tienda'
+    STANDARD_SHIPPING = 'STANDARD_SHIPPING', 'Envío estándar (2.99 €)'
+    EXPRESS_SHIPPING = 'EXPRESS_SHIPPING', 'Envío express (4.99 €)'
+    PICKUP_IN_STORE = 'PICKUP_IN_STORE', 'Recogida en tienda (0.00 €)'
 
 
 class Order(models.Model):
