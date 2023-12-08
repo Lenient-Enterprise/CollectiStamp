@@ -15,11 +15,12 @@ class CustomUserCreationForm(UserCreationForm):
     payment_method= forms.MultipleChoiceField(
         choices=PaymentMethod.choices,
         widget=forms.SelectMultiple()
-     )
+    )
+    address= forms.CharField(max_length=500)
 
     class Meta:
         model = User
-        fields = ['email']
+        fields = ['email', 'address']
 
 class EmailForm(forms.Form):
     email = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'usuario@dominio.com'}))
