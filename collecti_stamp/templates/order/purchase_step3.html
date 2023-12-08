@@ -3,117 +3,50 @@
 {% block title %}Datos del Cliente{% endblock %}
 
 {% block content %}
-
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-
-        .container3 {
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-top: 50px;
-        }
-
-        h2 {
-            color: #007bff;
-            margin-top: 10px;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        h3 {
-            color: #343a40;
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .list-group-item {
-            background-color: #f8f9fa;
-            border: none;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-                button {
-            margin-top: 10px;
-            border: none;
-            margin-right: 10px;
-        }
-
-        #previous-btn {
-            background-color: #007bff;
-            color: #ffffff;
-        }
-
-        #auto-fill-btn {
-            background-color: #28a745;
-            color: #ffffff;
-        }
-
-        #next-btn {
-            background-color: #007bff;
-            color: #ffffff;
-        }
-
-        .button-container {
-            margin-top: 20px;
-        }
-
-        .warning {
-            text-align: center;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 10px;
-        }
-          
-        .warning p {
-            color: #333;
-            font-size: 18px;
-            line-height: 1.6;
-            font-weight: bold;
-        }
-    </style>
-
     <div class="container3 mt-5">
-        <h2>Confirmación de Compra - Paso 3</h2>
-        <h3>Productos Comprados</h3>
-        <ul class="list-group">
-            {% for product in products %}
-                <li class="list-group-item">{{ product.name }} {{ product.quantity }} - Precio por unidad: {{ product.price }} €</li>
-            {% endfor %}
-        </ul>
-        <h3>Introducir datos</h3>
-        <form method="post" style="width: 60%; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center;">
-            {% csrf_token %}
-            <div style="margin-bottom: 20px;">
-                <span style="display: block; margin-bottom: 8px; color: #333;">Correo Electrónico:</span>
-                {{ customer_form.user_email }}
-            </div>
-            <div style="margin-bottom: 20px;">
-                <span style="display: block; margin-bottom: 8px; color: #333;">Nombre:</span>
-                {{ customer_form.user_name }}
-            </div>
-            <div style="margin-bottom: 20px;">
-                <span style="display: block; margin-bottom: 8px; color: #333;">Dirección de Envío:</span>
-                {{ customer_form.delivery_address }}
-            </div>
-            <div class="text-center button-container">
-                <button type="button" class="btn" id="previous-btn" onclick="goToPreviousStep()">Ir al Paso Anterior</button>
-                {% if user_is_logged_in %}
-                    <button type="button" class="btn" id="auto-fill-btn" onclick="autoFillData()">Rellenar Automáticamente</button>
-                {% endif %}
-                <button type="submit" class="btn btn-primary" id="next-btn">Finalizar Compra</button>
-            </div>
-        </form>
-        <div class="warning">
-            <p>Por favor, tenga en cuenta que no se admiten devoluciones<p>
+        <h2 class="text-center" style="color: #007bff; margin-top: 10px; margin-bottom: 25px;">Confirmación de Compra - Paso 3</h2>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8" style="background-color: #ffffff; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); padding: 20px;">
+                <h3 style="color: #343a40; text-align: center; margin-bottom: 25px;">Productos Comprados</h3>
+                <ul class="list-group">
+                    {% for product in products %}
+                        <li class="list-group-item" style="background-color: #f8f9fa; border: none;">{{ product.name }} {{ product.quantity }} - Precio por unidad: {{ product.price }} €</li>
+                    {% endfor %}
+                </ul>
+                <br>
+                <div class="list-group">
+                    <p class="list-group-item">Gastos de envio: {{ delivery_cost }} €</p>
+                </div>
+                <div class="list-group">
+                    <p class="list-group-item" style="font-weight: bold;">Total del pedido: {{ cost }} €</p>
+                </div>
+                <h3 class="mt-4" style="color: #343a40; text-align: center; margin-bottom: 25px;">Introducir datos</h3>
+                <form method="post" style="width: 60%; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center;">
+                    {% csrf_token %}
+                    <div style="margin-bottom: 20px;">
+                        <span style="display: block; margin-bottom: 8px; color: #333;">Correo Electrónico:</span>
+                        {{ customer_form.user_email }}
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <span style="display: block; margin-bottom: 8px; color: #333;">Nombre:</span>
+                        {{ customer_form.user_name }}
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <span style="display: block; margin-bottom: 8px; color: #333;">Dirección de Envío:</span>
+                        {{ customer_form.delivery_address }}
+                    </div>
+                    <div class="text-center button-container mt-4">
+                        <button type="button" class="btn" id="previous-btn" onclick="goToPreviousStep()" style="background-color: #007bff; color: #ffffff; margin-top: 10px; border: none; margin-right: 10px;">Ir al Paso Anterior</button>
+                        {% if user_is_logged_in %}
+                            <button type="button" class="btn" id="auto-fill-btn" onclick="autoFillData()" style="background-color: #28a745; color: #ffffff; margin-top: 10px; border: none; margin-right: 10px;">Rellenar Automáticamente</button>
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary" id="next-btn" style="background-color: #007bff; color: #ffffff; margin-top: 10px; border: none;">Finalizar Compra</button>
+                    </div>
+                </form>
+                <div class="warning mt-4" style="text-align: center; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin-top: 10px;">
+                    <p style="color: #333; font-size: 18px; line-height: 1.6; font-weight: bold;">Por favor, tenga en cuenta que no se admiten devoluciones</p>
+                </div>
         </div>
     </div>
 
@@ -134,10 +67,7 @@
             document.getElementById('id_user_email').value = user_email || '';
         }
     </script>
-
-
-
-
 {% endblock %}
+
 
 

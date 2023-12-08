@@ -46,21 +46,11 @@ class LogoutView(View):
 
 # Vista para registro de usuario
 class SigninView(View):
-    delivery_methods = {
-        'STANDARD_SHIPPING': 'Envío estándar',
-        'EXPRESS_SHIPPING': 'Envío express',
-        'PICKUP_IN_STORE': 'Recogida en tienda',
-    }
-    payment_methods = {
-        'CASH_ON_DELIVERY': 'Contrarrembolso',
-        'PAYMENT_GATEWAY': 'Pasarelas de Pago',
-    }
-
     def get(self, request):
 
         form = CustomUserCreationForm()
         return render(request, 'customer/signin.html',
-                      {'form': form, 'delivery_method': self.delivery_methods, 'payment_method': self.payment_methods})
+                      {'form': form})
 
     def post(self, request):
         form = CustomUserCreationForm(request.POST)
@@ -94,7 +84,7 @@ class SigninView(View):
                 message.send()
                 return redirect('/?message=Verificación de correo electrónico&status=Success')
         return render(request, 'customer/signin.html',
-                      {'form': form, 'delivery_method': self.delivery_methods, 'payment_method': self.payment_methods})
+                      {'form': form})
 
 
 class VerifyEmailView(View):
