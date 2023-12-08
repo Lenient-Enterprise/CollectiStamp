@@ -16,6 +16,17 @@
                 </ul>
 
                 <h3 class="mt-4" style="color: #343a40; text-align: center; margin-bottom: 25px;">Selecciona un Método de Pago</h3>
+        <h3>Productos Comprados</h3>
+        <ul class="list-group">
+            {% for product in products %}
+                <li class="list-group-item">{{ product.name }} {{ product.quantity }} - Precio por unidad: {{ product.price }} €</li>
+            {% endfor %}
+        </ul>
+        <br>
+        <div class="list-group">
+            <p class="list-group-item" style="font-weight: bold;">Total del pedido sin gastos de envio: {{ order_total }} €</p>
+        </div>
+        <h3>Selecciona un Método de Pago</h3>
 
                 <form method="post">
                     {% csrf_token %}

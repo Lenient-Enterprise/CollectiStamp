@@ -82,7 +82,6 @@
         }
 
         .filter-button {
-            display: block;
             margin-top: 10px;
             padding: 10px 20px;
             background-color: #4CAF50;
@@ -172,12 +171,22 @@
             border-radius: 4px;
             margin: 0 4px;
         }
+        .filtros{
+            display: inline-block;
+        }
 
     </style>
 
     <h1>Catálogo de productos</h1>
-
-    <button id="toggleFilters" class="filter-button">Mostrar/Ocultar Filtros</button>
+    <div class="filtros">
+        <button id="toggleFilters" class="filter-button">Mostrar/Ocultar Filtros</button>
+        <a href="/catalog/coins">
+            <button class="filter-button">Monedas</button>
+        </a>
+        <a href="/catalog/seals">
+            <button class="filter-button">Sellos</button>
+        </a>
+    </div>
 
     <div class="filters-container">
         <div class="filter-content">
