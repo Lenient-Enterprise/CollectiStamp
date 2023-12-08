@@ -52,6 +52,30 @@
                                     </ul>
                                 {% endif %}
                             </div>
+                            <div class="form-group">
+                                <label for="{{ form.password2.id_for_label }}">Método de envío preferido:</label>
+                                <br/>
+                                {{ form.delivery_method }}
+                                {% if form.delivery_method.errors %}
+                                    <ul class="errorlist">
+                                        {% for error in form.delivery_method.errors %}
+                                            <li class="error-item">{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.password2.id_for_label }}">Método de pago preferido:</label>
+                                <br/>
+                                {{ form.payment_method }}
+                                {% if form.payment_method.errors %}
+                                    <ul class="errorlist">
+                                        {% for error in form.payment_method.errors %}
+                                            <li class="error-item">{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
                             <button type="submit" class="btn btn-primary">Registrarse</button>
                         </form>
                     </div>

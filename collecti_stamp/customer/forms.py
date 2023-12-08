@@ -1,11 +1,21 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
+from order.models import DeliveryMethod, PaymentMethod
+
 from .models import User
 
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
+    delivery_method = forms.MultipleChoiceField(
+        choices=DeliveryMethod.choices,
+        widget=forms.SelectMultiple()
+    )
+    payment_method= forms.MultipleChoiceField(
+        choices=PaymentMethod.choices,
+        widget=forms.SelectMultiple()
+     )
 
     class Meta:
         model = User

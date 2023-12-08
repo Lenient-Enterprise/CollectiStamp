@@ -5,6 +5,24 @@
 
 {% block content %}
 
+    <style>
+        .warning {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+        }
+          
+        .warning p {
+            color: #333;
+            font-size: 18px;
+            line-height: 1.6;
+            font-weight: bold;
+        }
+    </style>
+
 <div class="alert alert-primary" role="alert">
     <table class="table table-bordered">
         <thead>
@@ -71,6 +89,9 @@
         </div>
     <hr>
     {% endif %}
+    <div class="warning">
+        <p>Por favor, tenga en cuenta que no se admiten devoluciones<p>
+    </div>
 </div>
 
 {% endblock %}

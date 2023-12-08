@@ -14,7 +14,7 @@ class DeliveryMethodSelection(forms.Form):
         choices=[(default_choice, 'Selecciona un método de entrega')] + list(DeliveryMethod.choices),
         required=True,
         widget=forms.Select(attrs={'class': 'form-control'}),
-        error_messages={'required': 'Este campo es requerido.'}  # Cambiar el mensaje predeterminado por uno en español
+        error_messages={'required': 'Este campo es requerido.'}
     )
 
     def __init__(self, *args, **kwargs):
@@ -33,15 +33,24 @@ class PaymentMethodForm(forms.Form):
     payment_method = forms.ChoiceField(
         choices=[(default_choice, 'Selecciona un método de pago')] + list(PaymentMethod.choices),
         required=True,
-        widget=forms.Select(attrs={'class': 'form-control'})
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        error_messages={'required': 'Este campo es requerido.'}
     )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        
+        # Establecer etiqueta y texto de ayuda en español
         self.fields['payment_method'].label = 'Método de Pago'
+        self.fields['payment_method'].help_text = 'Selecciona un método de pago'
 
     def clean_payment_method(self):
         payment_method = self.cleaned_data['payment_method']
         if payment_method == self.default_choice:
             raise forms.ValidationError("Por favor, selecciona un método de pago válido.")
         return payment_method
+
+    def add_error(self, field, error):
+        if field == '__all__':
+            error = "Por favor, completa el formulario correctamente."
+        super().add_error(field, error)

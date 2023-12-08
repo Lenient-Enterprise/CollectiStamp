@@ -1,3 +1,4 @@
+import uuid
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
@@ -6,23 +7,24 @@ from product.models import *
 
 class PaymentMethod(models.TextChoices):
     CASH_ON_DELIVERY = 'CASH_ON_DELIVERY', 'Contrarrembolso'
-    PAYMENT_GATEWAY = 'PAYMENT_GATEWAY', 'Pasarelas de Pago'
+    PAYMENT_GATEWAY = 'PAYPAL', 'PayPal'
 
 
 class DeliveryStatus(models.TextChoices):
-    STATUS_A = 'A', 'A'
-    STATUS_B = 'B', 'B'
-    STATUS_C = 'C', 'C'
+    IN_WAREHOUSE = 'IN_WAREHOUSE', 'En almacén'
+    ON_THE_WAY = 'ON_THE_WAY', 'En camino'
+    DELIVERED = 'DELIVERED', 'Entregado'
 
 
 class DeliveryMethod(models.TextChoices):
-    STANDARD_SHIPPING = 'STD', 'Envío estándar (3.00 €)'
-    EXPRESS_SHIPPING = 'EXP', 'Envío express (5.00 €)'
-    PICKUP_IN_STORE = 'PICK', 'Recogida en tienda (0 €)'
+    STANDARD_SHIPPING = 'STANDARD_SHIPPING', 'Envío estándar (3.00 €)'
+    EXPRESS_SHIPPING = 'EXPRESS_SHIPPING', 'Envío express (5.00 €)'
+    PICKUP_IN_STORE = 'PICKUP_IN_STORE', 'Recogida en tienda (0 €)'
 
 
 class Order(models.Model):
     id = models.AutoField(primary_key=True)
+    code = models.UUIDField(default=uuid.uuid4, editable=False)
     user_email = models.EmailField()
     user_name = models.CharField(max_length=50)
     order_date = models.DateField()

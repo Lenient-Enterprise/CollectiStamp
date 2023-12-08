@@ -65,6 +65,22 @@
         .button-container {
             margin-top: 20px;
         }
+
+        .warning {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+          }
+          
+          .warning p {
+            color: #333;
+            font-size: 18px;
+            line-height: 1.6;
+            font-weight: bold;
+          }
     </style>
 
     <div class="container3 mt-5">
@@ -90,12 +106,15 @@
                 <button type="submit" class="btn btn-primary" id="next-btn">Ir al Siguiente Paso</button>
             </div>
         </form>
-
+        
+        <div class="warning">
+            <p>Por favor, tenga en cuenta que no se admiten devoluciones<p>
+        </div>
     </div>
 
 <script>
     function goToPreviousStep() {
-        window.location.href = '/product/catalog/'
+        window.location.href = '/catalog/'
 
     }
 
