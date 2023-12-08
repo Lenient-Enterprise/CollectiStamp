@@ -53,7 +53,7 @@ class SigninView(View):
     }
     payment_methods = {
         'CASH_ON_DELIVERY': 'Contrarrembolso',
-        'PAYMENT_GATEWAY': 'Pasarelas de Pago',
+        'PAYPAL': 'PayPal',
     }
 
     def get(self, request):
