@@ -187,7 +187,7 @@ class PurchaseStep3View(View):
             cart = Cart(request)
             cart.delete_cart()
             
-            if(order.payment_method=="PAYMENT_GATEWAY"):
+            if(order.payment_method=="PAYPAL"):
                 return redirect('order:create_payment', order_id=order.id)
             else:
                 return redirect('/?message=Compra Realizada&status=Success')

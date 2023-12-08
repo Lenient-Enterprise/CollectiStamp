@@ -7,7 +7,7 @@ from product.models import *
 
 class PaymentMethod(models.TextChoices):
     CASH_ON_DELIVERY = 'CASH_ON_DELIVERY', 'Contrarrembolso'
-    PAYMENT_GATEWAY = 'PAYMENT_GATEWAY', 'Pasarelas de Pago'
+    PAYMENT_GATEWAY = 'PAYPAL', 'PayPal'
 
 
 class DeliveryStatus(models.TextChoices):
