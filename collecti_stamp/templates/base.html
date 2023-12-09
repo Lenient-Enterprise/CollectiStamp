@@ -25,9 +25,12 @@
                     text: "{{ request.GET.message }}",
                     confirmButtonText: "Aceptar"
                 });
+
+                // Eliminar los parámetros de la consulta de la URL
+                var cleanUrl = window.location.href.split('?')[0];
+                window.history.replaceState({}, document.title, cleanUrl);
             });
         </script>
-
     {% endif %}
 
     <style>
@@ -144,20 +147,17 @@
                                 {% if user.is_authenticated %}
 
                                     <li class="nav-item dropdown">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{% url 'my_orders' %}">Mis pedidos</a>
-                                    </li>
-                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        {{ user.username }}
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="userDropdown">
-                                        <a class="dropdown-item" href="{% url 'edit' user_id=user.id %}">Editar</a>
-                                        <a class="dropdown-item" href="{% url 'request_password_reset' %}">Cambiar
-                                            Contraseña</a>
-                                        <a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesión</a>
-                                        <a class="dropdown-item" href="{% url 'my_orders' %}">Mis pedidos</a>
-                                    </div>
+                                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{ user.username }}
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="userDropdown">
+                                            <a class="dropdown-item" href="{% url 'edit' user_id=user.id %}">Editar</a>
+                                            <a class="dropdown-item" href="{% url 'request_password_reset' %}">Cambiar
+                                                Contraseña</a>
+                                            <a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesión</a>
+                                            <a class="dropdown-item" href="{% url 'my_orders' %}">Mis pedidos</a>
+                                        </div>
 
                                     </li>
                                 {% else %}
