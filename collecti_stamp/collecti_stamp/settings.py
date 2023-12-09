@@ -25,7 +25,8 @@ if MODE == 'deployment':
     STATIC_ROOT = '/app/static'
     STATICFILES_DIRS = ['/app/static']
 else:
-    STATICFILES_DIRS = [BASE_DIR / 'static']
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
+    STATICFILES_DIRS = [BASE_DIR /'static']
 
 # Database configuration
 if MODE == 'deployment':
@@ -129,10 +130,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
-USE_I18N = True
-USE_TZ = True
+LANGUAGE_CODE = 'es-es'  # Cambiamos el código de idioma a español de España
+TIME_ZONE = 'Europe/Madrid'  # Cambiamos la zona horaria a la de España
+USE_I18N = True  # Habilitamos la internacionalización
+USE_TZ = True  # Utilizamos la zona horaria
 
 # Static files configuration
 STATIC_URL = '/static/'

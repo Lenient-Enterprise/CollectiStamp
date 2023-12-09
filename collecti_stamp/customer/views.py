@@ -21,6 +21,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.views import View
 from .forms import CustomAuthenticationForm
+from order.models import Order
 
 
 class LoginView(View):
@@ -72,7 +73,7 @@ class SigninView(View):
                 # Enviar el correo electrónico de verificación
                 template = get_template('customer/verification_email.html')
                 content = template.render(
-                    {'verify_url': request.build_absolute_uri('/') + verify_url, 'username': user.username})
+                    {'verify_url': request.build_absolute_uri('/') + verify_url[1:], 'username': user.username})
                 message = EmailMultiAlternatives(
                     'Verificación de correo electrónico',
                     content,
@@ -116,7 +117,7 @@ class RequestPasswordResetView(View):
 
                 template = get_template('customer/password_email.html')
                 content = template.render(
-                    {'new_password_url': request.build_absolute_uri('/') + new_password_url, 'username': user.username})
+                    {'new_password_url': request.build_absolute_uri('/') + new_password_url[1:], 'username': user.username})
                 message = EmailMultiAlternatives(
                     'Cambio de contraseña',
                     content,
@@ -148,6 +149,7 @@ class ChangePasswordView(View):
                 user.set_password(form.cleaned_data['password'])
                 user.save()
                 return redirect('/?message=Contraseña cambiada&status=Success')
+            return render(request, 'customer/change_password_form.html', {'form': form})
         return redirect('/?message=Error al cambiar la contraseña&status=Error')
 
 
@@ -161,12 +163,17 @@ class EditUserView(View):
         user = get_object_or_404(User, id=user_id)
         form = CustomUserEditionForm(request.POST, instance=user)
         if form.is_valid():
+            if form.cleaned_data['email'] != user.email:
+                orders = Order.objects.filter(user_email=form.cleaned_data['email'])
+                for order in orders:
+                    order.user_email = form.cleaned_data['email']
+                    order.save()
             form.save()
             return redirect('/?message=Usuario editado&status=Success')
         else:
             return render(request, 'customer/edit.html', {'form': form, 'user': user})
 
-def get_user(self, uidb64):
+def get_user(uidb64):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
         user = User.objects.get(pk=uid)
