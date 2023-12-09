@@ -1425,6 +1425,16 @@
         .size-144-l {
             mso-text-raise: 144px
         }
+
+        .logo-and-text {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-center {
+            margin-right: 10px; /* Ajusta el margen entre el logo y el texto según tus necesidades */
+        }
+
     </style><![endif]-->
     <meta name="robots" content="noindex,nofollow"/>
     <meta property="og:title" content="My First Campaign"/>
@@ -1472,10 +1482,15 @@
                     <div class="logo emb-logo-margin-box"
                          style="font-size: 26px;line-height: 32px;Margin-top: 6px;Margin-bottom: 20px;color: #c3ced9;font-family: Roboto,Tahoma,sans-serif;Margin-left: 20px;Margin-right: 20px;">
                         <!-- Logo Image -->
-                        <div class="logo-center" id="emb-email-header"><img
-                                style="display: block;height: auto;width: 100%;border: 0;max-width: 141px;"
-                                src="https://alesanfe.pythonanywhere.com{% static 'img/company/company_logo.png' %}"
-                                alt="" width="141"/>
+                        <div class="logo-and-text">
+                            <div class="logo-center" id="emb-email-header">
+                                <img style="display: block; height: auto; width: 100%; border: 0; max-width: 141px;"
+                                     src="https://alesanfe.pythonanywhere.com/static/img/company/company_logo.png"
+                                     alt="" width="141"/>
+                            </div>
+                            <h1 class="size-32"
+                                style="Margin-top: 0; Margin-bottom: 0; font-style: normal; font-weight: normal; color: #fff; font-size: 28px; line-height: 36px; font-family: Avenir, sans-serif; text-align: center;"
+                                lang="x-size-32">CollectiStamp</h1>
                         </div>
                     </div>
                     <!--[if mso]></td></tr></table><![endif]-->
@@ -1509,10 +1524,6 @@
 
                             <div style="Margin-left: 20px;Margin-right: 20px;">
                                 <div style="mso-line-height-rule: exactly;mso-text-raise: 11px;vertical-align: middle;">
-                                    <!-- Title -->
-                                    <h1 class="size-32"
-                                        style="Margin-top: 0;Margin-bottom: 0;font-style: normal;font-weight: normal;color: #fff;font-size: 28px;line-height: 36px;font-family: Avenir,sans-serif;text-align: center;"
-                                        lang="x-size-32">CollectiStamp</h1>
                                     <!-- Description -->
                                     <p class="size-16"
                                        style="Margin-top: 20px;Margin-bottom: 0;font-size: 16px;line-height: 24px;text-align: left; color: #808080"
@@ -1546,12 +1557,12 @@
                                     <p class="size-16"
                                        style="Margin-top: 16px;Margin-bottom: 20px;font-size: 16px;line-height: 24px; color: #808080"
                                        lang="x-size-16">
-                                        Método de entrega: {{ order.delivery_method }}
+                                        Método de entrega: {{ order.get_delivery_method_display }}
                                     </p>
                                     <p class="size-16"
                                        style="Margin-top: 16px;Margin-bottom: 20px;font-size: 16px;line-height: 24px; color: #808080"
                                        lang="x-size-16">
-                                        Método de pago: {{ order.delivery_status }}
+                                        Método de pago: {{ order.get_payment_method_display }}
                                     </p>
                                     <p class="size-16"
                                        style="Margin-top: 16px;Margin-bottom: 20px;font-size: 16px;line-height: 24px; color: #808080"
@@ -1565,7 +1576,7 @@
                                 <div class="btn btn--flat btn--large" style="text-align:left;">
                                     <!--[if !mso]><!--><a
                                         style="border-radius: 4px;display: inline-block;font-size: 14px;font-weight: bold;line-height: 24px;padding: 12px 24px;text-align: center;text-decoration: none !important;transition: opacity 0.1s ease-in;color: #ffffff !important;background-color: #3e4f5e;font-family: Open Sans, sans-serif;"
-                                        href="http://example.com">Tus productos</a><!--<![endif]-->
+                                        href="{{ details_url }}">Tus productos</a><!--<![endif]-->
                                     <!--[if mso]><p style="line-height:0;margin:0;">&nbsp;</p><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" href="http://example.com" style="width:155.25pt" arcsize="9%" fillcolor="#3E4F5E" stroke="f"><v:textbox style="mso-fit-shape-to-text:t" inset="0pt,8.25pt,0pt,8.25pt"><center style="font-size:14px;line-height:24px;color:#FFFFFF;font-family:Open Sans,sans-serif;font-weight:bold;mso-line-height-rule:exactly;mso-text-raise:1.5px">Build your first playlist</center></v:textbox></v:roundrect><![endif]-->
                                 </div>
                             </div>
@@ -1589,7 +1600,8 @@
                                 <div class="col-md-6"
                                      style="max-width: 320px;min-width: 290px; width: 320px;width: calc(18290px - 3000%);Float: left;">
                                     <table class="column__background"
-                                           style="border-collapse: collapse;table-layout: fixed;background-color: #212a32;" role="presentation">
+                                           style="border-collapse: collapse;table-layout: fixed;background-color: #212a32;"
+                                           role="presentation">
                                         <tbody>
                                         <tr>
                                             <td style="text-align: left;color: #bdbdbd;font-size: 14px;line-height: 21px;font-family: Open Sans,sans-serif;">
@@ -1693,70 +1705,7 @@
 
                 <div style="mso-line-height-rule: exactly;line-height: 20px;font-size: 20px;">&nbsp;</div>
 
-            </div>
-            <div role="contentinfo">
-                <div style="line-height:4px;font-size:4px;" id="footer-top-spacing">&nbsp;</div>
-                <div class="layout email-flexible-footer email-footer"
-                     style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;"
-                     id="footer-content">
-                    <div class="layout__inner left-aligned-footer"
-                         style="border-collapse: collapse;display: table;width: 100%;">
-                        <!--[if mso]>
-                        <table role="presentation">
-                            <tr class="layout-email-footer"><![endif]-->
-                        <!--[if mso]>
-                        <td>
-                            <table><![endif]-->
-                        <!--[if mso]>
-                        <td><![endif]-->
-                        <div class="column"
-                             style="text-align: left;font-size: 12px;line-height: 19px;color: #e6e6e6;font-family: Open Sans,sans-serif;">
-                            <div class="footer-logo emb-logo-margin-box"
-                                 style="font-size: 26px;line-height: 32px;Margin-top: 6px;Margin-bottom: 20px;color: #7b663d;font-family: Roboto,Tahoma,sans-serif;">
-                                <div style="margin-right: 20px;" emb-flexible-footer-logo><img
-                                        style="border: 0;display: block;height: auto;width: 100%;max-width: 141px;"
-                                        src="https://alesanfe.pythonanywhere.com{% static 'img/company/company_logo.png' %}"
-                                        alt="" width="141"/></div>
-                            </div>
-                        </div>
-                        <!--[if mso]></td><![endif]-->
-                        <!--[if mso]>
-                        <td><![endif]-->
-                        <div class="column"
-                             style="text-align: left;font-size: 12px;line-height: 19px;color: #e6e6e6;font-family: Open Sans,sans-serif;display: none;">
-                            <div style="margin-left: 0;margin-right: 0;Margin-top: 10px;Margin-bottom: 10px;">
-                                <div class="footer__share-button">
-
-
-                                </div>
-                            </div>
-                        </div>
-                        <!--[if mso]></td><![endif]-->
-                        <!--[if mso]>
-                        <td><![endif]-->
-                        <table style="border-collapse: collapse; table-layout: fixed; display: inline-block; width: 439px;">
-                            <caption>Información de contacto</caption>
-                            <tr>
-                                <th>© 2023 CollectiStamp. Todos los derechos reservados.</th>
-                            </tr>
-                            <tr>
-                                <th>Soporte: <a href="mailto:lennient.enterprise@gmail.com">lennient.enterprise@gmail.com</a>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>Contacto: <a href="tel:+34123456789">+34 123 456 789</a></th>
-                            </tr>
-                            <tr>
-                                <th>Dirección: <a href="https://maps.app.goo.gl/FfV92hjNyzYp8sXQ7">Calle Filatelia 1,
-                                    Sevilla</a></th>
-                            </tr>
-                        </table>
-                        <!--[if mso]></table></td><![endif]-->
-                        <!--[if mso]></td></tr></table><![endif]-->
-                    </div>
-                </div>
-                <div style="line-height:40px;font-size:40px;" id="footer-bottom-spacing">&nbsp;</div>
-            </div>
+            </div
 
         </td>
     </tr>

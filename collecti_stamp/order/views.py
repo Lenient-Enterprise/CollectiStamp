@@ -1,27 +1,21 @@
-from django.http import HttpResponseNotAllowed
-from django.shortcuts import get_object_or_404, render, redirect
-from decouple import config
+from datetime import date, datetime
 
 import paypalrestsdk
-from paypalrestsdk import set_config
-from django.urls import reverse
-from paypalrestsdk import Payment
+from decouple import config
+from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
-from django.http import HttpResponseRedirect, JsonResponse
+from django.urls import reverse
+from django.shortcuts import get_object_or_404, render, redirect
+from django.template.loader import get_template
 from django.views import View
 from django.views.decorators.http import require_http_methods
+from paypalrestsdk import Payment
+from preorder.cart import Cart
 from preorder.context_processor import total_cart
 from product.models import Product
-
-from preorder.cart import Cart
 
 from .forms import CustomerDataForm, DeliveryMethodSelection, PaymentMethodForm
 from .models import Order, OrderProduct, PaymentMethod, DeliveryMethod, DeliveryStatus
-from datetime import date, datetime
-
-from preorder.context_processor import total_cart
-
-from product.models import Product
 
 
 @require_http_methods(["POST"])
@@ -197,9 +191,24 @@ class PurchaseStep3View(View):
                 product.save()
 
             order.save()
+            details_url = reverse('order_details', args=[order.code])
             
             cart = Cart(request)
             cart.delete_cart()
+
+            # Enviar el correo electrónico de verificación
+            template = get_template('order/email_details.html')
+            content = template.render(
+                {'details_url': request.build_absolute_uri('/') + details_url, 'order': order, 'order_products': order_products})
+            message = EmailMultiAlternatives(
+                'Detalles de compra',
+                content,
+                settings.EMAIL_HOST_USER,
+                [order.user_email]
+            )
+
+            message.attach_alternative(content, 'text/html')
+            message.send()
             
             if(order.payment_method=="PAYPAL"):
                 return redirect('order:create_payment', order_id=order.id)
@@ -254,8 +263,8 @@ class PayPalPaymentView(View):
                 "payment_method": "paypal"
             },
             "redirect_urls": {
-                "return_url": request.build_absolute_uri('http://localhost:8000/order/payment/success/'),
-                "cancel_url": request.build_absolute_uri('http://localhost:8000/order/payment/cancel/')
+                "return_url": request.build_absolute_uri(f'{request.build_absolute_uri("/")}order/payment/success/'),
+                "cancel_url": request.build_absolute_uri(f'{request.build_absolute_uri("/")}/order/payment/cancel/')
             },
             "transactions": [{
                 "item_list": {
@@ -274,7 +283,6 @@ class PayPalPaymentView(View):
                 if link.rel == "approval_url":
                     approval_url = link.href
                     return redirect(approval_url)
-                    #print("Redirigir para aprobación: %s" % (approval_url))
         else:
             print(payment.error)
 class PayPalSuccesView(View):
