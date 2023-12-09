@@ -152,7 +152,7 @@
                                                 {{ user.username }}
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="userDropdown">
-                                                {% if user.is_authenticated %}
+                                                {% if user.is_superuser %}
                                                     <a class="dropdown-item" href="/admin">Panel de Administrador</a>
                                                 {% endif %}
                                                 <a class="dropdown-item" href="{% url 'edit' user_id=user.id %}">Editar</a>
