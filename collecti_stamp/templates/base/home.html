@@ -166,25 +166,6 @@
         </div>
     </div>
 
-    <!-- Agregar la paginación -->
-    <div class="pagination">
-        <span class="step-links">
-            {% if products.has_previous %}
-                <a href="?page=1">&laquo; Primera</a>
-                <a href="?page={{ products.previous_page_number }}">Anterior</a>
-            {% endif %}
-
-            <span class="current">
-                Página {{ products.number }} de {{ products.paginator.num_pages }}.
-            </span>
-
-            {% if products.has_next %}
-                <a href="?page={{ products.next_page_number }}">Siguiente</a>
-                <a href="?page={{ products.paginator.num_pages }}">Última &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
-
 {% endblock %}
 
 
