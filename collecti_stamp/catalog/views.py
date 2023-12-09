@@ -32,7 +32,7 @@ def product_catalog(request):
     if product_type:
         products = products.filter(product_type=product_type)
     if name:
-        products = products.filter(name=name)
+        products = products.filter(name__contains=name)
     
     # Cambio a 20 productos por página
     paginator = Paginator(products, 20)  # Mostrar 20 productos por página
