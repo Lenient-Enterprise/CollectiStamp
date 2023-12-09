@@ -1,7 +1,6 @@
 FROM python:3.10-alpine
 
 # Configurar entorno de producción
-# Configurar entorno de producción
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     DJANGO_ADMIN_PASSWORD=Hola$1234 \
@@ -11,7 +10,7 @@ ENV PYTHONUNBUFFERED=1 \
     DB_PASSWORD=mypassword \
     DB_HOST=db \
     SECRET_KEY=your-secret-key \
-    EMAIL_HOST_PASSWORD=yltf khuu xjdk vrah \
+    EMAIL_HOST_PASSWORD="yltf khuu xjdk vrah" \
     PAYPAL_CLIENT_ID=AejZtiMeXR3CdKhslKEcJE1IQqqVLjo4oqY2hpehc305GAw9bTikztJtNF8xSciyKgunq4tY5Fnkfvhf \
     PAYPAL_CLIENT_SECRET=EC2YcHwJDeKWHGWoUxQS9HMq8yNfh8dHq-WmgSds7uEEK61GTenWMwYBqu41sUd5vQPwIZVQQG1KdnmP
 
