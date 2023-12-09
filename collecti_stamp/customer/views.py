@@ -21,7 +21,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.views import View
 from .forms import CustomAuthenticationForm
-from .order.models import Order
+from order.models import Order
 
 
 class LoginView(View):
