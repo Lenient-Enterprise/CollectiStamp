@@ -68,8 +68,10 @@ reset_database() {
         # Deleting migration files excluding __init__.py
         for dir in $MIGRATIONS_DIR; do
             if [ -e "$dir" ]; then
-                find "$dir" -type f ! -name "__init__.py" ! -path "*/venv/*" -exec rm {} \;
-                echo "Migration files in $dir deleted, excluding __init__.py and files in paths containing '/venv/'."
+                if ! [[ "$dir" =~ "/venv/" ]]; then
+                    find "$dir" -type f ! -name "__init__.py" -exec rm {} \;
+                    echo "Migration files in $dir deleted, excluding __init__.py and files in paths not containing '/venv/'."
+                fi
             fi
         done
         echo "----------------------------------------"

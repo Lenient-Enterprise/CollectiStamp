@@ -1,3 +1,5 @@
+from django.http import HttpResponseNotAllowed
+from django.shortcuts import get_object_or_404, render, redirect
 from decouple import config
 
 import paypalrestsdk
@@ -6,10 +8,10 @@ from django.urls import reverse
 from paypalrestsdk import Payment
 from django.conf import settings
 from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import render, redirect
 from django.views import View
 from django.views.decorators.http import require_http_methods
-from django.shortcuts import get_object_or_404
+from preorder.context_processor import total_cart
+from product.models import Product
 
 from preorder.cart import Cart
 
