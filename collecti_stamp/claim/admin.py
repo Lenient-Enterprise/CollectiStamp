@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from .models import Claim
 
+
 # Register your models here.
 
 def close_claim(modeladmin, request, queryset):

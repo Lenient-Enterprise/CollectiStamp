@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 from product.models import Product
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 @require_http_methods(["GET"])
 def home(request):

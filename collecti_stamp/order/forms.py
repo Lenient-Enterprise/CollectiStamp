@@ -1,5 +1,6 @@
 from django import forms
-from .models import Order, DeliveryMethod, PaymentMethod
+
+from .models import DeliveryMethod, PaymentMethod
 
 
 class CustomerDataForm(forms.Form):

@@ -1,6 +1,5 @@
-from django.urls import path
-
 from catalog.views import product_catalog_coins, product_catalog_seals, product_catalog
+from django.urls import path
 
 urlpatterns = [
     path('', product_catalog, name='finder'),

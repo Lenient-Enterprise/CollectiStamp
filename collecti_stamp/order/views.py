@@ -2,11 +2,11 @@ from datetime import date, datetime
 
 import paypalrestsdk
 from decouple import config
-from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
-from django.urls import reverse
+from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import get_object_or_404, render, redirect
 from django.template.loader import get_template
+from django.urls import reverse
 from django.views import View
 from django.views.decorators.http import require_http_methods
 from paypalrestsdk import Payment

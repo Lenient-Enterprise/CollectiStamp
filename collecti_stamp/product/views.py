@@ -2,10 +2,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.views.decorators.http import require_http_methods
 
-from .models import Product
-from .models import Criteria
-from .models import ProductReview
 from .forms import ProductReviewForm
+from .models import Criteria
+from .models import Product
+from .models import ProductReview
 
 
 class ProductDetailsView(View):

@@ -1,12 +1,11 @@
 import re
-import uuid
-from django.shortcuts import get_object_or_404, render
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_http_methods
-from flask import redirect
-from base.views import home
 
+from base.views import home
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, render
+from django.views.decorators.http import require_http_methods
 from order.models import Order
+
 
 # Create your views here.
 def get_order_tracking(request, code):  # Change the parameter name

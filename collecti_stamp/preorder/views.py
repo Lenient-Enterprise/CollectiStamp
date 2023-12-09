@@ -1,8 +1,9 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views import View
 from preorder.cart import Cart
 from product.models import Product
-from django.http import HttpResponseRedirect
+
 
 class CartView(View):
     def get(self, request):

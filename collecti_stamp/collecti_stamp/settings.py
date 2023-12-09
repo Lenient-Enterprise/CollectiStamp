@@ -2,8 +2,9 @@
 
 import os
 from pathlib import Path
-from decouple import config  # Importa la función config de python-decouple
+
 import dj_database_url
+from decouple import config  # Importa la función config de python-decouple
 
 # Access the environment variable MODE
 MODE = os.environ.get('MODE')
