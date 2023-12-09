@@ -73,7 +73,7 @@ class SigninView(View):
                 # Enviar el correo electrónico de verificación
                 template = get_template('customer/verification_email.html')
                 content = template.render(
-                    {'verify_url': request.build_absolute_uri('/') + verify_url, 'username': user.username})
+                    {'verify_url': request.build_absolute_uri('/') + verify_url[1:], 'username': user.username})
                 message = EmailMultiAlternatives(
                     'Verificación de correo electrónico',
                     content,
@@ -172,7 +172,7 @@ class EditUserView(View):
         else:
             return render(request, 'customer/edit.html', {'form': form, 'user': user})
 
-def get_user(self, uidb64):
+def get_user(uidb64):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
         user = User.objects.get(pk=uid)
