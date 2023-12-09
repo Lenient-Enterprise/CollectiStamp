@@ -40,7 +40,7 @@ if MODE == 'deployment':
             'PORT': 5432,
         }
     }
-    MEDIA_ROOT = '/app/static/media/'
+    MEDIA_ROOT = '/app/static/img/'
 elif MODE == 'development':
     DATABASES = {
         'default': {
@@ -48,12 +48,14 @@ elif MODE == 'development':
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+    MEDIA_ROOT = BASE_DIR / 'static/img/'
 else:
     DEBUG = False
     SECRET_KEY = config('SECRET_KEY', default='your-secret-key')
     DATABASES = {
         'default': dj_database_url.parse(config('DATABASE_URL'))
     }
+    MEDIA_ROOT = BASE_DIR / 'static/img/'
 
 # Custom user model
 AUTH_USER_MODEL = 'customer.User'
