@@ -7,7 +7,7 @@ import dj_database_url
 from decouple import config  # Importa la función config de python-decouple
 
 # Access the environment variable MODE
-MODE = os.environ.get('MODE')
+MODE = config('MODE')
 ROOT_URLCONF = 'collecti_stamp.urls'
 DEBUG = True
 
@@ -21,9 +21,11 @@ ALLOWED_ORIGINS = ['http://10.5.0.1:8000', 'http://localhost:8000', 'http://127.
 
 STATICFILES_DIRS = []
 
+print(MODE)
+
 # For Deployment
 if MODE == 'deployment':
-    STATIC_ROOT = '/app/static'
+    STATIC_ROOT = '/app/staticfiles'
     STATICFILES_DIRS = ['/app/static']
 else:
     STATIC_ROOT = BASE_DIR / 'staticfiles'

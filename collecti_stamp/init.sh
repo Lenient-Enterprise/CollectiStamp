@@ -7,7 +7,7 @@ DB_FILE="$BASE_DIR/db.sqlite3"
 VENV_DIR="$BASE_DIR/venv"
 REQUIREMENTS_FILE="$BASE_DIR/requirements.txt"
 MIGRATIONS_DIR=$(find "$BASE_DIR" -type d -name migrations ! -path "*/venv/*")
-JSON_DATA_FILE="$BASE_DIR/data/populate_user.json $BASE_DIR/data/populate_company_details.json $BASE_DIR/data/populate_criteria.json $BASE_DIR/data/populate_product.json"
+JSON_DATA_FILE="$BASE_DIR/data/populate_user.json $BASE_DIR/data/populate_company_details.json $BASE_DIR/data/populate_criteria.json $BASE_DIR/data/populate_product.json data/populate_order.json data/populate_company_review.json"
 DELETE_DB=true
 DELETE_ENV=false
 
