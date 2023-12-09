@@ -21,6 +21,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.views import View
 from .forms import CustomAuthenticationForm
+from .order.models import Order
 
 
 class LoginView(View):
@@ -161,6 +162,11 @@ class EditUserView(View):
         user = get_object_or_404(User, id=user_id)
         form = CustomUserEditionForm(request.POST, instance=user)
         if form.is_valid():
+            if form.cleaned_data['email'] != user.email:
+                orders = Order.objects.filter(user_email=form.cleaned_data['email'])
+                for order in orders:
+                    order.user_email = form.cleaned_data['email']
+                    order.save()
             form.save()
             return redirect('/?message=Usuario editado&status=Success')
         else:
