@@ -25,7 +25,7 @@ RUN pip install ipython
 WORKDIR /app
 
 # Clonar el repositorio
-RUN git clone -b feature/actions https://github.com/Lenient-Enterprise/CollectiStamp.git /app
+RUN git clone https://github.com/Lenient-Enterprise/CollectiStamp.git /app
 
 # Instalar dependencias Python
 RUN pip install -r requirements.txt
