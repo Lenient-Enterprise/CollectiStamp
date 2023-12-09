@@ -10,3 +10,8 @@ class OrderAdmin(admin.ModelAdmin):
     search_fields = ('id',)
     icon_name = 'shopping_cart'
 
+@admin.register(OrderProduct)
+class OrderProductAdmin(admin.ModelAdmin):
+    list_display = ('quantity',)
+    search_fields = ('order_id',)
+    icon_name = 'shopping_cart'
