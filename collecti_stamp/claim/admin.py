@@ -11,8 +11,6 @@ close_claim.short_description = "Cambia estado de reclamación"
 @admin.register(Claim)
 class ClaimAdmin(admin.ModelAdmin):
     list_display = ('email', 'title', 'content','date', 'product', 'closed')
-    list_editable =('closed',)
     search_fields = ('id',)
-    readonly_fields = ('email', 'title', 'content','date', 'product',)
     actions=[close_claim]
     icon_name = 'comment'
