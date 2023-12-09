@@ -1,5 +1,13 @@
 from django.http import HttpResponseNotAllowed
 from django.shortcuts import get_object_or_404, render, redirect
+from decouple import config
+
+import paypalrestsdk
+from paypalrestsdk import set_config
+from django.urls import reverse
+from paypalrestsdk import Payment
+from django.conf import settings
+from django.http import HttpResponseRedirect, JsonResponse
 from django.views import View
 from django.views.decorators.http import require_http_methods
 from preorder.context_processor import total_cart
@@ -26,7 +34,7 @@ def finish_order(request):
         payment_method='',
         delivery_status='',
         delivery_method='',
-        delivery_cost=3.99,
+        delivery_cost=0,
         delivery_address='',
     )
     new_order.save()
@@ -51,13 +59,15 @@ class PurchaseStep1View(View):
         user_is_logged_in = request.user.is_authenticated
         form = PaymentMethodForm(request.POST)
         products = get_order_products(order_products)
+        order = get_object_or_404(Order, id=new_order_id) 
         return render(request, self.template_name,
                {
                 'order_products': order_products,
                 'payment_methods': payment_methods,
                 'order_id': new_order_id,
                 'form': form, 'products': products,
-                'user_is_logged_in': user_is_logged_in
+                'user_is_logged_in': user_is_logged_in,
+                'order_total': order.order_total
                 })
 
     def post(self, request, new_order_id):
@@ -74,13 +84,15 @@ class PurchaseStep1View(View):
         user_is_logged_in = request.user.is_authenticated
         form = PaymentMethodForm(request.POST)
         products = get_order_products(order_products)
+        order = get_object_or_404(Order, id=new_order_id) 
         return render(request, self.template_name,
                {
                 'order_products': order_products,
                 'payment_methods': payment_methods,
                 'order_id': new_order_id,
                 'form': form, 'products': products,
-                'user_is_logged_in': user_is_logged_in
+                'user_is_logged_in': user_is_logged_in,
+                'order_total': order.order_total
                 })
         
         
@@ -93,6 +105,7 @@ class PurchaseStep2View(View):
         user_is_logged_in = request.user.is_authenticated
         form = DeliveryMethodSelection(request.POST)
         products = get_order_products(order_products)
+        order = get_object_or_404(Order, id=new_order_id) 
         return render(request, self.template_name,
                {
                 'order_products': order_products,
@@ -100,7 +113,8 @@ class PurchaseStep2View(View):
                 'order_id': new_order_id,
                 'form': form,
                 'products': products,
-                'user_is_logged_in': user_is_logged_in
+                'user_is_logged_in': user_is_logged_in,
+                'order_total': order.order_total
                 })
         
     def post(self, request, new_order_id):
@@ -108,6 +122,14 @@ class PurchaseStep2View(View):
         if form.is_valid():
             order = get_object_or_404(Order, id=new_order_id)
             order.delivery_method = form.cleaned_data['delivery_method']
+            
+            delivery_cost = 0.0
+            if order.delivery_method == DeliveryMethod.STANDARD_SHIPPING and order.order_total < 50:
+                delivery_cost = 2.99
+            elif order.delivery_method == DeliveryMethod.EXPRESS_SHIPPING and order.order_total < 50:
+                delivery_cost = 4.99
+            order.delivery_cost = delivery_cost
+            
             order.save()
             return redirect('order:purchase_step3', new_order_id=new_order_id)
         order_products = OrderProduct.objects.filter(order_id=new_order_id)
@@ -115,13 +137,15 @@ class PurchaseStep2View(View):
         user_is_logged_in = request.user.is_authenticated
         form = DeliveryMethodSelection(request.POST)
         products = get_order_products(order_products)
+        order = get_object_or_404(Order, id=new_order_id) 
         return render(request, self.template_name,
                {
                 'order_products': order_products,
                 'delivery_method': delivery_method,
                 'order_id': new_order_id,
                 'form': form, 'products': products,
-                'user_is_logged_in': user_is_logged_in
+                'user_is_logged_in': user_is_logged_in,
+                'order_total': order.order_total
                 })
 
 
@@ -132,6 +156,10 @@ class PurchaseStep3View(View):
         order_products = OrderProduct.objects.filter(order_id=new_order_id)
         payment_methods = PaymentMethod.choices
         user_is_logged_in = request.user.is_authenticated
+        
+        order = get_object_or_404(Order, id=new_order_id)
+        delivery_cost = order.delivery_cost
+        cost = delivery_cost + order.order_total
 
         form = CustomerDataForm()
         products = get_order_products(order_products)
@@ -140,9 +168,11 @@ class PurchaseStep3View(View):
             'order_products': order_products,
             'payment_methods': payment_methods,
             'new_order_id': new_order_id,
+            'delivery_cost': delivery_cost,
             'customer_form': form,
             'products': products,
             'user_is_logged_in': user_is_logged_in,
+            'cost':cost,
         })
 
     def post(self, request, new_order_id):
@@ -171,7 +201,10 @@ class PurchaseStep3View(View):
             cart = Cart(request)
             cart.delete_cart()
             
-            return redirect('/?message=Compra Realizada&status=Success')
+            if(order.payment_method=="PAYPAL"):
+                return redirect('order:create_payment', order_id=order.id)
+            else:
+                return redirect('/?message=Compra Realizada&status=Success')
 
         order_products = OrderProduct.objects.filter(order_id=new_order_id)
         payment_methods = PaymentMethod.choices
@@ -189,11 +222,65 @@ class PurchaseStep3View(View):
             'user_is_logged_in': user_is_logged_in,
         })
 
-
-
 def get_order_products(order_products):
     products = []
     for order_product in order_products:
         product = get_object_or_404(Product, id=order_product.product_id.first().id)
         products.append(product)
     return products
+
+class PayPalPaymentView(View):
+    def get(self, request, order_id):
+        paypalrestsdk.configure({
+            "mode": "sandbox",  # sandbox or live
+            "client_id": config('PAYPAL_CLIENT_ID'),
+            "client_secret": config('PAYPAL_CLIENT_SECRET')
+        })
+
+        order= Order.objects.get(id=order_id)
+        products= OrderProduct.objects.filter(order_id=order_id)
+        
+        items = [{
+            "name": product.product_id.first().name,
+            "sku": product.product_id.first().id,
+            "price": str(product.product_id.first().price),
+            "currency": "EUR",
+            "quantity": product.quantity
+        } for product in products ]
+
+        payment = Payment({
+            "intent": "sale",
+            "payer": {
+                "payment_method": "paypal"
+            },
+            "redirect_urls": {
+                "return_url": request.build_absolute_uri('http://localhost:8000/order/payment/success/'),
+                "cancel_url": request.build_absolute_uri('http://localhost:8000/order/payment/cancel/')
+            },
+            "transactions": [{
+                "item_list": {
+                        "items": items},
+                "amount": {
+                    "total": str(order.order_total),
+                    "currency": "EUR"
+                },
+                "description": "Descripción del pago"
+            }]
+        })
+
+        if payment.create():
+            print("Payment created successfully")
+            for link in payment.links:
+                if link.rel == "approval_url":
+                    approval_url = link.href
+                    return redirect(approval_url)
+                    #print("Redirigir para aprobación: %s" % (approval_url))
+        else:
+            print(payment.error)
+class PayPalSuccesView(View):
+    def get(self,request):
+        return redirect('/?message=Compra Realizada&status=Success')
+
+class PayPalCancelView(View):
+    def payment_cancel(self,request):
+        return redirect('/?message=Se ha cancelado de manera satisfactoria&status=Info')

@@ -3,133 +3,83 @@
 {% block title %}Conformación de compra{% endblock %}
 
 {% block content %}
+    <div class="container3 mt-5">
+        <h2 class="text-center" style="color: #007bff; margin-top: 10px; margin-bottom: 25px;">Confirmación de Compra -
+            Paso 2</h2>
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-<style>
-    body {
-        background-color: #f8f9fa;
-    }
+        <div class="row justify-content-center">
+            <div class="col-md-8"
+                 style="background-color: #ffffff; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); padding: 20px;">
+                <h3 style="color: #343a40; text-align: center; margin-bottom: 25px;">Productos Comprados</h3>
+                <ul class="list-group">
+                    {% for product in products %}
+                        <li class="list-group-item"
+                            style="background-color: #f8f9fa; border: none;">{{ product.name }} {{ product.quantity }} -
+                            Precio por unidad: {{ product.price }} €
+                        </li>
+                    {% endfor %}
+                </ul>
 
-    .container3 {
-        background-color: #ffffff;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        margin-top: 50px;
-    }
+                <h3 class="mt-4" style="color: #343a40; text-align: center; margin-bottom: 25px;">Selecciona Método de
+                    Entrega</h3>
+                <h3>Productos Comprados</h3>
+                <ul class="list-group">
+                    {% for product in products %}
+                        <li class="list-group-item">{{ product.name }} {{ product.quantity }} - Precio por
+                            unidad: {{ product.price }} €
+                        </li>
+                    {% endfor %}
+                </ul>
+                <br>
+                <div class="list-group">
+                    <p class="list-group-item" style="font-weight: bold;">Total del pedido sin gastos de
+                        envio: {{ order_total }} €</p>
+                </div>
+                <h3>Selecciona Método de Entrega</h3>
 
-    h2 {
-        color: #007bff;
-        margin-top: 10px;
-        margin-bottom: 25px;
-        text-align: center;
-    }
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
 
-    h3 {
-        color: #343a40;
-        text-align: center;
-        margin-bottom: 25px;
-    }
+                    <div class="text-center button-container mt-4">
+                        <button type="button" class="btn" id="previous-btn" onclick="goToPreviousStep()"
+                                style="background-color: #007bff; color: #ffffff; margin-top: 10px; border: none; margin-right: 10px;">
+                            Ir al Paso Anterior
+                        </button>
+                        {% if user_is_logged_in %}
+                            <button type="button" class="btn" id="auto-fill-btn" onclick="autoFillData()"
+                                    style="background-color: #28a745; color: #ffffff; margin-top: 10px; border: none; margin-right: 10px;">
+                                Mi método favorito
+                            </button>
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary" id="next-btn"
+                                style="background-color: #007bff; color: #ffffff; margin-top: 10px; border: none;">Ir al
+                            Siguiente Paso
+                        </button>
+                    </div>
+                </form>
 
-    .list-group-item {
-        background-color: #f8f9fa;
-        border: none;
-    }
-
-    .form-group {
-        margin-bottom: 20px;
-
-    }
-
-    button {
-        margin-top: 10px;
-        border: none;
-        margin-right: 10px;
-    }
-
-    #previous-btn {
-        background-color: #007bff;
-        color: #ffffff;
-    }
-
-    #auto-fill-btn {
-        background-color: #28a745;
-        color: #ffffff;
-    }
-
-    #next-btn {
-        background-color: #007bff;
-        color: #ffffff;
-    }
-
-        .warning {
-            text-align: center;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 10px;
-        }
-          
-        .warning p {
-            color: #333;
-            font-size: 18px;
-            line-height: 1.6;
-            font-weight: bold;
-        }
-</style>
-
-<body>
-
-<div class="container3 mt-5">
-
-    <h2>Confirmación de Compra - Paso 2</h2>
-
-    <h3>Productos Comprados</h3>
-        <ul class="list-group">
-            {% for product in products %}
-                <li class="list-group-item">{{ product.name }} {{ product.quantity }} - Precio por unidad: {{ product.price }} €</li>
-            {% endfor %}
-        </ul>
-
-    <h3>Selecciona Método de Entrega</h3>
-
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        
-        <div class="text-center button-container">
-            <button type="button" class="btn" id="previous-btn" onclick="goToPreviousStep()">Ir al Paso Anterior</button>
-            {% if user_is_logged_in %}
-                <button type="button" class="btn" id="auto-fill-btn" onclick="autoFillData()">Mi método favorito</button>
-            {% endif %}
-            <button type="submit" class="btn btn-primary" id="next-btn">Ir al Siguiente Paso</button>
+                <div class="warning mt-4"
+                     style="text-align: center; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin-top: 10px;">
+                    <p style="color: #333; font-size: 18px; line-height: 1.6; font-weight: bold;">El precio de los
+                        gastos de envío son de 0€ en los pedidos de más de 50€</p>
+                    <p style="color: #333; font-size: 18px; line-height: 1.6; font-weight: bold;">Por favor, tenga en
+                        cuenta que no se admiten devoluciones</p>
+                </div>
+            </div>
         </div>
-
-    </form>
-
-    <div class="warning">
-        <p>Por favor, tenga en cuenta que no se admiten devoluciones<p>
     </div>
 
-</div>
+    <script>
+        function goToPreviousStep() {
+            var previousStepUrl = '/order/finish/{{ order_id }}/step1/';
+            window.location.href = previousStepUrl;
+        }
 
-<script>
-    function goToPreviousStep() {
-        //var order_id = '{{ new_order_id }}';
-        var previousStepUrl = '/order/finish/' + {{order_id}} + '/step1/';
-        window.location.href = previousStepUrl;
-    }
-
-    function autoFillData() {
-        // Obtén los datos del usuario del contexto del formulario
-        var delivery_method = "{{ request.user.delivery_method }}";
-
-        document.getElementById('id_delivery_method').value = delivery_method ;
-
-    }
-</script>
-
-</body>
-
+        function autoFillData() {
+            var delivery_method = "{{ request.user.delivery_method }}";
+            document.getElementById('id_delivery_method').value = delivery_method;
+        }
+    </script>
 {% endblock %}
+

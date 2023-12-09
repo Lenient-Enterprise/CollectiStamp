@@ -116,58 +116,64 @@
 <header class="bg-dark text-light py-4">
     <div class="container">
         <div class="row">
-                <div class="col">
-                    <a href="#" class="logo-link"><img src="{% static 'img/company/company_logo.png' %}" alt="Logo" class="logo">CollectiStamp</a>
+            <div class="col">
+                <a href="{% url 'company_details' %}" class="logo-link"><img
+                        src="{% static 'img/company/company_logo.png' %}" alt="Logo" class="logo">CollectiStamp</a>
                 <div class="col-7">
                     {% include "finder.html" %}
                 </div>
-            <div class="col text-right">
-                <nav class="navbar navbar-expand-lg navbar-dark">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                <div class="col text-right">
+                    <nav class="navbar navbar-expand-lg navbar-dark">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
 
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'home' %}">Inicio</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'product_catalog' %}">Catálogo</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'view_cart' %}">Mi cesta</a>
-                            </li>
-                            {% if user.is_authenticated %}
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'home' %}">Inicio</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'product_catalog_coins' %}">Catálogo</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'view_cart' %}">Mi cesta</a>
+                                </li>
 
-                                <li class="nav-item dropdown">
+                                {% if user.is_authenticated %}
+
+                                    <li class="nav-item dropdown">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'my_orders' %}">Mis pedidos</a>
+                                    </li>
                                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         {{ user.username }}
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="userDropdown">
                                         <a class="dropdown-item" href="{% url 'edit' user_id=user.id %}">Editar</a>
-                                        <a class="dropdown-item" href="{% url 'request_password_reset' %}">Cambiar Contraseña</a>
+                                        <a class="dropdown-item" href="{% url 'request_password_reset' %}">Cambiar
+                                            Contraseña</a>
                                         <a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesión</a>
-                                        <a class="dropdown-item" href="#">Mis pedidos</a>
+                                        <a class="dropdown-item" href="{% url 'my_orders' %}">Mis pedidos</a>
                                     </div>
 
-                                </li>
-                            {% else %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'signin' %}">Registrarse</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'login' %}">Iniciar</a>
-                                </li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </nav>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'signin' %}">Registrarse</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'login' %}">Iniciar</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
             </div>
         </div>
-    </div>
 </header>
 
 

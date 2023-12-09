@@ -29,6 +29,18 @@
                                 {% endif %}
                             </div>
                             <div class="form-group">
+                                <label for="{{ form.email.id_for_label }}">Dirección:</label>
+                                <br/>
+                                {{ form.address }}
+                                {% if form.address.errors %}
+                                    <ul class="errorlist">
+                                        {% for error in form.address.errors %}
+                                            <li class="error-item">{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
                                 <label for="{{ form.password1.id_for_label }}">Contraseña:</label>
                                 <br/>
                                 {{ form.password1 }}

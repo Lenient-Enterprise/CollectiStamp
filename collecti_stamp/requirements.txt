@@ -6,3 +6,5 @@ selenium==4.15.2 # Selenium automates browsers
 qrcode == 7.4.2 # QR code generator
 django-material-admin==1.8.6
 pillow==10.1.0
+paypalrestsdk==1.13.3
+python-decouple==3.8

@@ -2,6 +2,7 @@
 
 import os
 from pathlib import Path
+from decouple import config  # Importa la función config de python-decouple
 import dj_database_url
 
 # Access the environment variable MODE
@@ -27,16 +28,15 @@ else:
     STATIC_ROOT = BASE_DIR / 'staticfiles'
     STATICFILES_DIRS = [BASE_DIR /'static']
 
-
 # Database configuration
 if MODE == 'deployment':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('DB_NAME', 'postgres'),
-            'USER': os.environ.get('DB_USER', 'postgres'),
-            'PASSWORD': os.environ.get('DB_PASSWORD', 'postgres'),
-            'HOST': os.environ.get('DB_HOST', 'db'),
+            'NAME': config('DB_NAME', default='postgres'),
+            'USER': config('DB_USER', default='postgres'),
+            'PASSWORD': config('DB_PASSWORD', default='postgres'),
+            'HOST': config('DB_HOST', default='db'),
             'PORT': 5432,
         }
     }
@@ -50,16 +50,16 @@ elif MODE == 'development':
     }
 else:
     DEBUG = False
-    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY = config('SECRET_KEY', default='your-secret-key')
     DATABASES = {
-        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+        'default': dj_database_url.parse(config('DATABASE_URL'))
     }
 
 # Custom user model
 AUTH_USER_MODEL = 'customer.User'
 
 # Quick-start development settings
-SECRET_KEY = os.environ.get('SECRET_KEY', default='your-secret-key')
+SECRET_KEY = config('SECRET_KEY', default='your-secret-key')
 
 # Installed applications
 INSTALLED_APPS = [
@@ -130,10 +130,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
-USE_I18N = True
-USE_TZ = True
+LANGUAGE_CODE = 'es-es'  # Cambiamos el código de idioma a español de España
+TIME_ZONE = 'Europe/Madrid'  # Cambiamos la zona horaria a la de España
+USE_I18N = True  # Habilitamos la internacionalización
+USE_TZ = True  # Utilizamos la zona horaria
 
 # Static files configuration
 STATIC_URL = '/static/'
@@ -147,7 +147,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'lennient.enterprise@gmail.com'
-EMAIL_HOST_PASSWORD = 'yltf khuu xjdk vrah'
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 # Admin site configuration
 MATERIAL_ADMIN_SITE = {
@@ -159,3 +159,7 @@ MATERIAL_ADMIN_SITE = {
     'SHOW_COUNTS': True,
 }
 
+# PayPal
+PAYPAL_MODE = "sandbox"
+PAYPAL_CLIENT_ID = config('PAYPAL_CLIENT_ID')
+PAYPAL_CLIENT_SECRET = config('PAYPAL_CLIENT_SECRET')

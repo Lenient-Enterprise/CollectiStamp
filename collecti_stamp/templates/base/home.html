@@ -70,6 +70,35 @@
             margin-left: 25px;
             margin-right: 25px;
         }
+
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pagination a {
+            color: #fff;
+            background-color: #343a40;
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 0 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .pagination a:hover {
+            background-color: #000000;
+        }
+
+        .pagination .current {
+            color: #000000;
+            background-color: #fff;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin: 0 4px;
+        }
         
     </style>
     <script>
@@ -104,6 +133,9 @@
             });
         });
     </script>
+    <div class="col-7">
+        {% include "postorder/finder_order.html" %}
+    </div>
     <h1>Bienvenido a la tienda</h1>
     <div class="store-container">
         <h2>Monedas</h2>
@@ -132,6 +164,25 @@
                 {% endif %}
             {% endfor %}
         </div>
+    </div>
+
+    <!-- Agregar la paginación -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if products.has_previous %}
+                <a href="?page=1">&laquo; Primera</a>
+                <a href="?page={{ products.previous_page_number }}">Anterior</a>
+            {% endif %}
+
+            <span class="current">
+                Página {{ products.number }} de {{ products.paginator.num_pages }}.
+            </span>
+
+            {% if products.has_next %}
+                <a href="?page={{ products.next_page_number }}">Siguiente</a>
+                <a href="?page={{ products.paginator.num_pages }}">Última &raquo;</a>
+            {% endif %}
+        </span>
     </div>
 
 {% endblock %}

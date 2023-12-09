@@ -11,7 +11,7 @@
                     <th scope="col">#</th>
                     {% if request.user.is_superuser %}
                         <th scope="col">Usuario</th>
-                        <th scope="col">Code</th>
+                        <th scope="col">Código</th>
                     {% endif %}
                     <th scope="col">Fecha de pedido</th>
                     <th scope="col">Coste</th>
@@ -32,10 +32,10 @@
                     {% endif %}
                     <td>{{ order.order_date }}</td>
                     <td>{{ order.order_total }} + {{ order.delivery_cost }}</td>
-                    <td>{{ order.payment_method }}</td>
-                    <td>{{ order.delivery_method }}</td>
+                    <td>{{ order.get_payment_method_display }}</td>
+                    <td>{{ order.get_delivery_method_display }}</td>
                     <td>{{ order.delivery_address }}</td>
-                    <td>{{ order.delivery_status }}</td>
+                    <td>{{ order.get_delivery_status_display }}</td>
                     <td>
                         <!-- Enlace a la página de detalles con el ID del ticket como parámetro -->
                         <a href="{% url 'order_details' order.code %}" class="btn btn-sm btn-primary">Detalles</a>
