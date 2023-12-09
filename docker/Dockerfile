@@ -27,12 +27,11 @@ WORKDIR /app
 # Clonar el repositorio
 RUN git clone https://github.com/Lenient-Enterprise/CollectiStamp.git /app
 
-# Instalar dependencias Python
-RUN pip install -r requirements.txt
-
-
 # Cambiar al directorio del proyecto
 WORKDIR /app/collecti_stamp
+
+# Instalar dependencias Python
+RUN pip install -r requirements.txt
 
 # Configurar la aplicación
 RUN python manage.py collectstatic --no-input
