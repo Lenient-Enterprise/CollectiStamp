@@ -13,7 +13,7 @@ class Category(models.TextChoices):
 
 class Criteria(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=40)
 
     class Meta:
         verbose_name = "Criterio"
