@@ -117,7 +117,7 @@ class RequestPasswordResetView(View):
 
                 template = get_template('customer/password_email.html')
                 content = template.render(
-                    {'new_password_url': request.build_absolute_uri('/') + new_password_url, 'username': user.username})
+                    {'new_password_url': request.build_absolute_uri('/') + new_password_url[1:], 'username': user.username})
                 message = EmailMultiAlternatives(
                     'Cambio de contraseña',
                     content,
@@ -149,6 +149,7 @@ class ChangePasswordView(View):
                 user.set_password(form.cleaned_data['password'])
                 user.save()
                 return redirect('/?message=Contraseña cambiada&status=Success')
+            return render(request, 'customer/change_password_form.html', {'form': form})
         return redirect('/?message=Error al cambiar la contraseña&status=Error')
 
 
