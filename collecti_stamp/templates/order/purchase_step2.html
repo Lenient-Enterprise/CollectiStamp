@@ -1,49 +1,49 @@
 {% extends "base.html" %}
 
-{% block title %}Conformación de compra{% endblock %}
+{% block title %}Confirmación de Compra - Paso 2{% endblock %}
 
 {% block content %}
-    <div class="container3 mt-5">
-        <h2 class="text-center" style="color: #007bff; margin-top: 10px; margin-bottom: 25px;">Confirmación de Compra - Paso 2</h2>
+    <div class="container mt-5">
+        <h2 class="text-center text-primary mb-4">Confirmación de Compra - Paso 2</h2>
 
         <div class="row justify-content-center">
-            <div class="col-md-8" style="background-color: #ffffff; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); padding: 20px;">
-                <h3 style="color: #343a40; text-align: center; margin-bottom: 25px;">Productos Comprados</h3>
+            <div class="col-md-8 bg-white rounded shadow p-4">
+                <h3 class="text-center text-dark mb-4">Productos Comprados</h3>
                 <ul class="list-group">
                     {% for product in products %}
-                        <li class="list-group-item" style="background-color: #f8f9fa; border: none;">{{ product.name }} {{ product.quantity }} - Precio por unidad: {{ product.price }} €</li>
+                        <li class="list-group-item bg-light border-0">
+                            {{ product.name }} {{ product.quantity }} - Precio por unidad: {{ product.price }} €
+                        </li>
                     {% endfor %}
                 </ul>
 
-                <h3 class="mt-4" style="color: #343a40; text-align: center; margin-bottom: 25px;">Selecciona Método de Entrega</h3>
-    <h3>Productos Comprados</h3>
-    <ul class="list-group">
-        {% for product in products %}
-            <li class="list-group-item">{{ product.name }} {{ product.quantity }} - Precio por unidad: {{ product.price }} €</li>
-        {% endfor %}
-    </ul>
-    <br>
-    <div class="list-group">
-        <p class="list-group-item" style="font-weight: bold;">Total del pedido sin gastos de envio: {{ order_total }} €</p>
-    </div>
-    <h3>Selecciona Método de Entrega</h3>
+                <h3 class="mt-4 text-center text-dark mb-3">Selecciona Método de Entrega</h3>
 
                 <form method="post">
                     {% csrf_token %}
-                    {{ form.as_p }}
+
+                    <div class="form-group">
+                        {{ form.delivery_method.label_tag }}
+                        {{ form.delivery_method }}
+                        <small id="delivery-method-error" class="form-text text-muted">Este campo es requerido.</small>
+                    </div>
 
                     <div class="text-center button-container mt-4">
-                        <button type="button" class="btn" id="previous-btn" onclick="goToPreviousStep()" style="background-color: #007bff; color: #ffffff; margin-top: 10px; border: none; margin-right: 10px;">Ir al Paso Anterior</button>
+                        <button type="button" class="btn btn-danger" id="previous-btn" onclick="goToPreviousStep()">Ir al Paso Anterior</button>
                         {% if user_is_logged_in %}
-                            <button type="button" class="btn" id="auto-fill-btn" onclick="autoFillData()" style="background-color: #28a745; color: #ffffff; margin-top: 10px; border: none; margin-right: 10px;">Mi método favorito</button>
+                            <button type="button" class="btn btn-success" id="auto-fill-btn" onclick="autoFillData()">Mi Método Favorito</button>
                         {% endif %}
-                        <button type="submit" class="btn btn-primary" id="next-btn" style="background-color: #007bff; color: #ffffff; margin-top: 10px; border: none;">Ir al Siguiente Paso</button>
+                        <button type="submit" class="btn btn-primary" id="next-btn">Ir al Siguiente Paso</button>
                     </div>
                 </form>
 
-                <div class="warning mt-4" style="text-align: center; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin-top: 10px;">
-                    <p style="color: #333; font-size: 18px; line-height: 1.6; font-weight: bold;">El precio de los gastos de envío son de 0€ en los pedidos de más de 50€</p>
-                    <p style="color: #333; font-size: 18px; line-height: 1.6; font-weight: bold;">Por favor, tenga en cuenta que no se admiten devoluciones</p>
+                <div class="warning mt-4 text-center bg-light rounded shadow p-4">
+                    <p class="text-muted">
+                        El precio de los gastos de envío es de 0€ en los pedidos de más de 50€.
+                    </p>
+                    <p class="text-muted">
+                        Por favor, ten en cuenta que no se admiten devoluciones.
+                    </p>
                 </div>
             </div>
         </div>
@@ -57,8 +57,24 @@
 
         function autoFillData() {
             var delivery_method = "{{ request.user.delivery_method }}";
-            document.getElementById('id_delivery_method').value = delivery_method ;
+            document.getElementById('id_delivery_method').value = delivery_method;
         }
+
+        // Función para manejar la validación del formulario antes de enviarlo
+        document.querySelector('form').addEventListener('submit', function (event) {
+            var deliveryMethodError = document.getElementById('delivery-method-error');
+            var deliveryMethodField = document.getElementById('id_delivery_method');
+
+            // Validación del campo de método de entrega
+            if (!deliveryMethodField.value) {
+                deliveryMethodError.textContent = 'Este campo es requerido.';
+                event.preventDefault();  // Evita que el formulario se envíe si hay errores
+            } else {
+                deliveryMethodError.textContent = '';  // Limpia el mensaje si el campo es válido
+            }
+        });
     </script>
 {% endblock %}
+
+
 

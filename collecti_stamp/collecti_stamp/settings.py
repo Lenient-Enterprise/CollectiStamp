@@ -2,11 +2,12 @@
 
 import os
 from pathlib import Path
-from decouple import config  # Importa la función config de python-decouple
+
 import dj_database_url
+from decouple import config  # Importa la función config de python-decouple
 
 # Access the environment variable MODE
-MODE = os.environ.get('MODE')
+MODE = config('MODE')
 ROOT_URLCONF = 'collecti_stamp.urls'
 DEBUG = True
 
@@ -22,10 +23,11 @@ STATICFILES_DIRS = []
 
 # For Deployment
 if MODE == 'deployment':
-    STATIC_ROOT = '/app/static'
+    STATIC_ROOT = '/app/staticfiles'
     STATICFILES_DIRS = ['/app/static']
 else:
-    STATICFILES_DIRS = [BASE_DIR / 'static']
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
+    STATICFILES_DIRS = [BASE_DIR /'static']
 
 # Database configuration
 if MODE == 'deployment':
@@ -39,7 +41,7 @@ if MODE == 'deployment':
             'PORT': 5432,
         }
     }
-    MEDIA_ROOT = '/app/static/media/'
+    MEDIA_ROOT = '/app/static/img/'
 elif MODE == 'development':
     DATABASES = {
         'default': {
@@ -47,12 +49,14 @@ elif MODE == 'development':
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+    MEDIA_ROOT = BASE_DIR / 'static/img/'
 else:
     DEBUG = False
     SECRET_KEY = config('SECRET_KEY', default='your-secret-key')
     DATABASES = {
         'default': dj_database_url.parse(config('DATABASE_URL'))
     }
+    MEDIA_ROOT = BASE_DIR / 'static/img/'
 
 # Custom user model
 AUTH_USER_MODEL = 'customer.User'
@@ -129,10 +133,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
-USE_I18N = True
-USE_TZ = True
+LANGUAGE_CODE = 'es-es'  # Cambiamos el código de idioma a español de España
+TIME_ZONE = 'Europe/Madrid'  # Cambiamos la zona horaria a la de España
+USE_I18N = True  # Habilitamos la internacionalización
+USE_TZ = True  # Utilizamos la zona horaria
 
 # Static files configuration
 STATIC_URL = '/static/'

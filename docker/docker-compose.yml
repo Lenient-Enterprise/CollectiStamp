@@ -21,7 +21,9 @@ services:
         context: .
         dockerfile: Dockerfile
     image: collecti_stamp_web:latest
-    command: ash -c "python manage.py makemigrations && python manage.py migrate && gunicorn -w 5 collecti_stamp.wsgi --timeout=500 -b 0.0.0.0:5000"
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py loaddata data/populate_company_details.json data/populate_user.json data/populate_criteria.json data/populate_product.json  data/populate_review.json data/populate_order.json  && gunicorn -w 5 collecti_stamp.wsgi --timeout=500 -b 0.0.0.0:5000"
+    env_file:
+      - .env
     expose:
       - "5000"
     volumes:

@@ -1,47 +1,76 @@
 {% extends "base.html" %}
 
 {% block title %}
+    Mis pedidos
 {% endblock %}
 
 {% block content %}
-<!-- Tabla de pedidos para admin-->
-    <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    {% if request.user.is_superuser %}
-                        <th scope="col">Usuario</th>
-                        <th scope="col">Code</th>
-                    {% endif %}
-                    <th scope="col">Fecha de pedido</th>
-                    <th scope="col">Coste</th>
-                    <th scope="col">Método de pago</th>
-                    <th scope="col">Método de envío</th>
-                    <th scope="col">Dirección de envío</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for order in orders %}
-                <tr>
-                    <th scope="row">{{ forloop.counter }}</th>
-                    {% if request.user.is_superuser %}
-                        <td>{{ order.user_name }}</td>
-                        <td>{{ order.code }}</td>
-                    {% endif %}
-                    <td>{{ order.order_date }}</td>
-                    <td>{{ order.order_total }} + {{ order.delivery_cost }}</td>
-                    <td>{{ order.payment_method }}</td>
-                    <td>{{ order.delivery_method }}</td>
-                    <td>{{ order.delivery_address }}</td>
-                    <td>{{ order.delivery_status }}</td>
-                    <td>
-                        <!-- Enlace a la página de detalles con el ID del ticket como parámetro -->
-                        <a href="{% url 'order_details' order.code %}" class="btn btn-sm btn-primary">Detalles</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <style>
+        /* Estilo para la columna "#" */
+        .table-bordered th:first-child {
+            background-color: #343a40; /* Color de fondo gris oscuro */
+            color: #fff; /* Color del texto blanco */
+        }
+
+        /* Estilo para la frase "Lista de Pedidos" */
+        .page-title {
+            color: #007BFF; /* Color del texto blanco */
+            padding: 10px; /* Añadir espacio alrededor del texto para mayor legibilidad */
+            margin-bottom: 20px; /* Añadir espacio debajo del título */
+        }
+
+        /* Quitar el efecto de hover */
+        .table-hover tbody tr:hover {
+            background-color: inherit; /* Mantener el color de fondo original */
+        }
+    </style>
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-4 page-title">Lista de Pedidos</h2>
+
+        <!-- Tabla de pedidos para admin-->
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <caption>Lista de pedidos realizados por el usuario.</caption>
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        {% if request.user.is_superuser %}
+                            <th scope="col">Usuario</th>
+                            <th scope="col">Código</th>
+                        {% endif %}
+                        <th scope="col">Fecha de pedido</th>
+                        <th scope="col">Coste</th>
+                        <th scope="col">Método de pago</th>
+                        <th scope="col">Método de envío</th>
+                        <th scope="col">Dirección de envío</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        {% if request.user.is_superuser %}
+                            <td>{{ order.user_name }}</td>
+                            <td>{{ order.code }}</td>
+                        {% endif %}
+                        <td>{{ order.order_date }}</td>
+                        <td>{{ order.order_total }}€</td>
+                        <td>{{ order.get_payment_method_display }}</td>
+                        <td>{{ order.get_delivery_method_display }}</td>
+                        <td>{{ order.delivery_address }}</td>
+                        <td>{{ order.get_delivery_status_display }}</td>
+                        <td>
+                            <!-- Enlace a la página de detalles con el ID del pedido como parámetro -->
+                            <a href="{% url 'order_details' order.code %}" class="btn btn-sm btn-primary">Detalles</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
+

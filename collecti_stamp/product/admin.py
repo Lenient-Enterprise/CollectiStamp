@@ -1,8 +1,9 @@
 from django.contrib import admin
 
-from .models import Product
 from .models import Criteria
-from.models import ProductReview
+from .models import Product
+from .models import ProductReview
+
 
 @admin.register(Criteria)
 class CriteriaAdmin(admin.ModelAdmin):

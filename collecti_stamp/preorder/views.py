@@ -1,8 +1,9 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views import View
 from preorder.cart import Cart
 from product.models import Product
-from django.http import HttpResponseRedirect
+
 
 class CartView(View):
     def get(self, request):
@@ -19,7 +20,7 @@ class AddProductView(View):
         if amount_final > product.stock_amount:
             return redirect(f'{redirect_to}?message=No hay suficiente stock&status=Error')
         cart.add_product(product=product, amount=amount)
-        if "stock" in redirect_to:
+        if "status" in redirect_to:
             redirect_to = "/catalog/"
         return HttpResponseRedirect(redirect_to)
 

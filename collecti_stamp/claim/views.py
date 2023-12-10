@@ -1,10 +1,10 @@
 from datetime import datetime
+
 from django.shortcuts import redirect, render
 from django.views import View
-from .forms import CreateClaimForm
-
 from product.models import Product
 
+from .forms import CreateClaimForm
 from .models import Claim
 
 # Create your views here.

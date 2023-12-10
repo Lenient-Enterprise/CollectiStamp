@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import finish_order, PurchaseStep1View, PurchaseStep2View, PurchaseStep3View,PayPalPaymentView,PayPalSuccesView,PayPalCancelView
-from . import views
+
+from .views import finish_order, PurchaseStep1View, PurchaseStep2View, PurchaseStep3View, PayPalPaymentView, \
+    PayPalSuccesView, PayPalCancelView
 
 app_name = 'order'
 

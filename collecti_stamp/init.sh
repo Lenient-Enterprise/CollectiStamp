@@ -6,8 +6,8 @@ BASE_DIR=$(dirname "$0")
 DB_FILE="$BASE_DIR/db.sqlite3"
 VENV_DIR="$BASE_DIR/venv"
 REQUIREMENTS_FILE="$BASE_DIR/requirements.txt"
-MIGRATIONS_DIR=$(find "$BASE_DIR" -type d -name migrations)
-JSON_DATA_FILE="$BASE_DIR/data/populate_user.json $BASE_DIR/data/populate_company_details.json $BASE_DIR/data/populate_criteria.json $BASE_DIR/data/populate_product.json"
+MIGRATIONS_DIR=$(find "$BASE_DIR" -type d -name migrations ! -path "*/venv/*")
+JSON_DATA_FILE="$BASE_DIR/data/populate_user.json $BASE_DIR/data/populate_company_details.json $BASE_DIR/data/populate_criteria.json $BASE_DIR/data/populate_product.json data/populate_order.json data/populate_company_review.json"
 DELETE_DB=true
 DELETE_ENV=false
 
@@ -68,8 +68,10 @@ reset_database() {
         # Deleting migration files excluding __init__.py
         for dir in $MIGRATIONS_DIR; do
             if [ -e "$dir" ]; then
-                find "$dir" -type f ! -name "__init__.py" ! -path "*/venv/*" -exec rm {} \;
-                echo "Migration files in $dir deleted, excluding __init__.py and files in paths containing '/venv/'."
+                if ! [[ "$dir" =~ "/venv/" ]]; then
+                    find "$dir" -type f ! -name "__init__.py" -exec rm {} \;
+                    echo "Migration files in $dir deleted, excluding __init__.py and files in paths not containing '/venv/'."
+                fi
             fi
         done
         echo "----------------------------------------"
