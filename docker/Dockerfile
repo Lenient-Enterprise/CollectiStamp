@@ -18,7 +18,7 @@ RUN pip install ipython
 WORKDIR /app
 
 # Clonar el repositorio
-RUN git clone https://github.com/Lenient-Enterprise/CollectiStamp.git /app
+RUN git clone -b fix/docker https://github.com/Lenient-Enterprise/CollectiStamp.git /app
 
 # Cambiar al directorio del proyecto
 WORKDIR /app/collecti_stamp
@@ -37,6 +37,6 @@ RUN rsync -av --progress staticfiles/ /app/static/
 RUN rm -rf static
 RUN rm -rf staticfiles
 
-# Iniciar la aplicación con Gunicorn
-# CMD ["gunicorn", "-w", "5", "collecti_stamp.wsgi", "--timeout=500", "-b", "0.0.0.0:5000"]
+EXPOSE 8000
+CMD ["gunicorn", "-w", "5", "collecti_stamp.wsgi", "--timeout=500", "-b", "0.0.0.0:8000"]
 
