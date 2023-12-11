@@ -32,7 +32,7 @@ RUN pip install -r requirements.txt
 # Configurar la aplicación
 RUN python manage.py collectstatic --no-input
 RUN mkdir /app/static
-RUN rsync -av --progress static /app/static/
+RUN rsync -av --progress static/ /app/static/
 RUN rsync -av --progress /app/staticfiles/ /app/static/
 RUN rm -rf static
 RUN rm -rf staticfiles
