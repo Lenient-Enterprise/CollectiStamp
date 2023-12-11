@@ -22,9 +22,10 @@ ALLOWED_ORIGINS = ['http://10.5.0.1:8000', 'http://localhost:8000', 'http://127.
 STATICFILES_DIRS = []
 
 # For Deployment
-if MODE == 'deployment':
+if MODE == 'deployment' or MODE == 'deployments':
     STATIC_ROOT = '/app/staticfiles'
     STATICFILES_DIRS = ['/app/static']
+
 else:
     STATIC_ROOT = BASE_DIR / 'staticfiles'
     STATICFILES_DIRS = [BASE_DIR /'static']
