@@ -19,7 +19,7 @@ RUN pip install ipython
 WORKDIR /app
 
 # Clonar el repositorio
-RUN git clone -b fix/docker https://github.com/Lenient-Enterprise/CollectiStamp.git /app
+RUN git clone https://github.com/Lenient-Enterprise/CollectiStamp.git /app
 
 # Cambiar al directorio del proyecto
 WORKDIR /app/collecti_stamp
