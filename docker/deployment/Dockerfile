@@ -37,12 +37,8 @@ RUN mkdir /app/static
 RUN rsync -av --progress /app/staticfiles/ /app/static/
 RUN rsync -av --progress static/ /app/static/
 RUN rm -rf /app/staticfiles
+RUN rm -rf static
 RUN ./init.sh -db
 
-# Copiar los archivos estáticos al contenedor
-RUN rsync -av --progress static/ /app/static/
-
-# Eliminar el directorio "static"
-RUN rm -rf static
 EXPOSE 8000
 CMD ["gunicorn", "-w", "5", "collecti_stamp.wsgi", "--timeout=500", "-b", "0.0.0.0:8000"]
