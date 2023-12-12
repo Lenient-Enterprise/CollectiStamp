@@ -9,7 +9,7 @@ from decouple import config  # Importa la función config de python-decouple
 # Access the environment variable MODE
 MODE = config('MODE')
 ROOT_URLCONF = 'collecti_stamp.urls'
-DEBUG = True
+DEBUG = MODE != 'production'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -51,7 +51,7 @@ elif MODE == 'deployments':
         }
     }
     MEDIA_ROOT = '/app/static/img/'
-elif MODE == 'development':
+elif MODE == 'development' or MODE == 'production':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -59,13 +59,7 @@ elif MODE == 'development':
         }
     }
     MEDIA_ROOT = BASE_DIR / 'static/img/'
-else:
-    DEBUG = False
-    SECRET_KEY = config('SECRET_KEY', default='your-secret-key')
-    DATABASES = {
-        'default': dj_database_url.parse(config('DATABASE_URL'))
-    }
-    MEDIA_ROOT = BASE_DIR / 'static/img/'
+
 
 # Custom user model
 AUTH_USER_MODEL = 'customer.User'

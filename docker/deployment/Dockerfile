@@ -2,13 +2,12 @@ FROM python:3.10-slim
 
 # Configurar entorno de producción
 ENV PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1 \
-    MODE=deployments
+    PYTHONDONTWRITEBYTECODE=1
 
 
 # Instalar dependencias
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    git libpq-dev gcc libc-dev gcc g++ make libffi-dev python3-dev build-essential rsync && \
+    git libpq-dev gcc libc-dev gcc g++ make libffi-dev python3-dev build-essential rsync sqlite3 libsqlite3-dev && \
     apt-get clean
 
 RUN pip install gunicorn
@@ -35,17 +34,12 @@ RUN pip install -r requirements.txt
 # Configurar la aplicación
 RUN python manage.py collectstatic --no-input
 RUN mkdir /app/static
+RUN rsync -av --progress /app/staticfiles/ /app/static/
+RUN rsync -av --progress static/ /app/static/
+RUN rm -rf /app/staticfiles
+RUN python manage.py makemigrations
+RUN python manage.py migrate
 
-# Utilizar la variable en una condición para configurar el entorno de desarrollo o despliegue
-RUN if [ "$MODE" = "deployment" ]; then \
-        rsync -av --progress /app/staticfiles/ /app/static/ && \
-        rm -rf /app/staticfiles && \
-        python manage.py makemigrations && \
-        python manage.py migrate; \
-    elif [ "$MODE" = "deployments" ]; then \
-        rsync -av --progress staticfiles/ /app/static/ && \
-        rm -rf /app/staticfiles; \
-    fi
 
 # Copiar los archivos estáticos al contenedor
 RUN rsync -av --progress static/ /app/static/
@@ -53,10 +47,4 @@ RUN rsync -av --progress static/ /app/static/
 # Eliminar el directorio "static"
 RUN rm -rf static
 
-RUN echo "$MODE"
-
-RUN if [ "$MODE" = "deployment" ]; then \
-    EXPOSE 8000; \
-    ENTRYPOINT ["python3", "manage.py", "runserver", "localhost:8000"]; \
-    fi
-
+CMD ["gunicorn", "-w", "5", "collecti_stamp.wsgi", "--timeout=500", "-b", "0.0.0.0:5000"]
