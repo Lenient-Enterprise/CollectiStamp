@@ -9,7 +9,7 @@ from decouple import config  # Importa la función config de python-decouple
 # Access the environment variable MODE
 MODE = config('MODE')
 ROOT_URLCONF = 'collecti_stamp.urls'
-DEBUG = True
+DEBUG = MODE != 'production'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,15 +22,24 @@ ALLOWED_ORIGINS = ['http://10.5.0.1:8000', 'http://localhost:8000', 'http://127.
 STATICFILES_DIRS = []
 
 # For Deployment
-if MODE == 'deployment':
+if MODE == 'deployment' or MODE == 'deployments':
     STATIC_ROOT = '/app/staticfiles'
     STATICFILES_DIRS = ['/app/static']
+
 else:
     STATIC_ROOT = BASE_DIR / 'staticfiles'
     STATICFILES_DIRS = [BASE_DIR /'static']
 
 # Database configuration
 if MODE == 'deployment':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+    MEDIA_ROOT = '/app/static/img/'
+elif MODE == 'deployments':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -42,7 +51,7 @@ if MODE == 'deployment':
         }
     }
     MEDIA_ROOT = '/app/static/img/'
-elif MODE == 'development':
+elif MODE == 'development' or MODE == 'production':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -50,13 +59,7 @@ elif MODE == 'development':
         }
     }
     MEDIA_ROOT = BASE_DIR / 'static/img/'
-else:
-    DEBUG = False
-    SECRET_KEY = config('SECRET_KEY', default='your-secret-key')
-    DATABASES = {
-        'default': dj_database_url.parse(config('DATABASE_URL'))
-    }
-    MEDIA_ROOT = BASE_DIR / 'static/img/'
+
 
 # Custom user model
 AUTH_USER_MODEL = 'customer.User'

@@ -4,6 +4,7 @@ FROM python:3.10-slim
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1
 
+
 # Instalar dependencias
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git libpq-dev gcc libc-dev gcc g++ make libffi-dev python3-dev build-essential rsync && \
@@ -25,6 +26,7 @@ WORKDIR /app/collecti_stamp
 
 # Añade el .env
 ADD .env /app/collecti_stamp/.env
+ENV $(cat /app/collecti_stamp/.env | xargs)
 
 # Instalar dependecias de Python
 RUN pip install -r requirements.txt
@@ -32,11 +34,8 @@ RUN pip install -r requirements.txt
 # Configurar la aplicación
 RUN python manage.py collectstatic --no-input
 RUN mkdir /app/static
+RUN rsync -av --progress /app/staticfiles/ /app/static/
 RUN rsync -av --progress static/ /app/static/
-RUN rsync -av --progress staticfiles/ /app/static/
+RUN rm -rf /app/staticfiles
 RUN rm -rf static
-RUN rm -rf staticfiles
-
-# Iniciar la aplicación con Gunicorn
-# CMD ["gunicorn", "-w", "5", "collecti_stamp.wsgi", "--timeout=500", "-b", "0.0.0.0:5000"]
 
