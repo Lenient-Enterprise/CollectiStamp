@@ -17,7 +17,7 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker Image
-        run: docker build -t alesanfel/collecti_stamp:latest ./docker/cloud
+        run: docker build -t alesanfel/collecti_stamp:latest ./docker/deployment
 
       - name: Push Docker Image
         run: docker push alesanfel/collecti_stamp:latest
